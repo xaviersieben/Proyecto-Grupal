@@ -232,7 +232,7 @@ export default function CreateProduct() {
                     <label htmlFor="">Imagen del Producto:</label>
                     <input placeholder="https://..." value={input.images} name="images" type="text" onChange={(e) =>handleInputChange(e)} />
                     {errors.images && <span>*{errors.images}</span>}
-                    
+                    <button onClick={(e) => {handleSubmit(e)}}>Crear Producto</button>
                 </div>
             </form>
         </div>
