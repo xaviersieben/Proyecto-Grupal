@@ -71,8 +71,58 @@ const getProductById = async (req, res, next) => {
   }
 };
 
+const deleteProduct = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const product = await productServices.getProductById(id);
+    if (!product) {
+      return res.status(404).send("Product not found...");
+    }
+    const destroy = await productServices.deleteProduct(id);
+    if (destroy) {
+      const newlist = await productServices.getAllProducts();
+      res.status(200).send(newlist);
+    } else {
+      res.status(404).send("Error");
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateProduct = async (req, res, next) => {
+  const { id } = req.params;
+  const { body } = req;
+  console.log(body)
+
+
+  try {
+    const product = await productServices.getProductById(id);
+
+    const cat = await productServices.findProvider(body.category);
+
+    !product
+      ? res.status(404).send("Product not found...")
+      : !cat
+      ? res.status(404).send("Category not found...")
+      : null;
+
+    const updateProd = await productServices.productUpdate(id, {
+      ...body,
+    });
+    if (updateProd) {
+      const newListProd = await productServices.getAllProducts();
+      return res.status(200).send(newListProd);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllProducts,
   createNewProduct,
   getProductById,
+  deleteProduct,
+  updateProduct
 };

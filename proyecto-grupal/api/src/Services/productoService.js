@@ -26,14 +26,46 @@ const createNewProduct = async (newProduct, category) => {
   return createdProduct;
 };
 
-const getProductById = async (id)=>{
-  const productById = await Product.findByPk(id,{
+const getProductById = async (id) => {
+  const productById = await Product.findByPk(id, {
     include: [Category],
-  })
-  return productById
-}
+  });
+  return productById;
+};
+
+const deleteProduct = async (id) => {
+  const destroy = await Product.destroy({
+    where: {
+      id: id,
+    },
+  });
+  return destroy;
+};
+
+const findProvider = async (category) => {
+
+  const find = await Category.findOne({
+    where: {
+      name: category.name,
+    },
+  });
+  return find;
+};
+
+const productUpdate = async (id, body) => {
+  const prodUpdate = await Product.update(body, {
+    where: {
+      id: id,
+    },
+  });
+  return prodUpdate;
+};
+
 module.exports = {
   getAllProducts,
   createNewProduct,
   getProductById,
+  deleteProduct,
+  productUpdate,
+  findProvider,
 };
