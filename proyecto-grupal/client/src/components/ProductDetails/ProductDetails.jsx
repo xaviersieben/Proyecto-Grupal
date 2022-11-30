@@ -6,7 +6,7 @@ import {getProductDetails } from '..//..//redux/actions';
 import sty from "./ProductDetails.module.css";
 
 
-export default function DogDetails() {
+export default function ProductDetails() {
     const {id} = useParams()
     const dispatch = useDispatch()
     const history= useHistory()
