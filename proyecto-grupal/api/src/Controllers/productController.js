@@ -27,7 +27,7 @@ const getAllProducts = async (req, res, next) => {
 
 const createNewProduct = async (req, res, next) => {
   const { body } = req;
-  let id = await productServices.getLastIdCategory()
+  let id = await productServices.getLastIdProduct()
   
   try {
     const newItemProduct = {
