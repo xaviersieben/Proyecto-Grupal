@@ -61,6 +61,15 @@ const productUpdate = async (id, body) => {
   return prodUpdate;
 };
 
+const getLastIdCategory = async () => {
+  const allId = await Product.findOne({
+    order: [ [ 'id', 'DESC' ]],
+    });
+   
+
+  return allId;
+}
+
 module.exports = {
   getAllProducts,
   createNewProduct,
@@ -68,4 +77,5 @@ module.exports = {
   deleteProduct,
   productUpdate,
   findProvider,
+  getLastIdCategory,
 };
