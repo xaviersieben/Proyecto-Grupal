@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import createProduct from './components/CreateProduct.jsx';
+import createProduct from './components/CreateProduct/CreateProduct.jsx';
 
 function App() {
   return (
