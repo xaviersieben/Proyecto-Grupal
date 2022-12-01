@@ -1,6 +1,7 @@
 const productServices = require("../Services/productoService");
 const { Product, Category } = require("../db.js");
 const axios = require("axios");
+let id = 500
 
 const getAllProducts = async (req, res, next) => {
   const { name } = req.query;
@@ -26,10 +27,10 @@ const getAllProducts = async (req, res, next) => {
 
 const createNewProduct = async (req, res, next) => {
   const { body } = req;
-
+  
   try {
     const newItemProduct = {
-      id: body.id,
+      id: id++,
       title: body.title,
       description: body.description,
       price: body.price,
