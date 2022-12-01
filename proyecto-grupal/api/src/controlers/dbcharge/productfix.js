@@ -430,7 +430,7 @@ let apiArray = [
             "https://i.dummyjson.com/data/products/25/4.jpg",
             "https://i.dummyjson.com/data/products/25/thumbnail.jpg"
         ]
-    },/*
+    },
     {
         "id": 26,
         "title": "Plant Hanger For Home",
@@ -1720,6 +1720,6 @@ let apiArray = [
             "https://i.dummyjson.com/data/products/99/4.jpg",
             "https://i.dummyjson.com/data/products/99/thumbnail.jpg"
         ]
-    }*/
+    }
 ]
 module.exports = { apiArray }
