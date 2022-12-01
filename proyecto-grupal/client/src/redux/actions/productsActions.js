@@ -50,10 +50,10 @@ export function orderByRating(payload){
     }
 };
 
-export function filterByCategories(genre){
+export function filterByCategories(payload){
     return {
             type: 'FILTER_BY_CATEGORIES', 
-            payload: categories
+            payload
         }    
 };
 

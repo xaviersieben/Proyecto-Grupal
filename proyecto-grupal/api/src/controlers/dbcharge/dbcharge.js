@@ -7,8 +7,8 @@ const storeAllProducts = async () =>{
     try{
         await Product.bulkCreate(apiArray);
         console.log('Products correctly stored into the DB');
-    }catch{
-        console.log('Unexpected error while storing Products in the DB')
+    }catch(error){
+        console.log(error)
     }
 }
 

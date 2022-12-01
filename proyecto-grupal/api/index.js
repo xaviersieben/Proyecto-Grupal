@@ -13,3 +13,4 @@ conn.sync({ force: true }).then(() => {
     await storeAllProducts();
   });
 });
+
