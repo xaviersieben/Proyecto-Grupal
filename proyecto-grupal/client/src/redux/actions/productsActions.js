@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export function getProducts(){
     return (dispatch) => {
-        fetch('http://localhost:3001/products')
+        fetch('http://localhost:3001/product')
          .then((res) => res.json())
          .then((json) => {
             dispatch({
