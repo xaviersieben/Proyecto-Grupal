@@ -5,10 +5,12 @@ const { getAllProducts,createNewProduct, getProductById,deleteProduct,updateProd
 
 //localhost:3001/product
 
+
 router.get("/", getAllProducts);
 router.post("/", createNewProduct);
 router.get("/:id", getProductById);
 router.delete("/:id", deleteProduct);
 router.put("/:id", updateProduct);
+
 
 module.exports = router;
