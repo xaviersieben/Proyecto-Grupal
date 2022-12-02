@@ -45,10 +45,8 @@ export default function Home() {
 
       <div className={s.productCards}>
         {
-          listProducts?.map( (product, index) => 
-            <Link to={'/productDetail' + product.id}>
-              <ProductCard key={index} title={product.title} id={product.id} price={product.price} images={product.images} />
-            </Link>
+          listProducts?.map( (product) => 
+          <ProductCard key={product.id} title={product.title} id={product.id} price={product.price} images={product.thumbnail} />
           )
 
         }

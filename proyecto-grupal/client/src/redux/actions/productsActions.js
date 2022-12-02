@@ -13,6 +13,21 @@ export function getProducts(){
     }
 };
 
+export function getProductsDetails(id) {
+    return async function (dispatch) {
+      try{
+          var json = await axios.get(`http://localhost:3001/product/${id}`)
+          return dispatch({
+              type: 'GET_PRODUCT_DETAILS',
+              payload: json.data,
+            });
+      }
+      catch(err){
+        console.log(err);
+      }
+    }
+  }
+
 export function getCategories(){
     return (dispatch) => {
         fetch('http://localhost:3001/products/categories')
