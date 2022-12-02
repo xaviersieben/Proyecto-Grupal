@@ -6,6 +6,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import { Link } from "react-router-dom";
 import ProductCard from '../ProductCard/ProductCard';
 import s from './Home.module.css';
+import logo from "..//../img/logo.JPG";
 
 
 export default function Home() {
@@ -33,8 +34,8 @@ export default function Home() {
   return (
     <div className={s.container}>
       <div className={s.header}>
-        <img src="" alt="LOGO" />
-        <h3>Ecommerce</h3>
+        <img src={logo} alt="LOGO" className={s.logo}/>
+        <h3>CloudyBuy</h3>
         <SearchBar/>
       </div>
       

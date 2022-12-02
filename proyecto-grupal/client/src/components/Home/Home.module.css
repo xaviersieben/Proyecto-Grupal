@@ -1,12 +1,13 @@
 .header {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
+  background-color: white;
 }
 
 .container {
-  background: linear-gradient(white, deepskyblue);
+  background: linear-gradient(rgb(220, 228, 227), rgb(161, 197, 202));
   }
   
 .productCards {
@@ -14,5 +15,14 @@
   flex-wrap: wrap;
   justify-content: center;
   border: 1px solid gray;
+}
+
+img {
+   height: 50px;
+   width: 55px;
+   
+}
+.logo{
+  margin-left: 90px; 
 }
 
