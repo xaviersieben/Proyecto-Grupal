@@ -5,8 +5,8 @@ const { storeAllProducts, storeAllCategories} =require('../api/src/controlers/db
 
 // Syncing all the models at once.
 
-conn.sync({ alter: true }).then(() => {
-  server.listen(3001,  () => {
+conn.sync({ force: true }).then(() => {
+  server.listen(3001, async () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
     await storeAllCategories();
     await storeAllProducts();

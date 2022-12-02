@@ -31,16 +31,12 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        categories: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
         thumbnail: {
             type: DataTypes.STRING,
             allowNull: false,
         },
         images: {
-            type: DataTypes.TEXT,
+            type: DataTypes.ARRAY(DataTypes.STRING),
             allowNull: false,
         },
         active: {
