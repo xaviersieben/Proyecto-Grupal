@@ -9,6 +9,7 @@ const getAllProducts = async () => {
 };
 
 const createNewProduct = async (newProduct, category) => {
+  console.log(category)
   const cat = await Category.findOne({
     where: {
       name: category.name,
