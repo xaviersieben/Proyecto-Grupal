@@ -14,13 +14,14 @@ export default function Pagination({pageSize, totalProducts, page, pagination}) 
   return (
     <div className={s.pagination}>
       { page > 1 && 
-        <button className={s.btns1} onClick={()=> pagination('back')}>{'< Anterior'}</button>
+        <i className={"fa-solid fa-circle-left"} onClick={()=> pagination('back')}></i>
+       
       }
       <div><input className={s.page} type="number" value={page} readOnly/></div>
       <div><span className={s.p_page} >de:</span></div>
       <div><input className={s.page} type="number" value={lastPage} readOnly/></div>
       { page < lastPage && 
-        <button className={s.btns1} onClick={()=> pagination('next')}>{'Siguiente >'}</button>
+        <i className={"fa-solid fa-circle-right"} onClick={()=> pagination('next')}></i>
       }
     </div>
   )

@@ -2,26 +2,6 @@ const categoryServices = require("../Services/categoryService");
 const { Product, Category } = require("../db.js");
 const axios = require("axios");
 
-// --------get("/category")------------------
- const getCategory = async (req, res) => {
-  try {
-          
-          const categoryDB = await Category.findAll({ 
-              attributes: {
-                exclude: ['createdAt', 'updatedAt'],
-              },        
-          });
-
-      if (categoryDB) 
-      { return res.status(200).json( categoryDB ); }
-      else 
-      { return res.status(404).send("Categories not found"); }
-         
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 const getAllCategories = async (req, res, next) => {
   const { name } = req.query;
 
@@ -115,7 +95,6 @@ const updateCategory = async (req, res, next) => {
 };
 
 module.exports = {
-  getCategory,
   getAllCategories,
   createNewCategory,
   getCategoryById,

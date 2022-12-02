@@ -23,7 +23,7 @@ export default function Home() {
 
 
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(8);
+  const [pageSize, setPageSize] = useState(10);
   let indexlastGame = page * pageSize;
   let indexFirstGame = indexlastGame- pageSize;
   let currentProducts = listProducts.slice(indexFirstGame, indexlastGame);
@@ -53,7 +53,7 @@ export default function Home() {
       <div className={s.header}>
         <img src={logo} alt="LOGO" className={s.logo}/>
         <h3>CloudyBuy</h3>
-        {/* Filter by Temperament */}
+        {/* Filter by Category */}
         <div className={s.filters}>
           <div className={s.select}>
             <select name="filterCategory" onChange={(e) => filterCategory(e)} >
@@ -72,21 +72,21 @@ export default function Home() {
       <div className="">
 
       </div>
+      
+      <Pagination pageSize={pageSize} totalProducts={listProducts.length} 
+        page={page} pagination={pagination}/>
 
       <div className={s.productCards}>
         {
           currentProducts?.map( (product, index) => 
            
-              <ProductCard key={product.id} title={product.title} id={product.id} price={product.price} images={product.images} />
+              <ProductCard key={product.id} title={product.title} id={product.id} price={product.price} images={product.thumbnail} />
             
           )
 
         }
       </div>
-
-      <Pagination pageSize={pageSize} totalProducts={listProducts.length} 
-        page={page} pagination={pagination}/>
-        
+   
     </div>
   );
 
