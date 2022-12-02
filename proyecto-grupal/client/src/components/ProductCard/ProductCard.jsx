@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import sty from "./ProductCard.module.css";
+import sty from "..//ProductCard/ProductCard.module.css";
 
 export default function ProductCard ({ title, id, price, images }) {
 
@@ -9,9 +9,9 @@ export default function ProductCard ({ title, id, price, images }) {
   function handleClickCard() {
     history.push(`/details/${id}`);
   }
-  const dark = useSelector((state) => state.dark);
+  //const dark = useSelector((state) => state.dark);
   return (
-    <div onClick={handleClickCard} className={dark?sty.dark_card:sty.card}>
+    <div onClick={handleClickCard} className={sty.card}>
       
       <img className={sty.images} src={images} alt="" />
      

@@ -1,8 +1,8 @@
 import React, { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import Loading from '..//Loading/Loading.jsx';
-import {getProductDetails } from '..//..//redux/actions';
+//import Loading from '..//Loading/Loading.jsx';
+import {getProductsDetails } from '..//../redux/actions/productsActions.js';
 import sty from "./ProductDetails.module.css";
 
 
@@ -11,11 +11,11 @@ export default function ProductDetails() {
     const dispatch = useDispatch()
     const history= useHistory()
     // redux states --------------------------------
-    const prod = useSelector(state=>state.prodDetails)
-    const dark = useSelector(state=>state.dark)
+    const prod = useSelector(state=>state.detail)
+    //const dark = useSelector(state=>state.dark)
 
    useEffect(()=>{
-       dispatch(getProductDetails(id))     
+       dispatch(getProductsDetails(id))     
    },[id, dispatch])
 
  //--------handler click--------------------
@@ -27,8 +27,8 @@ export default function ProductDetails() {
   }
   
     return (
-      <div className={dark ? sty.dark_details : sty.details}>
-        <div className={dark ? sty.dark_btn : sty.btn}>
+      <div className={sty.details}>
+        <div className={sty.btn}>
           
           <button onClick={handleClickBack}>
             <i className="fa-solid fa-circle-chevron-left"></i>
@@ -38,16 +38,16 @@ export default function ProductDetails() {
         {
           prod.message ? <h2>{prod.message}</h2> : <>
           
-         { prod.image ? (
-          <div className={dark ? sty.dark_container : sty.container}>
+         { prod.thumbnail ? (
+          <div className={sty.container}>
             
-            <img src={prod.image} alt="" />
+            <img src={prod.thumbnail} alt="" />
             
-            <div className={dark ? sty.dark_text : sty.text}>
+            <div className={sty.text}>
               
               <h1>{prod.title}</h1>
               
-              <div className={dark ? sty.dark_specs : sty.specs}>
+              <div className={sty.specs}>
                 <p>
                   <strong>Description: </strong>
                   {prod?.description}
@@ -88,7 +88,7 @@ export default function ProductDetails() {
             </div>
           </div>
            ) : (
-                <Loading />
+                 <p></p> 
               )
           }
           </>
