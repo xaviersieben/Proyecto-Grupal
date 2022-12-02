@@ -18,7 +18,7 @@ export default function ProductCard ({ title, id, price, images }) {
       <div className={ sty.text }>
         <strong>{title}</strong>
         <p className={sty.weight}>
-          <strong>Price: </strong>
+          <strong>Price: $ </strong>
           {price?price:"0"}
         </p>
        
