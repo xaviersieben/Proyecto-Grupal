@@ -30,7 +30,7 @@ export function getProductsDetails(id) {
 
 export function getCategories(){
     return (dispatch) => {
-        fetch('http://localhost:3001/products/categories')
+        fetch('http://localhost:3001/category')
          .then((res) => res.json())
          .then((json) => {
             dispatch({

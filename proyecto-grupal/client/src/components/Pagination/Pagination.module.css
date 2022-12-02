@@ -4,6 +4,9 @@
     justify-content: center;
     align-items: center;
     padding-bottom: 0.3rem;
+    font-size: 1em;
+    font-family: "Poppins", sans-serif;
+    margin-top: 5px;
 }
 
 .number {
@@ -23,9 +26,10 @@
     font-weight: bold;
   }
   .btns1:hover{
-    border: 1px solid rgb(4, 20, 46);;
+    /* border: 1px solid rgb(4, 20, 46);; */
     cursor: pointer;
-    background-color: deepskyblue;
+    background: #0c3d76b8;
+    border: 0;
   }
 
   .page {
@@ -42,4 +46,15 @@
   .p_page {
     margin-left: 0;
     font-weight: bold;
+  }
+
+  i {
+    color: #0c3d76b8;
+    font-size: 30px;
+    
+  }
+  i:hover {
+    
+    cursor: pointer;
+    color: #061b33;
   }

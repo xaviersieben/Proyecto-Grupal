@@ -78,8 +78,10 @@ export default function productsReducer (state= initialState, action){
                 products: sortedArr2
             };
         case 'FILTER_BY_CATEGORIES':
-            const allProductsCategories = state.allProducts
-            const categoriesFiltered = action.payload === 'All' ? allProductsCategories : allProductsCategories.filter((products) => products.categories.includes(action.payload))
+            const allProductsCategories = state.allProducts;
+            console.log(action.payload);
+            const categoriesFiltered = action.payload === 'All' ? allProductsCategories : allProductsCategories.filter( pro => pro.categories?.find( e => e.hasOwnProperty("name")).name.includes(action.payload))
+            console.log(categoriesFiltered);
             return{
                 ...state,
                 products: categoriesFiltered
