@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { postProduct } from '..redux/actions';
-import { getCategories } from '..redux/actions';
+import { postProduct } from '../../redux/actions/productsActions';
+import { getCategories } from '../../redux/actions/productsActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function CreateProduct() {

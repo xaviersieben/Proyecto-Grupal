@@ -2,7 +2,7 @@ const initialState = {
     products : [],
     allProducts : [],
     categories: [],
-    detail: []
+    detail: {}
 };
 
 export default function productsReducer (state= initialState, action){
@@ -13,6 +13,13 @@ export default function productsReducer (state= initialState, action){
                 products: action.payload,
                 allProducts: action.payload
             };
+            case 'GET_PRODUCT_DETAILS':
+                return {
+                  ...state,
+                  detail: action.payload,
+                 
+                };
+
         case 'GET_CATEGORIES':
             return{
                 ...state,

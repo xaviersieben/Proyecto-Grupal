@@ -1,0 +1,18 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.container {
+  background: linear-gradient(white, deepskyblue);
+  }
+  
+.productCards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border: 1px solid gray;
+}
+
