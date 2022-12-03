@@ -3,7 +3,7 @@ const { conn } = require("./src/db.js");
 const {
   storeAllCategories,
   storeAllProducts,
-} = require("./src/controlers/dbcharge/dbcharge");
+} = require("./src/Controllers/dbcharge/dbcharge");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {

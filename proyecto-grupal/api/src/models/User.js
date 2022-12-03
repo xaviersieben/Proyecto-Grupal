@@ -26,6 +26,7 @@ module.exports = (sequelize) => {
         carrito: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            unique: true,
         },
         adress: {
             type: DataTypes.STRING,
