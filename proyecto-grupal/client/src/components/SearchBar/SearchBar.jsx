@@ -1,19 +1,20 @@
 import React from "react";
 import { useState } from "react";
 import s from './SearchBar.module.css';
-
+import {getProductsByName} from "../../redux/actions/productsActions"
+import { useDispatch } from "react-redux"
 export default function SearcBar() {
-
   const [nameProduct, setNameProduct] = useState('');
-
+  const dispatch = useDispatch()
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(getProductsByName(nameProduct))
   }
-
   const handleOnChange = (e) => {
     e.preventDefault();
+    setNameProduct(e.target.value)
   }
-
+  console.log(nameProduct)
   return (
     <div className={s.container}>
       <form onSubmit={e => handleSubmit(e)}>
