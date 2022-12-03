@@ -25,6 +25,10 @@ export default function productsReducer (state= initialState, action){
                 ...state,
                 categories: action.payload
             };
+        case 'POST_CATEGORY':
+            return {
+                ...state,
+            }
         case 'POST_PRODUCT':
             return{
                 ...state,
