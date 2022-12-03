@@ -90,6 +90,12 @@ export default function productsReducer (state= initialState, action){
                 ...state,
                 products: categoriesFiltered
             };    
+        case "GET_PRODUCTS_BY_NAME":
+            return{
+                ...state,
+                products: action.payload
+            }
+
         default:
             return {...state};
     }
