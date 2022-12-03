@@ -72,3 +72,10 @@ export function filterByCategories(payload){
         }    
 };
 
+export function searchProduct(payload){
+    return {
+        type: 'SEARCH_PRODUCT',
+        payload
+    }
+}
+
