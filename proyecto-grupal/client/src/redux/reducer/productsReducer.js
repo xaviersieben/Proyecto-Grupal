@@ -34,53 +34,34 @@ export default function productsReducer (state= initialState, action){
                 ...state,
             };
         case 'ALPHABETICAL_ORDER':
-            let sortedArr = action.payload === 'asc' ?
-                state.products.sort(function(a,b) {
-                    if (a.name > b.name) {
-                        return 1;
-                    }
-                    if (b.name > a.name) {
-                        return -1;
-                    }
-                    return 0;
-                }) :
-                state.products.sort(function(a,b){
-                    if (a.name > b.name) {
-                        return -1;
-                    }
-                    if (b.name > a.name) {
-                        return 1;
-                    }
-                    return 0;
-                })
+            let sortedArr = action.payload === true ?
+                
+                state.products?.sort((a, b) => b.title.localeCompare(a.title)) :
+                
+                state.products?.sort((a, b) => a.title.localeCompare(b.title));
             return {
                 ...state,
                 products: sortedArr
             };
+
         case 'ORDER_BY_RATING':
-            let sortedArr2 = action.payload === 'desc' ?
-                state.products.sort(function(a,b) {
-                    if (a.rating > b.rating) {
-                        return 1;
-                    }
-                    if (b.rating > a.rating) {
-                        return -1;
-                    }
-                    return 0;
-                }) :
-                state.products.sort(function(a,b){
-                    if (a.rating > b.rating) {
-                        return -1;
-                    }
-                    if (b.rating > a.rating) {
-                        return 1;
-                    }
-                    return 0;
-                })
+            let sortedArr2 = action.payload === true ?
+                state.products?.sort((a, b) => parseFloat(a.rating) - parseFloat(b.rating )) : 
+                state.products?.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating))
             return {
                 ...state,
                 products: sortedArr2
             };
+
+            case 'ORDER_BY_PRICE':
+            let sortedArr3 = action.payload === true ?
+                state.products?.sort((a, b) => parseInt(a.price) - parseInt(b.price)) : 
+                state.products?.sort((a, b) => parseInt(b.price) - parseInt(a.price))
+            return {
+                ...state,
+                products: sortedArr3
+            };
+
         case 'FILTER_BY_CATEGORIES':
             const allProductsCategories = state.allProducts;
             console.log(action.payload);

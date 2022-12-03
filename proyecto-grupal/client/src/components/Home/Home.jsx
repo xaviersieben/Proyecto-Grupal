@@ -15,15 +15,17 @@ export default function Home() {
 
   const dispatch = useDispatch();
   let listProducts = useSelector((state) => state.products);
-
+// Redux
   let categories = useSelector((state) => state.categories);
   let allProducts = useSelector((state) => state.allProducts);
 
-  // let listCategories = useSelector((state) => state.categories);
-
-
+  // Local states 
+  const [alphabet, setAlphabet] = useState(true);
+  const [price, setPrice] = useState(true);
+  const [rating, setRating] = useState(true);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+
   let indexlastGame = page * pageSize;
   let indexFirstGame = indexlastGame- pageSize;
   let currentProducts = listProducts.slice(indexFirstGame, indexlastGame);
@@ -31,22 +33,37 @@ export default function Home() {
   useEffect(() => {
     dispatch(actions.getProducts());
     dispatch(actions.getCategories());
+    
   },
   [dispatch])
 
-  const pagination = (action)=>{
+ const pagination = (action)=>{
     if (action === 'back') {setPage(prevState => (prevState - 1))}
     else if (action === 'next') {setPage(prevState => (prevState + 1))}
-  };
+ };
 
-  console.log('listProducts',listProducts);
-  console.log('page',page);
-  console.log('pageSize',pageSize);
-
-  function filterCategory(e) {
+ function filterCategory(e) {
     dispatch(actions.filterByCategories(e.target.value));
     setPage(1);
-  }
+}
+
+function orderAlphabetical() {
+  setAlphabet(!alphabet);
+  dispatch(actions.alphabeticalOrder(alphabet));
+  setPage(1);
+}
+
+function orderPrice() {
+  setPrice(!price);
+  dispatch(actions.orderByPrice(price));
+  setPage(1);
+}
+
+function orderRating() {
+  setRating(!rating);
+  dispatch(actions.orderByRating(rating));
+  setPage(1);
+}
 
   return (
     <div className={s.container}>
@@ -65,7 +82,29 @@ export default function Home() {
               )) }
             </select>
           </div>
-          </div>
+         </div>
+         {/* Order Alphabetically */}
+         <i className="fa-solid fa-dolly"></i>
+         <button className={s.alpha} onClick={orderAlphabetical} >
+            {alphabet ? ( <i className="fa-solid fa-arrow-down-z-a"></i> ) : (
+             <i className="fa-solid fa-arrow-up-a-z"></i> )}
+         </button> 
+         
+
+           {/* Order by Price */}
+           <i className="fa-solid fa-hand-holding-dollar"></i>
+         <button className={s.alpha} onClick={orderPrice} >
+            {price ? ( <i className="fa-solid fa-arrow-down-z-a"></i>  ) : (
+              <i className="fa-solid fa-arrow-up-a-z"></i> )}
+          </button> 
+
+          {/* Order by Rating */}
+          <i className="fa-regular fa-star"></i>
+          <button className={s.alpha} onClick={orderRating} >
+            {rating ? ( <i className="fa-solid fa-arrow-down-z-a"></i> ) : (
+              <i className="fa-solid fa-arrow-up-a-z"></i> )}
+          </button>  
+
         <SearchBar/>
       </div>
       
