@@ -25,6 +25,10 @@ export default function productsReducer (state= initialState, action){
                 ...state,
                 categories: action.payload
             };
+        case 'POST_CATEGORY':
+            return {
+                ...state,
+            }
         case 'POST_PRODUCT':
             return{
                 ...state,
@@ -86,6 +90,7 @@ export default function productsReducer (state= initialState, action){
                 ...state,
                 products: categoriesFiltered
             };    
+
         case 'SEARCH_PRODUCT': 
             let productList;
             if (action.payload.length === 0) {
@@ -99,7 +104,14 @@ export default function productsReducer (state= initialState, action){
             return {
                 ...state,
                 products: productList
+            };
+
+        case "GET_PRODUCTS_BY_NAME":
+            return{
+                ...state,
+                products: action.payload
             }
+
         default:
             return {...state};
     }

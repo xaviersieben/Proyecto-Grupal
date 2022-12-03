@@ -41,10 +41,22 @@ export function getCategories(){
     }
 };
 
-export function postProduct(payload){
+export function postCategory(payload) {
     return async (dispatch) => {
         const response = await axios.post(
-          `http://localhost:3001/products`,
+          `http://localhost:3001/category`,
+          payload
+        );
+        return response;
+      };
+}
+
+export function postProduct(payload){
+    console.log(`Payload de action postProduct: `);
+    console.dir(payload);
+    return async (dispatch) => {
+        const response = await axios.post(
+          `http://localhost:3001/product`,
           payload
         );
         return response;
@@ -72,10 +84,27 @@ export function filterByCategories(payload){
         }    
 };
 
+
 export function searchProduct(payload){
     return {
         type: 'SEARCH_PRODUCT',
         payload
     }
-}
+};
+
+
+
+export function getProductsByName(name){
+  return async function (dispatch){
+    try {
+      var json = await axios (`http://localhost:3001/product?name=${name}`);
+      return dispatch({
+        type: "GET_PRODUCTS_BY_NAME",
+        payload: json.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+};
 

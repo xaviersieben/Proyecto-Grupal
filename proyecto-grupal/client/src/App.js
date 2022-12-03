@@ -1,6 +1,7 @@
 import './App.css';
 import { Route } from 'react-router-dom';
-import createProduct from './components/CreateProduct/CreateProduct.jsx';
+import CreateProduct from './components/CreateProduct/CreateProduct.jsx';
+import CreateCategory from './components/CreateCategory/CreateCategory.jsx'
 import Home from './components/Home/Home';
 import ProductDetails from './components/ProductDetails/ProductDetails';
 import s from './App.module.css';
@@ -11,7 +12,8 @@ function App() {
         <Route exact path={'/'} component={Home}/>
         <Route exact path={'/home'} component={Home}/>
         <Route exact path = '/details/:id' component={ProductDetails} />
-        <Route path='/createProduct' component={createProduct} />
+        <Route path='/createProduct' component={CreateProduct} />
+        <Route path='/createCategory' component={CreateCategory} />
       
     </div>
   );
