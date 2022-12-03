@@ -30,7 +30,7 @@ export function getProductsDetails(id) {
 
 export function getCategories(){
     return (dispatch) => {
-        fetch('http://localhost:3001/products/categories')
+        fetch('http://localhost:3001/category')
          .then((res) => res.json())
          .then((json) => {
             dispatch({
@@ -41,10 +41,22 @@ export function getCategories(){
     }
 };
 
-export function postProduct(payload){
+export function postCategory(payload) {
     return async (dispatch) => {
         const response = await axios.post(
-          `http://localhost:3001/products`,
+          `http://localhost:3001/category`,
+          payload
+        );
+        return response;
+      };
+}
+
+export function postProduct(payload){
+    console.log(`Payload de action postProduct: `);
+    console.dir(payload);
+    return async (dispatch) => {
+        const response = await axios.post(
+          `http://localhost:3001/product`,
           payload
         );
         return response;

@@ -10,6 +10,8 @@ export default function CreateProduct() {
     const categories = useSelector((state) => state.categories);
     const history = useHistory();
 
+
+
     const [input, setInput] = useState({
         title: '',
         description: '',
@@ -28,7 +30,7 @@ export default function CreateProduct() {
     useEffect(() => {
         dispatch(getCategories());
     }, [dispatch]);
-
+    console.log(categories);
 
     function handleInputChange(e) {
         e.preventDefault();
@@ -144,7 +146,7 @@ export default function CreateProduct() {
             errors.thumbnail = errors.thumbnail + " Thumbnail must not be empty," : 
             errors.thumbnail = " Thumbnail must not be empty,";
         }
-        if (/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig.test(inputToValidate.thumbnail)) {
+        if (!/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig.test(inputToValidate.thumbnail)) {
             errors.thumbnail ?
             errors.thumbnail = errors.thumbnail + " Thumbnail must be a valid link," :
             errors.thumbnail = " Thumbnail must be a valid link,";
@@ -154,7 +156,7 @@ export default function CreateProduct() {
             errors.images = errors.images + " Images must not be empty," : 
             errors.images = " Images must not be empty,";
         }
-        if (/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig.test(inputToValidate.images)) {
+        if (!/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig.test(inputToValidate.images)) {
             errors.images ?
             errors.images = errors.images + " Images must be a valid link," :
             errors.images = " Images must be a valid link,";
@@ -169,6 +171,8 @@ export default function CreateProduct() {
         } else if (!input.title || !input.description || input.price === '' || input.rating === '' || input.stock === '' || !input.brand || input.categories.length === 0 || !input.thumbnail || !input.images) {
             alert('Please, complete all fields before submitting');
         } else {
+            console.log(`Producto a agregar:`);
+            console.dir(input);
             dispatch(postProduct(input));
             alert('Product created!');
             setInput({
