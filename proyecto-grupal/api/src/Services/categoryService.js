@@ -25,7 +25,9 @@ const getLastIdCategory = async () => {
 
 
 const getCategoryById = async (id) => {
-  const categoryById = await Category.findByPk(id);
+  const categoryById = await Category.findByPk(id,{
+    include: [Product],
+  });
   return categoryById;
 };
 

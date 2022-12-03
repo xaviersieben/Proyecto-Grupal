@@ -38,13 +38,13 @@ const createNewProduct = async (req, res, next) => {
       rating: body.rating,
       stock: body.stock,
       brand: body.brand,
-      categories: body.categories,
+    
       thumbnail: body.thumbnail,
       images: body.images,
     };
 
-    const category = body.category;
-    console.log(category);
+    const category = body.categories;
+  
     const createProduct = await productServices.createNewProduct(
       newItemProduct,
       category
@@ -95,7 +95,7 @@ const deleteProduct = async (req, res, next) => {
 const updateProduct = async (req, res, next) => {
   const { id } = req.params;
   const { body } = req;
-  console.log(body)
+
 
 
   try {

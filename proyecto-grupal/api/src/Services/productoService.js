@@ -9,19 +9,21 @@ const getAllProducts = async () => {
 };
 
 const createNewProduct = async (newProduct, category) => {
-  const cat = await Category.findOne({
+  console.log(category)
+  const cat = await Category.findAll({
     where: {
-      name: category.name,
+      name: category,
     },
   });
   console.log(cat);
 
   const productToInsert = {
     ...newProduct,
-    categoryId: cat.id,
+    
   };
   console.log(productToInsert);
   const createdProduct = await Product.create(productToInsert);
+  createdProduct.addCategory(cat);
 
   return createdProduct;
 };

@@ -7,25 +7,30 @@ import { Link } from "react-router-dom";
 import ProductCard from '../ProductCard/ProductCard';
 import Pagination from "../Pagination/Pagination";
 import s from './Home.module.css';
+import logo from "..//../img/logo.JPG";
+
 
 
 export default function Home() {
 
   const dispatch = useDispatch();
   let listProducts = useSelector((state) => state.products);
+
+  let categories = useSelector((state) => state.categories);
   let allProducts = useSelector((state) => state.allProducts);
+
   // let listCategories = useSelector((state) => state.categories);
 
 
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(8);
+  const [pageSize, setPageSize] = useState(10);
   let indexlastGame = page * pageSize;
   let indexFirstGame = indexlastGame- pageSize;
   let currentProducts = listProducts.slice(indexFirstGame, indexlastGame);
 
   useEffect(() => {
     dispatch(actions.getProducts());
-    // dispatch(actions.getCategories());
+    dispatch(actions.getCategories());
   },
   [dispatch])
 
@@ -38,32 +43,50 @@ export default function Home() {
   console.log('page',page);
   console.log('pageSize',pageSize);
 
+  function filterCategory(e) {
+    dispatch(actions.filterByCategories(e.target.value));
+    setPage(1);
+  }
+
   return (
     <div className={s.container}>
       <div className={s.header}>
-        <img src="" alt="LOGO" />
-        <h3>Ecommerce</h3>
+        <img src={logo} alt="LOGO" className={s.logo}/>
+        <h3>CloudyBuy</h3>
+        {/* Filter by Category */}
+        <div className={s.filters}>
+          <div className={s.select}>
+            <select name="filterCategory" onChange={(e) => filterCategory(e)} >
+              <option value="All"> All Categories </option>
+              { categories?.map((t) => (
+                <option key={t.id} value={t.name}>
+                  {t.name}
+                </option>
+              )) }
+            </select>
+          </div>
+          </div>
         <SearchBar/>
       </div>
       
       <div className="">
 
       </div>
+      
+      <Pagination pageSize={pageSize} totalProducts={listProducts.length} 
+        page={page} pagination={pagination}/>
 
       <div className={s.productCards}>
         {
           currentProducts?.map( (product, index) => 
            
-              <ProductCard key={product.id} title={product.title} id={product.id} price={product.price} images={product.images} />
+              <ProductCard key={product.id} title={product.title} id={product.id} price={product.price} images={product.thumbnail} />
             
           )
 
         }
       </div>
-
-      <Pagination pageSize={pageSize} totalProducts={listProducts.length} 
-        page={page} pagination={pagination}/>
-        
+   
     </div>
   );
 
