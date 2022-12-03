@@ -90,6 +90,22 @@ export default function productsReducer (state= initialState, action){
                 ...state,
                 products: categoriesFiltered
             };    
+
+        case 'SEARCH_PRODUCT': 
+            let productList;
+            if (action.payload.length === 0) {
+                productList = state.allProducts
+            } else {
+                productList = state.products.filter( product => {
+                let nameProduct = product.title.toLowerCase();
+                return nameProduct.includes(action.payload.toLowerCase())
+                })
+            }
+            return {
+                ...state,
+                products: productList
+            };
+
         case "GET_PRODUCTS_BY_NAME":
             return{
                 ...state,

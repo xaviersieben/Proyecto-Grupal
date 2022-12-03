@@ -84,6 +84,16 @@ export function filterByCategories(payload){
         }    
 };
 
+
+export function searchProduct(payload){
+    return {
+        type: 'SEARCH_PRODUCT',
+        payload
+    }
+};
+
+
+
 export function getProductsByName(name){
   return async function (dispatch){
     try {
@@ -96,4 +106,5 @@ export function getProductsByName(name){
       console.log(error)
     }
   }
-}
+};
+
