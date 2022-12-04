@@ -1,3 +1,17 @@
+.alpha {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-right: 30px;
+}
+.alpha i {
+  font-size: 2rem;
+}
+.alpha:hover {
+  color: #004ea8;
+  cursor: pointer;
+}
+
 .header {
   display: flex;
   flex-direction: row;
