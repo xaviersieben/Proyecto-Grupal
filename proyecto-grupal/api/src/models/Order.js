@@ -8,12 +8,18 @@ module.exports = (sequelize) => {
             primaryKey: true,
         },
         status: {
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM('in process', 'confirmed'),
             allowNull: false,
         },
         date:{
             type: DataTypes.DATE,
             allowNull: false,
+        },
+        quantity:{
+            type: DataTypes.INTEGER,
+        },
+        price:{
+            type: DataTypes.REAL,
         }
     });
 };
