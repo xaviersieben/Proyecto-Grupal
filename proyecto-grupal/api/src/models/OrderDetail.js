@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 
-module.exports = (sequelize) => {
-  sequelize.define(
-    "cart",
+module.exports = OrderDetailFactory = (sequelize) => {
+  return sequelize.define(
+    "OrderDetail",
     {
       id: {
         type: DataTypes.UUID,
@@ -10,18 +10,20 @@ module.exports = (sequelize) => {
         allowNull: false,
         primaryKey: true,
       },
-      cartTotalQuantity: {
+
+      quantity: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
-      cartItems: {
-        type: DataTypes.ARRAY(DataTypes.JSON),
-      },
-      cartTotalAmount: {
+      price: {
         type: DataTypes.FLOAT,
+        allowNull: false,
       },
+
+
     },
     {
-      timestamps: false,
+      timestamps: true,
     }
   );
 };
