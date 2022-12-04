@@ -2,33 +2,36 @@ const initialState = {
     products : [],
     allProducts : [],
     categories: [],
+    cart: [],
     detail: {}
 };
 
 export default function productsReducer (state= initialState, action){
     switch (action.type) {
         case 'GET_PRODUCTS':
-            return{
+            return {
                 ...state,
                 products: action.payload,
                 allProducts: action.payload
             };
-            case 'GET_PRODUCT_DETAILS':
-                return {
+        case 'GET_PRODUCT_DETAILS':
+            return {
                   ...state,
                   detail: action.payload,
                  
                 };
 
         case 'GET_CATEGORIES':
-            return{
+            return {
                 ...state,
                 categories: action.payload
             };
+
         case 'POST_CATEGORY':
             return {
                 ...state,
             }
+
         case 'POST_PRODUCT':
             return{
                 ...state,
@@ -76,7 +79,7 @@ export default function productsReducer (state= initialState, action){
                 products: sortedArr2
             };
 
-            case 'ORDER_BY_PRICE':
+        case 'ORDER_BY_PRICE':
             let sortedArr3 = action.payload === true ?
                 state.products?.sort((a, b) => parseInt(a.price) - parseInt(b.price)) : 
                 state.products?.sort((a, b) => parseInt(b.price) - parseInt(a.price))
@@ -90,7 +93,7 @@ export default function productsReducer (state= initialState, action){
             console.log(action.payload);
             const categoriesFiltered = action.payload === 'All' ? allProductsCategories : allProductsCategories.filter( pro => pro.categories?.find( e => e.hasOwnProperty("name")).name.includes(action.payload))
             console.log(categoriesFiltered);
-            return{
+            return {
                 ...state,
                 products: categoriesFiltered
             };    
@@ -114,9 +117,100 @@ export default function productsReducer (state= initialState, action){
             return{
                 ...state,
                 products: action.payload
+            };
+
+        case 'SET_CART':
+            return {
+                ...state,
+                cart: action.payload,
+            };
+
+        case 'ADD_CART':
+            let addedCart = [];
+
+            if (state.cart !== null) {
+               addedCart = [...state.carrito];
             }
 
-        default:
-            return {...state};
+            let indexAddedCart = state.cart?.findIndex(
+               (cart) => Number(cart.id) === Number(action.payload.productId)
+            );
+
+            if (indexAddedCart !== -1) {
+            addedCart[indexAddedCart].amount = action.payload.amount;
+            return {
+                ...state,
+                cart: addedCart,
+            };
+            } else {
+            const productSelected = state.Allproducts.find(
+            (product) =>
+            Number(product.id) === Number(action.payload.productId)
+            );
+
+            return {
+                ...state,
+                cart: [
+                    ...state.cart,
+                {
+                    id: productSelected.id,
+                    title: productSelected.title,
+                    price: productSelected.price,
+                    images: productSelected.images,
+                    amount: action.payload.amount,
+                },
+                ],
+             };
+            }
+
+        case 'ONE_ITEM_CART':
+         let newCart = [...state.cart];
+         let cartIndex = state.cart.findIndex(
+            (cart) => Number(cart.id) === Number(action.payload.productId)
+         );
+
+         if (cartIndex !== -1) {
+         newCart[cartIndex].amount =
+         newCart[cartIndex].amount - 1;
+        
+         return {
+              ...state,
+              cart: newCart,
+         };
+         } else {
+         const productSelected = state.Allproducts.find(
+          (product) =>
+            Number(product.id) === Number(action.payload.productId)
+         );
+
+        return {
+          ...state,
+          cart: [
+            ...state.cart,
+            {
+                id: productSelected.id,
+                title: productSelected.title,
+                price: productSelected.price,
+                images: productSelected.images,
+                amount: action.payload.amount,
+            },
+          ],
+        };
+      }
+
+    case 'DELETE_ITEMS':
+      const data = state.cart?.filter(
+        (item) => item.id !== action.payload.id
+      );
+      return {
+        ...state,
+        cart: data,
+      };
+
+    default:
+        return {...state};
+
     }
 }
+
+    

@@ -80,7 +80,7 @@ export function getProductsByName(name){
 export function putProduct(id, body) {
   return async function (dispatch) {
     try {
-      await axios.put(`http://localhost:3001/product/${id}`, body);
+     let res = await axios.put(`http://localhost:3001/product/${id}`, body);
       return dispatch({
         type: 'PUT_PRODUCT',
         payload: res.data
@@ -94,7 +94,7 @@ export function putProduct(id, body) {
 export function deleteProduct(id) {
   return async function (dispatch) {
     try {
-      await axios.delete(`http://localhost:3001/product/${id}`);
+      let res =  await axios.delete(`http://localhost:3001/product/${id}`);
       return dispatch({
         type: 'DELETE_PRODUCT',
         payload: res.data
@@ -108,7 +108,7 @@ export function deleteProduct(id) {
 export function putCategory(id, body) {
   return async function (dispatch) {
     try {
-      await axios.put(`http://localhost:3001/category/${id}`, body);
+      let res =  await axios.put(`http://localhost:3001/category/${id}`, body);
       return dispatch({
         type: 'PUT_CATEGORY',
         payload: res.data
@@ -161,13 +161,43 @@ export function filterByCategories(payload){
         }    
 };
 
-
 export function searchProduct(payload){
     return {
         type: 'SEARCH_PRODUCT',
         payload
     }
 };
+
+export function setCart(cart) {
+  return {
+      type: 'SET_CART', 
+      payload: cart 
+    }
+};
+
+export function addCart(productId, amount) {
+  return {
+    type: 'ADD_CART',
+    payload: {productId, amount}
+  }
+};
+
+export function removeOneItemCart(productId, amount) {
+  return {
+    type: 'ONE_ITEM_CART',
+    payload: {productId, amount}
+  }
+};
+
+export function removeItem(productId) {
+  return {
+    type: 'DELETE_ITEM',
+    payload: {productId}
+  }
+};
+
+
+
 
 
 
