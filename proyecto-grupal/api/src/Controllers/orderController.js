@@ -1,57 +1,54 @@
-const { Order, User } = require("../db.js");
+const { Order, User, OrderDetail, Product } = require("../db.js");
 
 const ordersServices = require("../Services/orderService");
 
-
 const createNewOrder = async (req, res, next) => {
-  
   try {
-   
-    let createdOrder
+    let createdOrder;
 
-    const  userId = req.body.userId
+    const userId = req.body.userId;
 
-    const orderFound = await Order.findOne({where:{email:userId,payed:false}})
+    createdOrder = await ordersServices.createNewOrder(userId, req.body.amount);
 
-    if(orderFound){
-      orderUpdated = await Order.update({amount:req.body.amount},{where:{email:userId,payed:false},returning:true})
-      createdOrder = orderUpdated[1][0]
-      console.log(createdOrder)
-      
-    }else {
-      createdOrder = await ordersServices.createNewOrder(userId,req.body.amount);
-    }
-    await OrderDetail.destroy({where:{UserEmail:userId,payed:false}})
-     
-    let arrPromises = boxes.map(async(box)=>{
-      let findBox = await Box.findOne({
-        where:{
-          name: box.name
-        }
-      })
-      let newItem = OrderDetail.create({
-        box_id:findBox.dataValues.id,
-        quantity:box.quantity,
-        is_gift:box.isGift,
-        UserEmail:userId,
-        order_id:createdOrder.dataValues.id,
-        recipient:box.recipient
-      })
-      return newItem
-    })
-    
-    await Promise.all(arrPromises)
+    const detailOrderCreate = await OrderDetail.create({
+      quantity: req.body.quantity,
+      price: req.body.amount,
+      order_id:createdOrder.dataValues.id
+    });
 
-    await ordersServices.createGiftList(boxes)
+    const prodId = await Product.findAll({
+      where: {
+        id: req.body.product_id,
+      },
+    });
 
-    
+    await detailOrderCreate.addProduct(prodId);
 
     if (createdOrder) {
-      res.status(201).send(createdOrder);
+      res.status(201).send([createdOrder, detailOrderCreate]);
     } else {
       res.status(404).send("Error creating order!");
     }
   } catch (error) {
     next(error);
   }
+};
+
+const getAllOrders = async (req, res, next) => {
+  try {
+    const allOrders = await ordersServices.getAllOrders();
+
+    if (allOrders) {
+      res.status(201).send(allOrders);
+    } else {
+      res.status(404).send("Not found");
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  getAllOrders,
+  createNewOrder,
 };

@@ -17,11 +17,7 @@ module.exports = (sequelize) => {
         type: DataTypes.ARRAY(DataTypes.JSON),
       },
       cartTotalAmount: {
-        type: DataTypes.INTEGER,
-      },
-      cartTotalItems: {
-        type: DataTypes.ARRAY(DataTypes.JSON),
-        
+        type: DataTypes.FLOAT,
       },
     },
     {

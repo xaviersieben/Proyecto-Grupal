@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 
-module.exports = (sequelize) => {
-  sequelize.define(
-    "order",
+module.exports = OrderDetailFactory = (sequelize) => {
+  return sequelize.define(
+    "OrderDetail",
     {
       id: {
         type: DataTypes.UUID,
@@ -10,21 +10,20 @@ module.exports = (sequelize) => {
         allowNull: false,
         primaryKey: true,
       },
-      amount: {
+
+      quantity: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      status: {
-        type: DataTypes.BOOLEAN,
+      price: {
+        type: DataTypes.FLOAT,
         allowNull: false,
-        defaultValue: true,
       },
-      payed: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
-    },
 
+
+    },
+    {
+      timestamps: true,
+    }
   );
 };
