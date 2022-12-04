@@ -119,7 +119,7 @@ function orderRating() {
         {
           currentProducts?.map( (product, index) => 
            
-              <ProductCard key={product.id} title={product.title} id={product.id} price={product.price} images={product.thumbnail} />
+              <ProductCard key={product.id} title={product.title} id={product.id} price={product.price} images={product.thumbnail} rating={product.rating} />
             
           )
 
