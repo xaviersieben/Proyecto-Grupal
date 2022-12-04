@@ -33,6 +33,29 @@ export default function productsReducer (state= initialState, action){
             return{
                 ...state,
             };
+
+        case 'DELETE_CATEGORY':
+            return {
+                ...state,
+                categories: state.categories.filter((c) => c.id !== action.payload),
+            };
+
+        case 'PUT_CATEGORY':
+            return {
+                ...state,                
+            };    
+            
+        case 'DELETE_PRODUCT':
+            return {
+                ...state,
+                productDeleted: action.payload
+            };
+
+        case 'PUT_PRODUCT':
+            return {
+                ...state,                
+            };            
+            
         case 'ALPHABETICAL_ORDER':
             let sortedArr = action.payload === true ?
                 
@@ -87,7 +110,7 @@ export default function productsReducer (state= initialState, action){
                 products: productList
             };
 
-        case "GET_PRODUCTS_BY_NAME":
+        case 'GET_PRODUCTS_BY_NAME':
             return{
                 ...state,
                 products: action.payload
