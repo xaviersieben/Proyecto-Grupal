@@ -76,6 +76,12 @@ function orderRating() {
         <h3>CloudyBuy</h3>
         {/* Filter by Category */}
         <div className={s.filters}>
+          <div>
+            <Link to={'/createProduct'}>
+              <button className={s.btns}>Crear Producto</button>
+            </Link>
+          </div>
+
           <div className={s.select}>
             <select name="filterCategory" onChange={(e) => filterCategory(e)} >
               <option value="All"> All Categories </option>

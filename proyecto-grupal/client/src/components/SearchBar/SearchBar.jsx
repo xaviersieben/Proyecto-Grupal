@@ -21,7 +21,7 @@ export default function SearcBar({paginationReset}) {
   return (
     <div className={s.container}>
       <form onSubmit={e => handleSubmit(e)}>
-        <input className={s.name} type="text" placeholder="Busca un producto o categoria o marca...." value={nameProduct}
+        <input className={s.name} type="text" placeholder="Busca productos o marcas...." value={nameProduct}
           onChange={e => handleOnChange(e)} />
         <button className={s.alpha} type="submit">
           <i class="fa-solid fa-magnifying-glass"></i>
