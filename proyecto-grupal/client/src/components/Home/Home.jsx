@@ -42,6 +42,10 @@ export default function Home() {
     else if (action === 'next') {setPage(prevState => (prevState + 1))}
  };
 
+ const paginationReset = (page)=>{
+  setPage(prevState => (1))
+};
+
  function filterCategory(e) {
     dispatch(actions.filterByCategories(e.target.value));
     setPage(1);
@@ -105,7 +109,7 @@ function orderRating() {
               <i className="fa-solid fa-arrow-up-a-z"></i> )}
           </button>  
 
-        <SearchBar/>
+        <SearchBar paginationReset={paginationReset}/>
       </div>
       
       <div className="">
