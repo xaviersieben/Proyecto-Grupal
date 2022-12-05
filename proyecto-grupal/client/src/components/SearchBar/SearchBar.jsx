@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import * as actions from '../../redux/actions/productsActions';
 import s from './SearchBar.module.css';
+
 export default function SearcBar({paginationReset}) {
 
   const [nameProduct, setNameProduct] = useState('');

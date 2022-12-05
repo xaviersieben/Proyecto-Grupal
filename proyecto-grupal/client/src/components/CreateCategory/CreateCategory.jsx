@@ -4,6 +4,11 @@ import { Link, useHistory } from 'react-router-dom';
 import { postCategory } from '../../redux/actions/productsActions';
 import { getCategories } from '../../redux/actions/productsActions';
 import { useDispatch, useSelector } from 'react-redux';
+import styles from './CreateCategory.module.css';
+
+//import Container from "@mui/material/Container";
+import { Table, TableBody, TableContainer, TableRow, TableCell, TableHead, Button } from '@mui/material';
+import Paper from '@mui/material/Paper';
 
 export default function CreateCategory () {
     const dispatch = useDispatch();
@@ -60,27 +65,37 @@ export default function CreateCategory () {
             let category = {};
             category.name = input.name;
             dispatch(postCategory(category));
-            dispatch(getCategories());
             alert('Category created!');
             setInput({
                 name:''
             });
+            dispatch(getCategories());
 
             //history.push('/Home');
         }
     }
 
     return (
-        <div>
-            <h1>Creación de nueva categoría:</h1>
-            <form>
-                <label htmlFor="">Nombre:</label>
-                <input placeholder="Nombre de la categoría..." value={input.name} name="name" type="text" onChange={(e) => handleInputChange(e)} />
-                {errors.name && <span>*{errors.name}</span>}
-                <button onClick={(e) => { handleSubmit(e) }}>Crear Categoría</button>
-            </form>
-            <h3>Categorías existentes:</h3>
-            <table>
+        <div className={styles.fullDiv}>
+            <Link className={styles.volverAtras} to='/home'>Volver atrás...</Link>
+            <div className={styles.mainDiv}>
+                <h1>Creación de nueva categoría:</h1>
+                <div className={styles.divFormTable}>
+                    
+                    <form className={styles.categoryForm}>
+                        <div className={styles.labelInput}>
+                            <label htmlFor="">Nombre:</label>
+                            <input className={styles.input} placeholder="Nombre de la categoría..." value={input.name} name="name" type="text" onChange={(e) => handleInputChange(e)} />
+                        </div>
+                        <div className={styles.spanButton}>
+                            {errors.name && <span className={styles.errorSpan}>*{errors.name}</span>}
+                            <Button disabled={(input.name === '' || errors.name) && "disabled"} onClick={(e) => { handleSubmit(e) }} color="success" variant="contained" size="small">Crear Categoría</Button>
+                        </div>
+                    </form>
+                    
+                    <div className={styles.divTable}>
+                        <h3>Categorías existentes:</h3>
+                        {/* <table>
                 <tbody>
                     <tr>
                         <th>ID</th>
@@ -95,7 +110,30 @@ export default function CreateCategory () {
                         );
                     })}
                 </tbody>
-            </table>
+            </table> */}
+                        <TableContainer>
+                            <Table sx={{ maxWidth: 350 }} size="small" aria-label="simple table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell sx={{color: '#e7ebf0'}}>ID</TableCell>
+                                        <TableCell sx={{color: '#e7ebf0'}}>Name</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {categories?.map((category, index) => {
+                                        return (
+                                            <TableRow key={index}>
+                                                <TableCell sx={{color: '#e7ebf0'}}>{category.id}</TableCell>
+                                                <TableCell sx={{color: '#e7ebf0'}}>{category.name}</TableCell>
+                                            </TableRow>
+                                        );
+                                    })}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
