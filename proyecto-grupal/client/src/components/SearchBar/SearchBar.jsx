@@ -3,15 +3,14 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import * as actions from '../../redux/actions/productsActions';
 import s from './SearchBar.module.css';
-import {getProductsByName} from "../../redux/actions/productsActions"
-export default function SearcBar() {
+export default function SearcBar({paginationReset}) {
 
   const [nameProduct, setNameProduct] = useState('');
   const dispatch = useDispatch()
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(actions.searchProduct(nameProduct));
-
+    paginationReset();
   }
   const handleOnChange = (e) => {
     e.preventDefault();
@@ -23,7 +22,9 @@ export default function SearcBar() {
       <form onSubmit={e => handleSubmit(e)}>
         <input className={s.name} type="text" placeholder="Busca un producto o categoria o marca...." value={nameProduct}
           onChange={e => handleOnChange(e)} />
-        <input className={s.btns2} type="submit" value='Buscar' />
+        <button className={s.alpha} type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
       </form>
     </div>
 
