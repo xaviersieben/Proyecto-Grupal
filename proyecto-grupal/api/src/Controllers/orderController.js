@@ -6,26 +6,27 @@ const createNewOrder = async (req, res, next) => {
   try {
     let createdOrder;
 
-    const userId = req.body.userId;
+    const userId = req.body.id;
 
-    createdOrder = await ordersServices.createNewOrder(userId, req.body.amount);
+    createdOrder = await ordersServices.createNewOrder(userId, req.body.price,req.body.quantity);
 
-    const detailOrderCreate = await OrderDetail.create({
-      quantity: req.body.quantity,
-      price: req.body.amount,
-      order_id:createdOrder.dataValues.id
-    });
+    for (let i = 0; i < req.body.pedido.length; i++) {
+      const prodId = await Product.findAll({
+        where: {
+          title: req.body.pedido[i].name,
+        },
+      });
 
-    const prodId = await Product.findAll({
-      where: {
-        id: req.body.product_id,
-      },
-    });
-
-    await detailOrderCreate.addProduct(prodId);
+      const detailOrderCreate = await OrderDetail.create({
+        quantity: req.body.pedido[i].quantity,
+        price: req.body.price,
+        productId: prodId[0].dataValues.id,
+        orderId: createdOrder.dataValues.id,
+      });
+    }
 
     if (createdOrder) {
-      res.status(201).send([createdOrder, detailOrderCreate]);
+      res.status(201).send(createdOrder);
     } else {
       res.status(404).send("Error creating order!");
     }
