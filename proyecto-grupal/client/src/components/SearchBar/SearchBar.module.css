@@ -4,14 +4,14 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin-left: 10%;
+    margin-left: 5%;
     
 }
 
 form{
     display: flex;
     flex-direction: row;
-    width: 430px;
+    width: 450px;
 }
 
 .name {
@@ -58,7 +58,7 @@ input:focus {
     margin-right: 30px;
   }
   .alpha i {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
   .alpha:hover {
     color: #004ea8;

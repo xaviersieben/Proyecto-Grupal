@@ -2,10 +2,10 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-  margin-right: 30px;
+  margin-right: 10px;
 }
 .alpha i {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 .alpha:hover {
   color: #004ea8;
@@ -15,7 +15,7 @@
 .header {
   display: flex;
   flex-direction: row;
-  /* justify-content: space-around; */
+  justify-content: space-around;
   align-items: center;
   background-color: white;
 }
@@ -38,14 +38,14 @@ img {
    
 }
 .logo{
-  margin-left: 90px; 
+  margin-left: 12px; 
 }
 
 .filters {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 30px;
+  margin: 20px;
   caret-color: transparent;
 }
 
@@ -63,7 +63,22 @@ img {
   background: #0c3d76b8;
   overflow: hidden;
   border-radius: 4px;
-  margin-right: 30px;
+  margin-right: 5px;
   border:0;
 }
 
+.btns {
+  color: #fff;
+  padding: 0px 17px 0px 17px;
+  font-family:'Poppins', sans-serif; 
+  font-size: 1em;
+  height:2.2rem;
+  background-color: #0c3d76b8;
+  border-radius: 4px;
+  border: none;
+  margin-right: 2rem;
+}
+.btns:hover{
+  border: 1px solid  #0c3d76b8;
+  cursor: pointer;
+}
