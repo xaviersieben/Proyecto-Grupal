@@ -21,8 +21,13 @@ export default function ProductCard ({ title, id, price, images, rating }) {
           <strong>Price: $ </strong>
           {price?price:"0"}
         </p>
-        {rating>0 ? <div className={sty.stars}><div className={sty.percent} style={{ width: `${((rating*100)/10)*2}%` }}></div></div> : <div className={sty.stars}><div className={sty.percent} style={{ width: `${0}%` }}></div></div> }
-  
+        <div className={ sty.ratingbox } > 
+        <p className={sty.weight}>
+          <strong>Rating: </strong>
+          {rating ? rating : "0"}
+        </p>
+            {rating>0 ? <div className={sty.stars}><div className={sty.percent} style={{ width: `${((rating*100)/10)*2}%` }}></div></div> : <div className={sty.stars}><div className={sty.percent} style={{ width: `${0}%` }}></div></div> }
+        </div>
       </div>
     </div>
       
