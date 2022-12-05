@@ -105,7 +105,7 @@ export default function productsReducer (state= initialState, action){
             if (action.payload.length === 0) {
                 productList = state.allProducts
             } else {
-                productList = state.products.filter( product => {
+                productList = state.allProducts.filter( product => {
                 let nameProduct = product.title.toLowerCase();
                 return nameProduct.includes(action.payload.toLowerCase())
                 })
