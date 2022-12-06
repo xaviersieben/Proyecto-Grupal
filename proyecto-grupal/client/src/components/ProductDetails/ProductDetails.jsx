@@ -12,6 +12,7 @@ export default function ProductDetails() {
     const history= useHistory()
     // redux states --------------------------------
     const prod = useSelector(state=>state.detail)
+    console.log(prod);
     //const dark = useSelector(state=>state.dark)
 
    useEffect(()=>{
@@ -20,7 +21,7 @@ export default function ProductDetails() {
 
  //--------handler click--------------------
    function handleClickCreate() {
-    history.push("/create");
+    history.push(`/modifyProduct/${id}`);
   }
   function handleClickBack() {
     history.push("/home");
@@ -79,7 +80,7 @@ export default function ProductDetails() {
                 </p>
 
                 <button onClick={handleClickCreate} className={sty.button1 }>
-                  <i className="fa-solid fa-plus"></i> Create a product
+                  <i className="fa-solid fa-plus"></i> Modify product
                 </button>
               
               </div>
