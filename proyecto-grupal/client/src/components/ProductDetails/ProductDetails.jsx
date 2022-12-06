@@ -79,9 +79,9 @@ export default function ProductDetails() {
                   {prod?.category}
                 </p>
 
-                {/* <button onClick={handleClickCreate} className={sty.button1 }>
+                <button onClick={handleClickCreate} className={sty.button1 }>
                   <i className="fa-solid fa-plus"></i> Modify product
-                </button> */}
+                </button>
               
               </div>
                
