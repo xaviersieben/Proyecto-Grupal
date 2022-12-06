@@ -1,6 +1,5 @@
 const { Product, Category } = require("../db.js");
 
-
 const getAllProducts = async () => {
   const allProducts = await Product.findAll({
     include: [Category],
@@ -9,19 +8,16 @@ const getAllProducts = async () => {
 };
 
 const createNewProduct = async (newProduct, category) => {
-  console.log(category)
   const cat = await Category.findAll({
     where: {
       name: category,
     },
   });
-  console.log(cat);
 
   const productToInsert = {
     ...newProduct,
-    
   };
-  console.log(productToInsert);
+
   const createdProduct = await Product.create(productToInsert);
   createdProduct.addCategory(cat);
 
@@ -44,13 +40,13 @@ const deleteProduct = async (id) => {
   return destroy;
 };
 
-const findProvider = async (category) => {
-
-  const find = await Category.findOne({
+const findCategory = async (category) => {
+  const find = await Category.findAll({
     where: {
-      name: category.name,
+      name: category,
     },
   });
+
   return find;
 };
 
@@ -60,17 +56,17 @@ const productUpdate = async (id, body) => {
       id: id,
     },
   });
+
   return prodUpdate;
 };
 
 const getLastIdProduct = async () => {
   const allId = await Product.findOne({
-    order: [ [ 'id', 'DESC' ]],
-    });
-   
+    order: [["id", "DESC"]],
+  });
 
   return allId;
-}
+};
 
 module.exports = {
   getAllProducts,
@@ -78,6 +74,6 @@ module.exports = {
   getProductById,
   deleteProduct,
   productUpdate,
-  findProvider,
+  findCategory,
   getLastIdProduct,
 };

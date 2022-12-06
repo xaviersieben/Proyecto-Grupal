@@ -1,12 +1,13 @@
 const { Order, User,OrderDetail,Product } = require("../db.js");
 
-const createNewOrder = async (userId, amount) => {
+const createNewOrder = async (userId, amount,quantity) => {
   try {
     const findUser = await User.findByPk(userId);
 
     const newOrder = await Order.create({
-      amount: amount,
+      price: amount,
       userId:userId,
+      quantity:quantity
     });
 
     return newOrder;
@@ -17,7 +18,7 @@ const createNewOrder = async (userId, amount) => {
 
 const getAllOrders = async () => {
   const allOrders = await Order.findAll({
-    include: [OrderDetail],
+    include: [{model: OrderDetail,include:[Product]}],
   });
   return allOrders;
 };

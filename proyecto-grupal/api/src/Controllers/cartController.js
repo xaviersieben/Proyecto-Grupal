@@ -11,6 +11,7 @@ const saveUserCart = async (req, res, next) => {
 
 const getUserCart = async (req, res, next) => {
   const { user } = req.query;
+  console.log(user)
   try {
     const cartFound = await cartServices.getUserCart(user);
     res.send(cartFound);

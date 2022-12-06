@@ -19,6 +19,16 @@ module.exports = OrderDetailFactory = (sequelize) => {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
+      productId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: false
+      },
+      orderId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: false
+      },
 
 
     },

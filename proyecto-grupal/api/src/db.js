@@ -53,11 +53,11 @@ User.hasMany(Order);
 Cart.belongsTo(User, { foreignKey: "user_id" });
 User.hasOne(Cart, { foreignKey: "user_id" });
 
-Order.hasMany(OrderDetail, { foreignKey: "order_id" });
-OrderDetail.belongsTo(Order, { foreignKey: "order_id" });
+Order.hasMany(OrderDetail, { foreignKey: "orderId" });
+OrderDetail.belongsTo(Order, { foreignKey: "orderId" });
 
-Product.belongsToMany(OrderDetail, {through: 'product_orderdetail'});
-OrderDetail.belongsToMany(Product, {through: 'product_orderdetail'});
+Product.hasMany(OrderDetail, {foreignKey: "productId" });
+OrderDetail.belongsTo(Product, {foreignKey: "productId" });
 
 
 
