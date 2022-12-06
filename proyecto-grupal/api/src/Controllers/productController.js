@@ -2,7 +2,6 @@ const productServices = require("../Services/productoService");
 const { Product, Category } = require("../db.js");
 const axios = require("axios");
 
-
 const getAllProducts = async (req, res, next) => {
   const { name } = req.query;
 
@@ -27,8 +26,8 @@ const getAllProducts = async (req, res, next) => {
 
 const createNewProduct = async (req, res, next) => {
   const { body } = req;
-  let id = await productServices.getLastIdProduct()
-  
+  let id = await productServices.getLastIdProduct();
+
   try {
     const newItemProduct = {
       id: ++id.dataValues.id,
@@ -38,13 +37,13 @@ const createNewProduct = async (req, res, next) => {
       rating: body.rating,
       stock: body.stock,
       brand: body.brand,
-    
+
       thumbnail: body.thumbnail,
       images: body.images,
     };
 
     const category = body.categories;
-  
+
     const createProduct = await productServices.createNewProduct(
       newItemProduct,
       category
@@ -96,12 +95,10 @@ const updateProduct = async (req, res, next) => {
   const { id } = req.params;
   const { body } = req;
 
-
-
   try {
     const product = await productServices.getProductById(id);
 
-    const cat = await productServices.findProvider(body.category);
+    const cat = await productServices.findCategory(body.categories);
 
     !product
       ? res.status(404).send("Product not found...")
@@ -112,6 +109,8 @@ const updateProduct = async (req, res, next) => {
     const updateProd = await productServices.productUpdate(id, {
       ...body,
     });
+    await product.setCategories(cat);
+
     if (updateProd) {
       const newListProd = await productServices.getAllProducts();
       return res.status(200).send(newListProd);
@@ -126,5 +125,5 @@ module.exports = {
   createNewProduct,
   getProductById,
   deleteProduct,
-  updateProduct
+  updateProduct,
 };
