@@ -1,6 +1,8 @@
 const userServices = require('../Services/userService.js');
 const { User } = require('../db.js');
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
+const { JWT_KEY } = process.env;
 
 const getAllUsers = async (_req, res, next) => {
     try{
@@ -42,39 +44,83 @@ const createNewUser = async (req, res, next) => {
     }
 }
 
-const deleteUser = async (req, res, next) =>{
+const swapStatus = async (req, res, next) =>{
     try{
-        const { email } = req.body;
-        const user = await User.update(
-            {active: false},
-            {where: {email: email}}
-        );
-        if(user[0]===1){
-            res.status(200).json({msg: "User found and deleted"})
+        const user0 = await User.findOne({ where : {email : req.body.email }});
+        if(user0){
+            const updated = await User.update(
+                {active: !user0.active},
+                {where: {email: req.body.email}}
+            );
+            if(updated[0]===1){
+                userStatus = !user0.active;
+                res.status(200).json({msg: `User is active: ${userStatus}`})
+            }
         }else{
             res.status(400).json({msg: "User not found in the DB"});
+        }        
+    }catch(error){
+        next(error)
+    }
+}
+
+const swapType = async(req, res, next) =>{
+    try{
+        const user = await User.findOne({ where : {id : req.params.id }});
+        if(user){
+            const updated = await User.update(
+                {isAdmin: !user.isAdmin},
+                {where: {id: req.params.id}}
+            );
+            if(updated[0]===1){
+                userStatus = !user.isAdmin;
+                res.status(200).json({msg: `User is admin: ${userStatus}`})
+            }
+        }else{
+            res.status(400).json({msg: "User not found in the DB"});
+        }  
+    }catch(error){
+        next(error);
+    }
+}
+
+const userLogin = async(req, res, next) =>{
+    try{
+        const user = await User.findOne({ where : {email : req.body.email }});
+        if(user){
+            const validatePassword = await bcrypt.compare(req.body.password,user.password);
+            if(validatePassword){
+                let payload = { "id": user.id, "email": user.email, "isAdmin": user.isAdmin};
+                let token = jwt.sign(payload,JWT_KEY,{expiresIn: "1h"})//signature (y headers y payload?)
+                res.status(200).json({token: token});
+            }else{
+                res.status(400).json({msg: "Password Incorrect"});
+            }
+        }else{
+            res.status(400).json({msg: "User does not exist"});
         }
     }catch(error){
         next(error)
     }
 }
 
-const promoteUser = async(req, res, next) =>{
-    try{
-        const { id } = req.params;
-        const user = await User.update(
-            {type: 'admin'},
-            {where: {id: id}}
-        );
-        console.log(user)
-        if(user[0]===1){
-            res.status(200).json({msg: "User found and promoted"})
-        }else{
-            res.status(400).json({msg: "User not found in the DB"});
-        }
-    }catch(error){
-        next(error);
+const userAuth = async (req, res, next) =>{
+    const token = req.cookies.jwt
+    if(token){
+        jwt.verify(token, JWT_KEY, (err, decodedToken) =>{
+            if(err){
+            return res.status(401).json({ message: "Not authorized" })
+            }else{
+                if(decodedToken.role !== "Basic"){
+                    return res.status(401).json({ message: "Not authorized" })
+                }else{
+                    next()
+                }
+            }
+        })
+    }else{
+        return res.status(401).json({ message: "Not authorized, token not available" })
     }
 }
 
-module.exports = {createNewUser, deleteUser, getAllUsers, promoteUser}
+module.exports = {createNewUser, swapStatus, getAllUsers, swapType, userLogin, userAuth}
