@@ -248,3 +248,49 @@ export function removeItem(productId) {
 
 
 
+// USERS
+
+export const GET_USERS = 'GET_USERS';
+export const SET_ACTIVE_INACTIVE = 'SET_ACTIVE_INACTIVE';
+export const TURN_INTO_ADMIN_OR_USER = 'TURN_INTO_ADMIN_OR_USER';
+
+export function getUsers() {
+    return (dispatch) => {
+        fetch('http://localhost:3001/user')
+        .then(res => res.json())
+        .then(data => {
+            dispatch({
+                type: GET_USERS,
+                payload: data
+            });
+        });
+    }
+}
+
+export function setActiveInactive(objEmail) {
+    return async function (dispatch) {
+      try {
+       let res = await axios.put(`http://localhost:3001/user`, objEmail);
+        return dispatch({
+          type: SET_ACTIVE_INACTIVE,
+          payload: res.data
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  export function turnIntoAdminOrUser(id) {
+    return async function (dispatch) {
+      try {
+       let res = await axios.put(`http://localhost:3001/user/${id}`);
+        return dispatch({
+          type: TURN_INTO_ADMIN_OR_USER,
+          payload: res.data
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
