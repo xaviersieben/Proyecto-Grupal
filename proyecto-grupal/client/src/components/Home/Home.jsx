@@ -78,7 +78,7 @@ function orderRating() {
         <div className={s.filters}>
           <div>
             <Link to={'/createProduct'}>
-              <button className={s.btns}>Crear Producto</button>
+              <button className={s.btns}>Create Product</button>
             </Link>
           </div>
 
