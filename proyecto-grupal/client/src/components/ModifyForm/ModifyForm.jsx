@@ -14,7 +14,7 @@ export default function ModifyForm({id, productDetails}) {
     const dispatch = useDispatch();
     const allCategories = useSelector((state) => state.categories);
     const history = useHistory();
-    console.log('title: ' + title);
+    // console.log('title: ' + title);
 
 
     const [input, setInput] = useState({
@@ -38,7 +38,7 @@ export default function ModifyForm({id, productDetails}) {
     useEffect(() => {
         dispatch(getCategories());
     }, [dispatch, errors]);
-    console.log(input.categories);
+    // console.log(input.categories);
 
     function handleInputChange(e) {
         e.preventDefault();
@@ -54,8 +54,7 @@ export default function ModifyForm({id, productDetails}) {
     function handleImageAddition(e) {
         e.preventDefault();
         let image = input.image;
-        //imageArr.push(input.image);
-        //setImageArr(imageArr.push(input.image));
+        
         setInput({
             ...input,
             image: '',
@@ -136,12 +135,12 @@ export default function ModifyForm({id, productDetails}) {
             errors.price = errors.price + " Price must be a number equal to or above 0," :
             errors.price = " Price must be a number equal to or above 0,";
         }
-        if (!/^\d+$/.test(inputToValidate.rating)) {
+        if (isNaN(parseFloat(inputToValidate.rating).toFixed(2))) {
             errors.rating ? 
             errors.rating = errors.rating + " Rating must contain only numbers," : 
             errors.rating = " Rating Score must contain only numbers,";
         }
-        if (inputToValidate.rating < 0 || inputToValidate.rating > 5) {
+        if (inputToValidate.rating < 0 || inputToValidate.rating * 100 > 500 || inputToValidate.rating > 5) {
             errors.rating ?
             errors.rating = errors.rating + " Rating must be a number equal to or above 0 or equal to or below 5," :
             errors.rating = " Rating must be a number equal to or above 0 or equal to or below 5,";
@@ -201,18 +200,16 @@ export default function ModifyForm({id, productDetails}) {
         } else if (!input.title || !input.description || input.price === '' || input.rating === '' || input.stock === '' || !input.brand || input.categories.length === 0 || !input.thumbnail || !input.images || input.images.length === 0) {
             alert('Please, complete all fields before submitting');
         } else {
-            console.log(`Producto a modificar:`);
-            console.dir(input);
+            // console.log(`Producto a modificar:`);
+            // console.dir(input);
             let objProducto = {
                 title: input.title,
                 description: input.description,
                 price: input.price,
-                rating: input.rating,
+                rating: parseFloat(input.rating).toFixed(2),
                 stock: input.stock,
                 brand: input.brand,
-                categories: input.categories.map(category => {
-                    return {name: category}
-                }),
+                categories: input.categories,
                 thumbnail: input.thumbnail,
                 images: input.images,
                 active: true
@@ -241,26 +238,26 @@ export default function ModifyForm({id, productDetails}) {
         <div className={styles.fullDiv}>
             
             <div className={styles.mainDiv}>
-                <h1>Formulario de Modificación de Producto</h1>
+                <h1>Product Modification Form:</h1>
                 <form className={styles.form}>
                     <div className={styles.divInput}>
-                        <label className={styles.label} htmlFor="">Título:</label>
-                        <input className={styles.input} placeholder="Título del producto..." value={input.title} name="title" type="text" onChange={(e) => handleInputChange(e)} />
+                        <label className={styles.label} htmlFor="">Title:</label>
+                        <input className={styles.input} placeholder="Product title..." value={input.title} name="title" type="text" onChange={(e) => handleInputChange(e)} />
                         {errors.title && <span className={styles.errorSpan}>*{errors.title}</span>}
                     </div>
                     <div className={styles.divInput}>
-                        <label className={styles.label} htmlFor="">Descripción:</label>
-                        <textarea className={styles.inputArea} placeholder="Descripción..." value={input.description} name="description" onChange={(e) => handleInputChange(e)} />
+                        <label className={styles.label} htmlFor="">Description:</label>
+                        <textarea className={styles.inputArea} placeholder="Description..." value={input.description} name="description" onChange={(e) => handleInputChange(e)} />
                         {errors.description && <span className={styles.errorSpan}>*{errors.description}</span>}
                     </div>
                     <div className={styles.divInput}>
-                        <label className={styles.label} htmlFor="">Precio:</label>
+                        <label className={styles.label} htmlFor="">Price:</label>
                         <input className={styles.input} placeholder="00" value={input.price} name="price" type="text" onChange={(e) => handleInputChange(e)} />
                         {errors.price && <span className={styles.errorSpan}>*{errors.price}</span>}
                     </div>
                     <div className={styles.divInput}>
                         <label className={styles.label} htmlFor="">Rating:</label>
-                        <input className={styles.input} placeholder="0 a 5" value={input.rating} name="rating" type="number" onChange={(e) => handleInputChange(e)} />
+                        <input className={styles.input} placeholder="0,00 to 5,00" value={input.rating} name="rating" type="number" min={0} max={5} step={0.01} onChange={(e) => handleInputChange(e)} />
                         {errors.rating && <span className={styles.errorSpan}>*{errors.rating}</span>}
                     </div>
                     <div className={styles.divInput}>
@@ -269,12 +266,12 @@ export default function ModifyForm({id, productDetails}) {
                         {errors.stock && <span className={styles.errorSpan}>*{errors.stock}</span>}
                     </div>
                     <div className={styles.divInput}>
-                        <label className={styles.label} htmlFor="">Marca:</label>
-                        <input className={styles.input} placeholder="Marca..." value={input.brand} name="brand" type="text" onChange={(e) => handleInputChange(e)} />
+                        <label className={styles.label} htmlFor="">Brand:</label>
+                        <input className={styles.input} placeholder="Brand..." value={input.brand} name="brand" type="text" onChange={(e) => handleInputChange(e)} />
                         {errors.brand && <span className={styles.errorSpan}>*{errors.brand}</span>}
                     </div>
                     <div className={styles.divCategories}>
-                        <label className={styles.label} htmlFor="">Categorías:</label>
+                        <label className={styles.label} htmlFor="">Categories:</label>
                         <div className={styles.divCategoriesList}>
                             {allCategories?.map((category, index) => {
                                 return (
@@ -289,31 +286,31 @@ export default function ModifyForm({id, productDetails}) {
                         {errors.categories && <span className={styles.errorSpan}>*{errors.categories}</span>}
 
 
-                        <p className={styles.textAlignLeft}>Categorías del producto seleccionadas: {input.categories.map((category) => {
+                        <p className={styles.textAlignLeft}>Product Categories Selected: {input.categories.map((category) => {
                             return `${category}, `;
                         })}</p>
                     </div>
                     <div className={styles.divInput}>
-                        <label className={styles.label} htmlFor="">Link imagen miniatura:</label>
+                        <label className={styles.label} htmlFor="">Thumbnail image link:</label>
                         <input className={styles.input} placeholder="https://..." value={input.thumbnail} name="thumbnail" type="text" onChange={(e) => handleInputChange(e)} />
                         {errors.thumbnail && <span className={styles.errorSpan}>*{errors.thumbnail}</span>}
                     </div>
                     <div className={styles.divInput}>
-                        <label className={styles.label} htmlFor="">Imagen del Producto:</label>
+                        <label className={styles.label} htmlFor="">Product Image:</label>
                         <input className={styles.input} placeholder="https://..." value={input.image} name="image" type="text" onChange={(e) => handleInputChange(e)} />
-                        <Button disabled={(input.image === '' || errors.image) && "disabled"} onClick={(e) => { handleImageAddition(e) }} color="success" variant="contained" size="small">Agregar</Button>
+                        <Button disabled={(input.image === '' || errors.image) && "disabled"} onClick={(e) => { handleImageAddition(e) }} color="success" variant="contained" size="small">Add</Button>
                         {errors.image && <span className={styles.errorSpan}>*{errors.image}</span>}
-                        <div><p className={styles.textAlignLeft}>Imagenes a agregar: </p>{input.images?.map((imagen, index) => {
-                            // return <li key={index}>{index + 1}: {imagen}  <button value={imagen} onClick={(e) => { handleImageDeletion(e) }}>Eliminar</button></li>;
+                        <div><p className={styles.textAlignLeft}>Images to add: </p>{input.images?.map((imagen, index) => {
+                            
                             return (
                                 <div className={styles.imageToAdd} key={index}>
                                     <img className={styles.image} src={imagen} alt="to-add" />
-                                    <Button className={styles.eliminar} value={imagen} onClick={(e) => { handleImageDeletion(e) }} color="error" variant="contained" size="small">Eliminar</Button>
+                                    <Button className={styles.eliminar} value={imagen} onClick={(e) => { handleImageDeletion(e) }} color="error" variant="contained" size="small">Delete</Button>
                                 </div>
                             )
                         })}</div>
                     </div>
-                    <Button onClick={(e) => { handleSubmit(e) }} color="success" variant="contained" size="small">Crear Producto</Button>
+                    <Button onClick={(e) => { handleSubmit(e) }} color="success" variant="contained" size="small">Modify Product</Button>
 
                 </form>
             </div>
