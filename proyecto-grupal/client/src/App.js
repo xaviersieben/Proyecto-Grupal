@@ -6,6 +6,7 @@ import CreateCategory from './components/CreateCategory/CreateCategory.jsx'
 import Home from './components/Home/Home';
 import ProductDetails from './components/ProductDetails/ProductDetails';
 import s from './App.module.css';
+import UsersAdministration from './components/UsersAdministration/UsersAdministration';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/modifyProduct/:id' component={ModifyProduct} />
         <Route path='/createProduct' component={CreateProduct} />
         <Route path='/createCategory' component={CreateCategory} />
+        <Route path='/administrateUsers' component={UsersAdministration} />
       
     </div>
   );
