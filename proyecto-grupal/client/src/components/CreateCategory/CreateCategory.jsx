@@ -24,7 +24,7 @@ export default function CreateCategory () {
     useEffect(() => {
         dispatch(getCategories());
     }, [dispatch]);
-    console.log(categories);
+    // console.log(categories);
 
     function handleInputChange(e) {
         e.preventDefault();
@@ -77,24 +77,24 @@ export default function CreateCategory () {
 
     return (
         <div className={styles.fullDiv}>
-            <Link className={styles.volverAtras} to='/home'>Volver atrás...</Link>
+            <Link className={styles.volverAtras} to='/createProduct'>Go Back...</Link>
             <div className={styles.mainDiv}>
-                <h1>Creación de nueva categoría:</h1>
+                <h1>Category Creation:</h1>
                 <div className={styles.divFormTable}>
                     
                     <form className={styles.categoryForm}>
                         <div className={styles.labelInput}>
-                            <label htmlFor="">Nombre:</label>
-                            <input className={styles.input} placeholder="Nombre de la categoría..." value={input.name} name="name" type="text" onChange={(e) => handleInputChange(e)} />
+                            <label htmlFor="">Name:</label>
+                            <input className={styles.input} placeholder="Category Name..." value={input.name} name="name" type="text" onChange={(e) => handleInputChange(e)} />
                         </div>
                         <div className={styles.spanButton}>
                             {errors.name && <span className={styles.errorSpan}>*{errors.name}</span>}
-                            <Button disabled={(input.name === '' || errors.name) && "disabled"} onClick={(e) => { handleSubmit(e) }} color="success" variant="contained" size="small">Crear Categoría</Button>
+                            <Button disabled={(input.name === '' || errors.name) && "disabled"} onClick={(e) => { handleSubmit(e) }} color="success" variant="contained" size="small">Create Category</Button>
                         </div>
                     </form>
                     
                     <div className={styles.divTable}>
-                        <h3>Categorías existentes:</h3>
+                        <h3>Existing Categories:</h3>
                         {/* <table>
                 <tbody>
                     <tr>
