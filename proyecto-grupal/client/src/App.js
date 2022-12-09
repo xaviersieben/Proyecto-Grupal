@@ -5,6 +5,7 @@ import ModifyProduct from './components/ModifyProduct/ModifyProduct.jsx';
 import CreateCategory from './components/CreateCategory/CreateCategory.jsx'
 import Home from './components/Home/Home';
 import ProductDetails from './components/ProductDetails/ProductDetails';
+import Register from './components/Register/Register';
 import s from './App.module.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path='/modifyProduct/:id' component={ModifyProduct} />
         <Route path='/createProduct' component={CreateProduct} />
         <Route path='/createCategory' component={CreateCategory} />
+        <Route exact path='/register' component={Register} />
       
     </div>
   );

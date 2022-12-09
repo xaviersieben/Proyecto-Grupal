@@ -78,7 +78,7 @@ function orderRating() {
         <div className={s.filters}>
           <div>
             <Link to={'/createProduct'}>
-              <button className={s.btns}>Crear Producto</button>
+              <button className={s.btns}>Create Product</button>
             </Link>
           </div>
 
@@ -116,6 +116,13 @@ function orderRating() {
           </button>  
 
         <SearchBar paginationReset={paginationReset}/>
+        
+        <div>
+          <Link to={'/register'}>
+            <button className={s.btns}>SignUp</button>
+          </Link>
+        </div>
+
       </div>
       
       <div className="">
