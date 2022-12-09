@@ -1,9 +1,11 @@
-import { Button } from "@mui/material";
+import { Button, TableRow } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import * as actions from '../../redux/actions/productsActions';
+import styles from './userRow.module.css';
+import { TableCell } from "@mui/material";
 
 export default function UserRow ({id, name, surname, password, email, address, isAdmin, active}) {
     const dispatch = useDispatch();
@@ -35,25 +37,15 @@ export default function UserRow ({id, name, surname, password, email, address, i
         setIsActive(!isActive);
     }
     return (
-        // <tr key={user.id}>
-        //     <td>{user.id}</td>
-        //     <td>{user.name}</td>
-        //     <td>{user.surname}</td>
-        //     <td>{user.password}</td>
-        //     <td>{user.email}</td>
-        //     <td>{user.adress}</td>
-        //     <td><Button color={user.isAdmin?'success':'error'} onClick={(e) => {handleClickAdmin(e)}}>{user.isAdmin?'admin':'user'}</Button></td>
-        //     <td><Button color={user.active?'success':'error'} onClick={(e) => {handleClickActive(e)}}>{user.active?'active':'inactive'}</Button></td>
-        // </tr>
-        <tr key={id}>
-            <td>{id}</td>
-            <td>{name}</td>
-            <td>{surname}</td>
-            <td>{password}</td>
-            <td>{email}</td>
-            <td>{address}</td>
-            <td><Button color={admin?'success':'error'} onClick={(e) => {handleClickAdmin(e)}}>{admin?'admin':'user'}</Button></td>
-            <td><Button color={isActive?'success':'error'} onClick={(e) => {handleClickActive(e)}}>{isActive?'active':'inactive'}</Button></td>
-        </tr>
+        <TableRow key={id} className={(id % 2 === 0)? styles.tableRowEven:styles.tableRowOdd}>
+            <TableCell>{id}</TableCell>
+            <TableCell>{name}</TableCell>
+            <TableCell>{surname}</TableCell>
+            <TableCell>{password}</TableCell>
+            <TableCell>{email}</TableCell>
+            <TableCell>{address}</TableCell>
+            <TableCell sx={{ paddingLeft: '7px' }}><Button color={admin?'success':'error'} variant='contained' onClick={(e) => {handleClickAdmin(e)}}>{admin?'admin':'user'}</Button></TableCell>
+            <TableCell sx={{ paddingLeft: '7px' }}><Button color={isActive?'success':'error'} variant='contained' onClick={(e) => {handleClickActive(e)}}>{isActive?'active':'banned'}</Button></TableCell>
+        </TableRow>
     )
 }
