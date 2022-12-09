@@ -7,6 +7,7 @@ import Home from './components/Home/Home';
 import ProductDetails from './components/ProductDetails/ProductDetails';
 import Register from './components/Register/Register';
 import s from './App.module.css';
+import UsersAdministration from './components/UsersAdministration/UsersAdministration';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         <Route path='/createProduct' component={CreateProduct} />
         <Route path='/createCategory' component={CreateCategory} />
         <Route exact path='/register' component={Register} />
-      
+        <Route path='/administrateUsers' component={UsersAdministration} />    
     </div>
   );
 }

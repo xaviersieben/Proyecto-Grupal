@@ -31,10 +31,10 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        type: {
-            type: DataTypes.ENUM('regular', 'admin'),
+        isAdmin: {
+            type: DataTypes.BOOLEAN,
             allowNull: false,
-            defaultValue: 'regular',
+            defaultValue: false,
         },
         active: {
             type: DataTypes.BOOLEAN,
