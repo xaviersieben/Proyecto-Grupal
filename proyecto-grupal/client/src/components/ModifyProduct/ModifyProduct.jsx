@@ -33,7 +33,7 @@ export default function ModifyProduct() {
 
     return (
         <div className={styles.fullDiv}>
-            <Link className={styles.volverAtras} to='/home'>Volver atrás...</Link>
+            <Link className={styles.volverAtras} to='/home'>Go Back...</Link>
             { productDetails && <ModifyForm id={id} productDetails={productDetails} />}
         </div>
     )

@@ -1,7 +1,10 @@
-const { Category } = require('../../db');
-const { Product } = require('../../db');
+const { Category, Product, User } = require('../../db');
+//const { Product } = require('../../db');
 const axios = require('axios');
-const {apiArray} = require('./productfix')
+const {apiArray} = require('./productfix');
+const {userArray} =require('./userfix');
+const { use } = require('chai');
+
 
 const storeAllProducts = async () =>{
     try{
@@ -32,7 +35,17 @@ const storeAllCategories = async () =>{
     }
 }
 
+const storeAllUsers = async ()=>{
+    try{
+        await User.bulkCreate(userArray)
+        console.log('Users correctly stored into the DB');
+    }catch(error){
+        console.log(error)
+    }
+}
+
 module.exports = {
     storeAllCategories,
     storeAllProducts,
+    storeAllUsers
 }
