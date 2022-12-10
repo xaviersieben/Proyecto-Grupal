@@ -8,7 +8,7 @@ import ProductCard from '../ProductCard/ProductCard';
 import Pagination from "../Pagination/Pagination";
 import s from './Home.module.css';
 import logo from "..//../img/logo.JPG";
-
+import LoginModal from "../Login/LoginModal";
 
 
 export default function Home() {
@@ -71,6 +71,7 @@ function orderRating() {
 
   return (
     <div className={s.container}>
+      <LoginModal/>  
       <div className={s.header}>
         <img src={logo} alt="LOGO" className={s.logo}/>
         <h3>CloudyBuy</h3>
@@ -128,10 +129,10 @@ function orderRating() {
       <div className="">
 
       </div>
+          
       
       <Pagination pageSize={pageSize} totalProducts={listProducts.length} 
         page={page} pagination={pagination}/>
-
       <div className={s.productCards}>
         {
           currentProducts?.map( (product, index) => 

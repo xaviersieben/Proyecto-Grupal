@@ -251,6 +251,10 @@ export default function productsReducer(state = initialState, action) {
             return {
                 ...state
             }
+        case "LOGIN_USER":
+            return {
+                ...state
+            }
 
         default:
             return { ...state };

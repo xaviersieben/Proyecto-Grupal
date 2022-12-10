@@ -1,0 +1,62 @@
+.modal{
+  position:absolute;
+  z-index:999;
+  top:0;
+  left:0;
+  width:100%;
+  min-height:100vh;
+  display:none;
+  background-color: rgba(0,0,0,0.75);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.modal_open{
+display: flex !important;
+}
+.modal_container{
+position: relative;
+padding: 1rem;
+min-width: 400px;
+max-width: 600px;
+min-height: 200px;
+max-height: 600px;
+overflow-y: auto;
+background-color: #fff;
+}
+.modal_close{
+position:absolute;
+top:1rem;
+right: 1rem;
+}
+.danger {
+  color: red;
+  font-size: 0.8rem;
+  margin: 0;
+}
+.formCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 40px;
+}
+.formCard, input {
+  width: 90%;
+  font-size: 1.1rem;
+}
+.btns {
+  color: #fff;
+  padding: 0px 17px 0px 17px;
+  font-family:'Poppins', sans-serif; 
+  font-size: 1em;
+  height:2.2rem;
+  background-color: #0c3d76b8;
+  border-radius: 4px;
+  border: none;
+  margin-top: 1.5rem;
+  width: 92%;
+}
+.btns:hover{
+  border: 1px solid  #0c3d76b8;
+  cursor: pointer;
+}
