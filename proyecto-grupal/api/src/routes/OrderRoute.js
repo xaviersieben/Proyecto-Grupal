@@ -3,6 +3,7 @@ const {
   createNewOrder,
   getAllOrders,
   updateOrder,
+  deleteOrder,
 } = require("../Controllers/orderController");
 
 const router = require("express").Router();
@@ -18,5 +19,7 @@ router.post("/cart", saveUserCart);
 router.get("/cart", getUserCart);
 
 router.put("/:id", updateOrder);
+
+router.delete("/:id", deleteOrder);
 
 module.exports = router;

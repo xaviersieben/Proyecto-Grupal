@@ -38,18 +38,16 @@ const getOrders = async (id) => {
 };
 
 const findOrders = async (order) => {
- 
-
-  for (let i = 0; i <order.length; i++) {
+  for (let i = 0; i < order.length; i++) {
     const prodId = await Product.findAll({
       where: {
-        title:order[i].name,
+        title: order[i].name,
       },
     });
- 
 
-  return find;
-}}
+    return find;
+  }
+};
 
 const orderUpdate = async (id, body) => {
   const ordUpdate = await Order.update(body, {
@@ -59,7 +57,19 @@ const orderUpdate = async (id, body) => {
   });
 
   return ordUpdate;
+};
 
+const deleteOrder = async (id) => {
+  const ordUpdate = await Order.update(
+    { status: "cancelled" },
+    {
+      where: {
+        id: id,
+      },
+    }
+  );
+
+  return ordUpdate;
 };
 
 module.exports = {
@@ -68,5 +78,6 @@ module.exports = {
   getOrderById,
   orderUpdate,
   findOrders,
-  getOrders
+  getOrders,
+  deleteOrder,
 };

@@ -21,6 +21,17 @@ const createNewOrder = async (req, res, next) => {
         },
       });
 
+      Product.update(
+        {
+          stock: prodId[0].dataValues.stock - req.body.pedido[i].quantity,
+        },
+        {
+          where: {
+            id: prodId[0].dataValues.id,
+          },
+        }
+      );
+
       const detailOrderCreate = await OrderDetail.create({
         quantity: req.body.pedido[i].quantity,
         price: req.body.price,
@@ -69,11 +80,33 @@ const getOrderById = async (req, res, next) => {
 
 const updateOrder = async (req, res, next) => {
   const { id } = req.params;
-  console.log(id);
 
   try {
     const order = await ordersServices.getOrders(id);
     !order ? res.status(404).send("There are no orders...") : null;
+
+    for (let i = 0; i < order.dataValues.OrderDetails.length; i++) {
+      const prodId = await Product.findAll({
+        where: {
+          title: req.body.pedido[i].name,
+        },
+      });
+
+      Product.update(
+        {
+          stock:
+            prodId[0].dataValues.stock +
+            order.dataValues.OrderDetails[i].quantity,
+        },
+        {
+          where: {
+            id: order.dataValues.OrderDetails[i].productId,
+          },
+        }
+      );
+    }
+
+    order.dataValues.OrderDetails;
 
     const updated = await Order.update(
       { status: "cancelled" },
@@ -102,6 +135,17 @@ const updateOrder = async (req, res, next) => {
         },
       });
 
+      Product.update(
+        {
+          stock: prodId[0].dataValues.stock - req.body.pedido[i].quantity,
+        },
+        {
+          where: {
+            id: prodId[0].dataValues.id,
+          },
+        }
+      );
+
       const detailOrderCreate = await OrderDetail.create({
         quantity: req.body.pedido[i].quantity,
         price: req.body.price,
@@ -119,9 +163,28 @@ const updateOrder = async (req, res, next) => {
   }
 };
 
+const deleteOrder = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const order = await ordersServices.getOrders(id);
+    !order ? res.status(404).send("There are no orders...") : null;
+   
+    const destroy = await ordersServices.deleteOrder(id);
+    if (destroy) {
+      const newlist = await ordersServices.getAllOrders();
+      res.status(200).send(newlist);
+    } else {
+      res.status(404).send("Error");
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllOrders,
   createNewOrder,
   updateOrder,
   getOrderById,
+  deleteOrder
 };
