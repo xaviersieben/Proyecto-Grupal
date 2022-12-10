@@ -92,7 +92,8 @@ const userLogin = async(req, res, next) =>{
             if(validatePassword){
                 let payload = { "id": user.id, "email": user.email, "isAdmin": user.isAdmin};
                 let token = jwt.sign(payload,JWT_KEY,{expiresIn: "1h"})//signature (y headers y payload?)
-                res.status(200).json({token: token});
+                let info = {...payload, token}
+                res.status(200).json(info);
             }else{
                 res.status(400).json({msg: "Password Incorrect"});
             }
@@ -106,13 +107,21 @@ const userLogin = async(req, res, next) =>{
 
 const userAuth = async (req, res, next) =>{
     try{
-        const token = req.cookies.jwt
-        if(token){
-            const idontknow = jwt.verify(token, JWT_KEY);
-            console.log(idontknow)
-        }else{
-            return res.status(401).json({ message: "Not authorized, token not available" })
+        const authHeader = req.headers['authorization'];
+        const token = authHeader && authHeader.split(' ')[1];
+        console.log(authHeader);
+        console.log(token);
+        if(token == null){
+            return res.status(400).send("token required");
         }
+        jwt.verify(token, JWT_KEY, (error, user)=>{
+            if(error){
+                return res.status(401).send("invalid token");
+            }
+            console.log(user);
+            req.user = user;
+            next();
+        })
     }catch(error){
         next(error);
     }    
