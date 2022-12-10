@@ -1,19 +1,16 @@
 import { useLogin } from "./useLogin";
 import Login from "./Login";
+import "./LoginModal.css"
 
 const LoginModal = () => {
-  const [modalOpen,openLogin,closeLogin] = useLogin(false)
+  const [modalOpen, openLogin, closeLogin] = useLogin(false);
   return (
     <div>
-      
-      <button onclick={openLogin}>Login</button>
-      <Login modalOpen={modalOpen} closeLogin={closeLogin}>
-        <h3>LogIn</h3>
+      <button onClick={openLogin} className="btns">Login</button>
+      <Login modalOpen={modalOpen} closeLogin={closeLogin}/>
         
-        
-      </Login>
     </div>
-  )
-}
+  );
+};
 
-export default LoginModal
+export default LoginModal;
