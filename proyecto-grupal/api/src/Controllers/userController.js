@@ -105,22 +105,17 @@ const userLogin = async(req, res, next) =>{
 }
 
 const userAuth = async (req, res, next) =>{
-    const token = req.cookies.jwt
-    if(token){
-        jwt.verify(token, JWT_KEY, (err, decodedToken) =>{
-            if(err){
-            return res.status(401).json({ message: "Not authorized" })
-            }else{
-                if(decodedToken.role !== "Basic"){
-                    return res.status(401).json({ message: "Not authorized" })
-                }else{
-                    next()
-                }
-            }
-        })
-    }else{
-        return res.status(401).json({ message: "Not authorized, token not available" })
-    }
+    try{
+        const token = req.cookies.jwt
+        if(token){
+            const idontknow = jwt.verify(token, JWT_KEY);
+            console.log(idontknow)
+        }else{
+            return res.status(401).json({ message: "Not authorized, token not available" })
+        }
+    }catch(error){
+        next(error);
+    }    
 }
 
 module.exports = {createNewUser, swapStatus, getAllUsers, swapType, userLogin, userAuth}
