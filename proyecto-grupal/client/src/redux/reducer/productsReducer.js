@@ -226,9 +226,15 @@ export default function productsReducer(state = initialState, action) {
             };
 
         case "GET_ORDER_DETAIL":
+         return {
+          ...state,
+          orderDetail: action.payload,
+        };
+        case "SIGN_USER":
+            
             return {
                 ...state,
-                orderDetail: action.payload,
+                
             };
 
         case GET_USERS:

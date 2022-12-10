@@ -1,46 +1,48 @@
 import React from 'react';
-import {Carousel}  from 'react-carousel-minimal';
 import { useSelector } from "react-redux";
-import { useEffect} from "react";
 
 
-export default function CarouselImg (img) {
+
+export default function CarouselImg () {
 
   let detail = useSelector((state) => state.detail);
-  let data2 = detail.images?.map(e => ({image: e, caption:""} ));
-    const captionStyle = {
-        fontSize: '2em',
-        fontWeight: 'bold',
-      }
-      const slideNumberStyle = {
-        fontSize: '20px',
-        fontWeight: 'bold',
-      }
-
-      useEffect(() => {
-        data2=[];
-      }, []);
-
+      
     return (
     
-        
-          <Carousel
-            data={data2}
-            time={2000}
-            width="150vw"
-            height="75vh"
-            captionStyle={captionStyle}
-            radius="10px"
-            slideNumber={false}
-            slideNumberStyle={slideNumberStyle}
-            captionPosition="bottom"
-            automatic={false}
-            dots={true}
-            pauseIconColor="white"
-            pauseIconSize="40px"
-            slideBackgroundColor="darkgrey"
-            slideImageFit="cover"
-          />
+        <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel" style={{width: "700px"}}>
+        <ol className="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+        </ol>
+        <div className="carousel-inner">
+          <div className="carousel-item active">
+            <img className="d-block w-100" src={detail.images[0]} alt="First slide"/>
+          </div>
+          <div className="carousel-item">
+            <img className="d-block w-100" src={detail.images[1]} alt="Second slide"/>
+          </div>
+          <div className="carousel-item">
+            <img className="d-block w-100" src={detail.images[2]} alt="Third slide"/>
+          </div>
+          <div className="carousel-item">
+            <img className="d-block w-100" src={detail.images[3]} alt="Third slide"/>
+          </div>
+          <div className="carousel-item">
+            <img className="d-block w-100" src={detail.images[4]} alt="Third slide"/>
+          </div>
+        </div>
+        <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span className="sr-only">Previous</span>
+        </a>
+        <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span className="sr-only">Next</span>
+        </a>
+      </div>
        
  
     );
