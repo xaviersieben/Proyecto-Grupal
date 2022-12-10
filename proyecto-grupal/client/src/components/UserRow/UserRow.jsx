@@ -38,12 +38,12 @@ export default function UserRow ({id, name, surname, password, email, address, i
     }
     return (
         <TableRow key={id} className={(id % 2 === 0)? styles.tableRowEven:styles.tableRowOdd}>
-            <TableCell>{id}</TableCell>
-            <TableCell>{name}</TableCell>
-            <TableCell>{surname}</TableCell>
-            <TableCell>{password}</TableCell>
-            <TableCell>{email}</TableCell>
-            <TableCell>{address}</TableCell>
+            <TableCell sx={{color: '#e7ebf0'}}>{id}</TableCell>
+            <TableCell sx={{color: '#e7ebf0'}}>{name}</TableCell>
+            <TableCell sx={{color: '#e7ebf0'}}>{surname}</TableCell>
+            {/* <TableCell sx={{color: '#e7ebf0'}}>{password}</TableCell> */}
+            <TableCell sx={{color: '#e7ebf0'}}>{email}</TableCell>
+            <TableCell sx={{color: '#e7ebf0'}}>{address}</TableCell>
             <TableCell sx={{ paddingLeft: '7px' }}><Button color={admin?'success':'error'} variant='contained' onClick={(e) => {handleClickAdmin(e)}}>{admin?'admin':'user'}</Button></TableCell>
             <TableCell sx={{ paddingLeft: '7px' }}><Button color={isActive?'success':'error'} variant='contained' onClick={(e) => {handleClickActive(e)}}>{isActive?'active':'banned'}</Button></TableCell>
         </TableRow>
