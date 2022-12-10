@@ -6,7 +6,7 @@ const { JWT_KEY } = process.env;
 
 const getAllUsers = async (_req, res, next) => {
     try{
-        const users = await User.findAll();
+        const users = await User.findAll({attributes: {exclude: ['password']}});
         if(users.length){
             res.status(200).json(users);
         }else{
@@ -91,7 +91,7 @@ const userLogin = async(req, res, next) =>{
             const validatePassword = await bcrypt.compare(req.body.password,user.password);
             if(validatePassword){
                 let payload = { "id": user.id, "email": user.email, "isAdmin": user.isAdmin};
-                let token = jwt.sign(payload,JWT_KEY,{expiresIn: "1h"})//signature (y headers y payload?)
+                let token = jwt.sign(payload,JWT_KEY,{expiresIn: "1h"})
                 let info = {...payload, token}
                 res.status(200).json(info);
             }else{
