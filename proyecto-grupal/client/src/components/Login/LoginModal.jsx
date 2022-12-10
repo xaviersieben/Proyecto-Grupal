@@ -6,11 +6,11 @@ const LoginModal = () => {
   return (
     <div>
       
-      <button onclick={modalOpen}>Login</button>
-      <Login modalOpen={openLogin} closeLogin={closeLogin}>
+      <button onclick={openLogin}>Login</button>
+      <Login modalOpen={modalOpen} closeLogin={closeLogin}>
         <h3>LogIn</h3>
         
-        <img src="https://placeimg.com/400/400/animals" alt="Heros" />
+        
       </Login>
     </div>
   )

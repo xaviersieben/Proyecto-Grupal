@@ -1,5 +1,5 @@
 .modal{
-  position:fixed;
+  position:absolute;
   z-index:999;
   top:0;
   left:0;
@@ -11,8 +11,8 @@
   align-items: center;
 }
 
-.modal,.modal_open{
-display: flex;
+.modal.modal_open{
+display: flex !important;
 }
 .modal_container{
 position: relative;
