@@ -2,15 +2,15 @@ import { useLogin } from "./useLogin";
 import Login from "./Login";
 
 const LoginModal = () => {
-  const [modalOpen,openLogin, closeLogin] = useLogin(false)
+  const [modalOpen,openLogin,closeLogin] = useLogin(false)
   return (
     <div>
-      <h2>Modales</h2>
-      <button>Login</button>
-      <Login>
+      
+      <button onclick={modalOpen}>Login</button>
+      <Login modalOpen={openLogin} closeLogin={closeLogin}>
         <h3>LogIn</h3>
-        <p>Ingrese datos de ingreso</p>
-        <img src="https://placeimg.com/200/200/heros" alt="Heros" />
+        
+        <img src="https://placeimg.com/400/400/animals" alt="Heros" />
       </Login>
     </div>
   )
