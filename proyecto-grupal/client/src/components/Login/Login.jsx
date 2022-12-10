@@ -4,19 +4,22 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { validateLogin } from "./useLogin";
 import * as actions from "../../redux/actions/productsActions";
+import logo from "../../img/logo.JPG";
+import { Link } from "react-router-dom";
 
-const Login = ({ children, openLogin, closeLogin }) => {
+const Login = ({ children, modalOpen, closeLogin }) => {
   const handleModalContainerClick = (e) => e.stopPropagation();
+
+  const space = '\u00A0'
 
   const dispatch = useDispatch();
   const initialState = {
     email: "",
     password: "",
   };
-  
+
   const [user, setUser] = useState(initialState);
   const [errors, setErrors] = useState({});
-  
 
   const handleOnChange = (e) => {
     e.preventDefault();
@@ -37,9 +40,16 @@ const Login = ({ children, openLogin, closeLogin }) => {
   };
 
   return (
-    <div className={`modal${openLogin && " modal_open"}`} onClick={closeLogin}>
+    <article
+      className={`modal ${modalOpen && "login_open"}`}
+      onClick={closeLogin}
+    >
       <div className="modal_container" onClick={handleModalContainerClick}>
-        <button className="modal_close" onClick={closeLogin}>
+        <div className="logo_container">
+          <h3>CloudyBuy</h3>
+          <img className="logo_image" src={logo} alt="logo" />
+        </div>
+        <button className="modal_close btns_close" onClick={closeLogin}>
           X
         </button>
         <form className="formCard" onSubmit={(e) => handleSubmit(e)}>
@@ -67,9 +77,19 @@ const Login = ({ children, openLogin, closeLogin }) => {
             Login
           </button>
         </form>
-        {children}
+
+        <div className="sing_redirection">
+          <spam>
+            Don't have and account? {space}
+            <Link className="register_link" to={"/register"}>
+              Sign Here
+            </Link>
+          </spam>
+        </div>
+
+        {/* {children} */}
       </div>
-    </div>
+    </article>
   );
 };
 

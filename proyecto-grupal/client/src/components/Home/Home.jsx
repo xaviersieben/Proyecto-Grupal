@@ -71,7 +71,7 @@ function orderRating() {
 
   return (
     <div className={s.container}>
-      <LoginModal/>  
+      
       <div className={s.header}>
         <img src={logo} alt="LOGO" className={s.logo}/>
         <h3>CloudyBuy</h3>
@@ -115,9 +115,9 @@ function orderRating() {
             {rating ? ( <i className="fa-solid fa-arrow-down-z-a"></i> ) : (
               <i className="fa-solid fa-arrow-up-a-z"></i> )}
           </button>  
-
         <SearchBar paginationReset={paginationReset}/>
         
+          <LoginModal/>  
         <div>
           <Link to={'/register'}>
             <button className={s.btns}>SignUp</button>
