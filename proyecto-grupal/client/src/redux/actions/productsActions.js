@@ -235,6 +235,28 @@ export function removeItem(productId) {
   };
 }
 
+
+
+// AUTH
+
+export function signNewUser(payload) {
+  return async function (dispatch) {
+    try {
+    await axios.post(`http://localhost:3001/user`, payload);
+    return dispatch({
+      type: "SIGN_USER",
+      payload,
+    });
+    } catch (error) {
+      console.log(error)
+    }
+  };
+}
+
+
+
+
+
 // USERS
 
 export const GET_USERS = "GET_USERS";

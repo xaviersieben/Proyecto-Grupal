@@ -117,6 +117,13 @@ function orderRating() {
           </button>  
 
         <SearchBar paginationReset={paginationReset}/>
+        
+        <div>
+          <Link to={'/register'}>
+            <button className={s.btns}>SignUp</button>
+          </Link>
+        </div>
+
       </div>
       
       <div className="">

@@ -5,7 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import {getProductsDetails } from '..//../redux/actions/productsActions.js';
 import sty from "./ProductDetails.module.css";
 import CarouselImg from "../CarouselImg/CarouselImg";
-
+import logo from "..//../img/logo.JPG";
 
 
 export default function ProductDetails() {
@@ -32,8 +32,11 @@ export default function ProductDetails() {
   }
   
     return (
-      <div className={sty.details}>
-       
+<>
+      <div className={sty.header}>
+        <img src={logo} alt="LOGO" className={sty.logo}/>
+        <h3>CloudyBuy</h3>
+
         <div className={sty.btn}>
           
           <button onClick={handleClickBack}>
@@ -42,6 +45,13 @@ export default function ProductDetails() {
           <br></br>
         
         </div>
+      </div>
+
+     
+      
+      <div className={sty.container}>
+           
+       
         {
           
           prod.message ? <h2>{prod.message}</h2> : <>
@@ -52,9 +62,6 @@ export default function ProductDetails() {
             
             {/* <img src={prod.thumbnail} alt="" />  */}
             <CarouselImg />
-            
-
-
                         
             <div className={sty.text}>
             
@@ -104,6 +111,7 @@ export default function ProductDetails() {
             </div>
             
           </div>
+         
            ) : (
                  <p></p> 
               )
@@ -112,5 +120,7 @@ export default function ProductDetails() {
         }
        
       </div>
+      </>
+     
     );
 };
