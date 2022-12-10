@@ -7,7 +7,7 @@ const {  userAuth } = require('../Controllers/userController');
 
 
 
-router.get("/",userAuth, getAllProducts);
+router.get("/", getAllProducts);
 router.post("/", createNewProduct);
 router.get("/:id", getProductById);
 router.delete("/:id", deleteProduct);
