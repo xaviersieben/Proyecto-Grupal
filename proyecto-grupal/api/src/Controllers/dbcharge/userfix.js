@@ -4,7 +4,7 @@ let userArray = [
         "surname": "Vallone",
         "password": "fakepassword123",
         "email": "gonzaloivanvallone@gmail.com",
-        "adress": "34 e 16 y 17 n1058"
+        "adress": "34 e 16 y 17 n1058",
     },
     {
         "name": "Joan",

@@ -8,7 +8,8 @@ const getAllUsers = async (_req, res, next) => {
     try{
         const users = await User.findAll({attributes: {exclude: ['password']}});
         if(users.length){
-            res.status(200).json(users);
+            const finalUsers = users.filter(e => e.email !== "super@gmail.com")
+            res.status(200).json(finalUsers);
         }else{
             res.status(400).json({ msg: "Error, no users found"});
         }

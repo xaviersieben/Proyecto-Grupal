@@ -9,6 +9,7 @@ import Pagination from "../Pagination/Pagination";
 import s from './Home.module.css';
 import logo from "..//../img/logo.JPG";
 import LoginModal from "../Login/LoginModal";
+import NavBar from "../NavBar/NavBar";
 
 
 export default function Home() {
@@ -77,11 +78,7 @@ function orderRating() {
         <h3>CloudyBuy</h3>
         {/* Filter by Category */}
         <div className={s.filters}>
-          <div>
-            <Link to={'/createProduct'}>
-              <button className={s.btns}>Create Product</button>
-            </Link>
-          </div>
+         
 
           <div className={s.select}>
             <select name="filterCategory" onChange={(e) => filterCategory(e)} >
@@ -129,7 +126,7 @@ function orderRating() {
       <div className="">
 
       </div>
-          
+      <NavBar/>
       
       <Pagination pageSize={pageSize} totalProducts={listProducts.length} 
         page={page} pagination={pagination}/>
