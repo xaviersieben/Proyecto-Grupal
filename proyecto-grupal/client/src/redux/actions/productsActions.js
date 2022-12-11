@@ -311,11 +311,12 @@ export function loginUser(payload) {
         `http://localhost:3001/user/login`,
         payload
       );
-      console.log("response == "+response);
+      console.log("response "+response);
+      alert("welcome")
       return response
       
     } catch (error) {
-      console.log(error.response.data.msg);
+      alert(error.response.data.msg);
     }
   };
 }
