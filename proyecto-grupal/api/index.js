@@ -4,6 +4,7 @@ const {
   storeAllCategories,
   storeAllProducts,
   storeAllUsers,
+  createNewAdminUser,
 } = require("./src/Controllers/dbcharge/dbcharge");
 
 // Syncing all the models at once.
@@ -15,6 +16,7 @@ conn.sync({ force: true }).then(() => {
     await storeAllCategories();
     await storeAllProducts();
     await storeAllUsers();
+    await createNewAdminUser();
   });
 });
 

@@ -1,9 +1,9 @@
 const { Category, Product, User } = require('../../db');
-//const { Product } = require('../../db');
 const axios = require('axios');
 const {apiArray} = require('./productfix');
 const {userArray} =require('./userfix');
-const { use } = require('chai');
+const bcrypt = require("bcrypt");
+const { ADMIN_PASS } = process.env;
 
 
 const storeAllProducts = async () =>{
@@ -34,7 +34,28 @@ const storeAllCategories = async () =>{
         console.log(error)
     }
 }
-
+const createNewAdminUser = async () => {
+    const salt = await bcrypt.genSalt(10);
+    try{
+        const myUser = {
+            name: "super",
+            surname: "admin",
+            password: await bcrypt.hash(ADMIN_PASS, salt),
+            email: "super@gmail.com",
+            adress: "noimporta 123",
+            isAdmin: true
+        };
+        const [_user, created] = await User.findOrCreate({
+            where: { email: myUser.email}, 
+            defaults:{
+                ...myUser,
+            }
+        });
+        console.log("Admin User created")
+    }catch(error){
+        console.log(error);
+    }
+}
 const storeAllUsers = async ()=>{
     try{
         await User.bulkCreate(userArray)
@@ -47,5 +68,6 @@ const storeAllUsers = async ()=>{
 module.exports = {
     storeAllCategories,
     storeAllProducts,
-    storeAllUsers
+    storeAllUsers,
+    createNewAdminUser
 }
