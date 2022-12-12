@@ -21,6 +21,5 @@ export const validateLogin = (data) => {
     errors.password = 'Must specify a password'
   }
   
-  console.log('errors',errors)
   return errors
 }

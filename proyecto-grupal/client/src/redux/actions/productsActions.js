@@ -311,8 +311,11 @@ export function loginUser(payload) {
         `http://localhost:3001/user/login`,
         payload
       );
-      console.log("response "+response);
+      console.log("response ", response.data);
       alert("welcome")
+       //set JWT token to local
+       sessionStorage.setItem("token", response.data.token);
+       sessionStorage.setItem("isAdmin", response.data.isAdmin);
       return response
       
     } catch (error) {
