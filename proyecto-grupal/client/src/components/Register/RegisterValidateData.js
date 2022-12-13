@@ -1,5 +1,4 @@
 const validateData = (data) => {
-    console.log('data', data)
     let errors = {};
     if (data.name === '')  {
       errors.name = 'Must specify a Name'
@@ -17,7 +16,6 @@ const validateData = (data) => {
       errors.adress = 'Must specify an address'
     }
 
-    console.log('errors',errors)
     return errors
   }
   
