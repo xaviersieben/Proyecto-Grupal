@@ -8,6 +8,7 @@ import ProductDetails from './components/ProductDetails/ProductDetails';
 import Register from './components/Register/Register';
 import s from './App.module.css';
 import UsersAdministration from './components/UsersAdministration/UsersAdministration';
+import Cart from './components/Cart/Cart.jsx';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/createCategory' component={CreateCategory} />
         <Route exact path='/register' component={Register} />
         <Route path='/administrateUsers' component={UsersAdministration} />    
+        <Route path='/cart' component={Cart} />    
     </div>
   );
 }
