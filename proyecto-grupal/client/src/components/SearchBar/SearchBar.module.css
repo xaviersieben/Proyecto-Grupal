@@ -8,10 +8,10 @@
     
 }
 
-form{
+.formSearch {
     display: flex;
     flex-direction: row;
-    width: 450px;
+    width: 35rem;
 }
 
 .name {
@@ -21,23 +21,18 @@ form{
     height:2rem;
     color: var(--text);
     border-radius: 4px;
-    width: 20rem;
+    width: 95%;
     margin-right: 0.3rem;
 }
 
-.input::placeholder {
+.name::placeholder {
     color: var(--text);
-}
-
-input:focus {
-    outline: none;
 }
 
 .btns2:hover{
     border: 1px solid var(--text);
     cursor: pointer;
 }
-
 
 .btns2 {
     padding: 0px 17px 0px 17px;
@@ -55,7 +50,7 @@ input:focus {
     background-color: transparent;
     border: none;
     cursor: pointer;
-    margin-right: 30px;
+    margin-right: 0.1rem;
   }
   .alpha i {
     font-size: 1.5rem;
