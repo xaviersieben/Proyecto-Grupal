@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { addCart } from "../../redux/actions/productsActions";
 import sty from "..//ProductCard/ProductCard.module.css";
 
-export default function ProductCard ({ title, id, price, images, rating,name }) {
+export default function ProductCard ({ title, id, price, images, rating }) {
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export default function ProductCard ({ title, id, price, images, rating,name }) 
   }
 
   function handleCart(){
-    dispatch(addCart(id,price,images,name))
+    dispatch(addCart(id,price,images,title))
     
   }
   //const dark = useSelector((state) => state.dark);

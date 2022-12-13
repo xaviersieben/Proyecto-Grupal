@@ -31,9 +31,7 @@ export default function Home() {
   let indexFirstGame = indexlastGame- pageSize;
   let currentProducts = listProducts.slice(indexFirstGame, indexlastGame);
 
-  const user=JSON.parse(localStorage.getItem('user'))
 
-  console.log(user)
 
   useEffect(() => {
     dispatch(actions.getProducts());

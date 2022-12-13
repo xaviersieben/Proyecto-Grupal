@@ -22,6 +22,8 @@ const Cart = () => {
     
 });
 
+
+
   const totalAmount = cart.reduce((sum, value) => sum + value.amount, 0);
   const totalQuantity = cart.reduce((sum, value) => sum + value.quantity, 0);
 
@@ -48,7 +50,7 @@ const Cart = () => {
           </div>
           {cart.map((cartItem) => (
             <>
-              <div>{cartItem.productId}</div>
+              <div>{cartItem.title}</div>
               <div>{cartItem.amount}</div>
               <div>{cartItem.quantity}</div>
               <img src={cartItem.images} alt="" />

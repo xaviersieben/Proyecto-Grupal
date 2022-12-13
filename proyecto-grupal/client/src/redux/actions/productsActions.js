@@ -214,11 +214,11 @@ export function setCart(cart) {
   };
 }
 
-export function addCart(productId, amount,images,name) {
+export function addCart(productId, amount,images,title) {
   
   return {
     type: "ADD_CART",
-    payload: { productId, amount,images,name },
+    payload: { productId, amount,images,title },
   };
 }
 
