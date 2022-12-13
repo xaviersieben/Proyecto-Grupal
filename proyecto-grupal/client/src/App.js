@@ -11,6 +11,7 @@ import Register from './components/Register/Register';
 import LoginModal from './components/Login/LoginModal';
 import s from './App.module.css';
 import UsersAdministration from './components/UsersAdministration/UsersAdministration';
+import Cart from './components/Cart/Cart.jsx';
 
 function App() {
   return (
@@ -22,8 +23,11 @@ function App() {
         <AdminRoute path='/createProduct' component={CreateProduct} />
         <AdminRoute path='/createCategory' component={CreateCategory} />
         <Route exact path='/register' component={Register} />
+        
+        <Route path='/administrateUsers' component={UsersAdministration} />    
+        <Route path='/cart' component={Cart} />    
         <Route exact path='/login' component={LoginModal} />
-        <AdminRoute path='/administrateUsers' component={UsersAdministration} />    
+        <AdminRoute path='/administrateUsers' component={UsersAdministration} />
     </div>
   );
 }
