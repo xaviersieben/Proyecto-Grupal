@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import * as actions from '../../redux/actions/productsActions';
 import s from './Register.module.css';
 import logo  from '../../img/logo.JPG';
@@ -8,6 +9,7 @@ import validateData from "./RegisterValidateData";
 
 export default function Register() {
 
+  const history = useHistory();
   const dispatch = useDispatch();
   const initialState = {
     name: '',
@@ -35,6 +37,7 @@ export default function Register() {
       dispatch(actions.signNewUser(user))
       alert('New User created!');
       setUser(initialState)
+      history.push('/')
     }
 
   }
@@ -57,27 +60,27 @@ export default function Register() {
           <form className={s.formCard} onSubmit={(e) => handleSubmit(e)}>
             <label htmlFor="">
               Name:
-              <input type="text" value={user.name} name='name' onChange={e => handleOnChange(e)}/>
+              <input className={s.inputCard} type="text" value={user.name} name='name' onChange={e => handleOnChange(e)}/>
               {errors.name && (<p className={s.danger}>{errors.name}</p>)}
             </label>
             <label htmlFor="">
               LastName:
-              <input type="text" value={user.surname} name='surname' onChange={e => handleOnChange(e)}/>
+              <input className={s.inputCard} type="text" value={user.surname} name='surname' onChange={e => handleOnChange(e)}/>
               {errors.surname && (<p className={s.danger}>{errors.surname}</p>)}
             </label>
             <label htmlFor="">
               Password:
-              <input type="password" value={user.password} name= 'password' onChange={e => handleOnChange(e)}/>
+              <input className={s.inputCard} type="password" value={user.password} name= 'password' onChange={e => handleOnChange(e)}/>
               {errors.password && (<p className={s.danger}>{errors.password}</p>)}
             </label>
             <label htmlFor="">
               Address:
-              <input type="test" value={user.adress} name='adress' onChange={e => handleOnChange(e)}/>
+              <input className={s.inputCard} type="test" value={user.adress} name='adress' onChange={e => handleOnChange(e)}/>
               {errors.adress && (<p className={s.danger}>{errors.adress}</p>)}
             </label>  
             <label htmlFor="">
-              E-mail
-              <input type="email" value={user.email} name='email' onChange={e => handleOnChange(e)}/>
+              E-mail:
+              <input className={s.inputCard} type="email" value={user.email} name='email' onChange={e => handleOnChange(e)}/>
               {errors.email && (<p className={s.danger}>{errors.email}</p>)}
             </label>
             <button className={s.btns} type="submit">Sign Up</button>

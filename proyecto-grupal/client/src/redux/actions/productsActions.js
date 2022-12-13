@@ -308,19 +308,32 @@ export function turnIntoAdminOrUser(id) {
 export function loginUser(payload) {
   return async (dispatch) => {
     try {
-      const response = await axios.post(
-        `http://localhost:3001/user/login`,
-        payload
-      );
+      const response = await axios.post(`http://localhost:3001/user/login`, payload);
       console.log("response ", response.data);
+      //set JWT token to local
+      sessionStorage.setItem("token", response.data.token);
+      sessionStorage.setItem("isAdmin", response.data.isAdmin);
       alert("welcome")
-       //set JWT token to local
-       sessionStorage.setItem("token", response.data.token);
-       sessionStorage.setItem("isAdmin", response.data.isAdmin);
-      return response
-      
+      return dispatch({
+        type: 'LOGIN_USER',
+        payload: response.data,
+      });
     } catch (error) {
       alert(error.response.data.msg);
     }
   };
+}
+
+export function logOut() {
+  try {
+    //Unset JWT token to local
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("isAdmin");
+    return  {
+      type: 'LOGOUT_USER',
+      payload: ''
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }

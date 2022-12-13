@@ -14,7 +14,7 @@ const initialState = {
   detail: {},
   users: [],
   allUsers: [],
-
+  user: {},
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
 };
@@ -292,9 +292,13 @@ export default function productsReducer(state = initialState, action) {
       };
     case "LOGIN_USER":
       return {
-        ...state,
+        ...state, user: action.payload
       };
-
+    case "LOGOUT_USER":
+      return {
+        ...state, user: {}
+      };
+      
     default:
       return { ...state };
   }

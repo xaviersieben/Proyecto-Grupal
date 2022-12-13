@@ -19,6 +19,7 @@ export default function Home() {
 // Redux
   let categories = useSelector((state) => state.categories);
   let allProducts = useSelector((state) => state.allProducts);
+  let user = useSelector((state) => state.user);
 
   // Local states 
   const [alphabet, setAlphabet] = useState(true);
@@ -70,16 +71,40 @@ function orderRating() {
   setPage(1);
 }
 
+function handleLogOut() {
+  dispatch(actions.logOut(rating));
+}
+
   return (
     <div className={s.container}>
       
       <div className={s.header}>
-        <img src={logo} alt="LOGO" className={s.logo}/>
-        <h3>CloudyBuy</h3>
+        <div className={s.logo}>
+          <img src={logo} alt="LOGO" className={s.logo}/>
+          <h4>CloudyBuy</h4>
+        </div>
+
+          
+        <SearchBar paginationReset={paginationReset}/>
+        
+        <div className={s.login}>
+          {
+            !user.email ? <LoginModal/>  : <button className={s.btns} onClick={e => handleLogOut(e)}>Log Out</button>
+          }
+          <div>
+            { 
+              !user.email && <Link to={'/register'}><button className={s.btns}>SignUp</button></Link>
+            }
+          </div>
+        </div>
+
+
+      </div>
+      
+      <div className={s.header1}>
+
         {/* Filter by Category */}
         <div className={s.filters}>
-         
-
           <div className={s.select}>
             <select name="filterCategory" onChange={(e) => filterCategory(e)} >
               <option value="All"> All Categories </option>
@@ -90,46 +115,52 @@ function orderRating() {
               )) }
             </select>
           </div>
-         </div>
-         {/* Order Alphabetically */}
-         <i className="fa-solid fa-dolly"></i>
-         <button className={s.alpha} onClick={orderAlphabetical} >
-            {alphabet ? ( <i className="fa-solid fa-arrow-down-z-a"></i> ) : (
-             <i className="fa-solid fa-arrow-up-a-z"></i> )}
-         </button> 
          
-
-           {/* Order by Price */}
-           <i className="fa-solid fa-hand-holding-dollar"></i>
-         <button className={s.alpha} onClick={orderPrice} >
-            {price ? ( <i className="fa-solid fa-arrow-down-z-a"></i>  ) : (
+         {/* Order Alphabetically */}
+         <div className={s.divSort}>
+          <button className={s.alpha} onClick={orderAlphabetical} >
+              <i className="fa-solid fa-dolly"></i>
+              {alphabet ? ( <i className="fa-solid fa-arrow-down-z-a"></i> ) : (
               <i className="fa-solid fa-arrow-up-a-z"></i> )}
           </button> 
+         </div>
+
+          {/* Order by Price */}
+          <div className={s.divSort}>
+            <button className={s.alpha} onClick={orderPrice} >
+                <i className="fa-solid fa-hand-holding-dollar"></i>
+                {price ? ( <i className="fa-solid fa-arrow-down-z-a"></i>  ) : (
+                  <i className="fa-solid fa-arrow-up-a-z"></i> )}
+              </button> 
+          </div>
 
           {/* Order by Rating */}
-          <i className="fa-regular fa-star"></i>
-          <button className={s.alpha} onClick={orderRating} >
-            {rating ? ( <i className="fa-solid fa-arrow-down-z-a"></i> ) : (
-              <i className="fa-solid fa-arrow-up-a-z"></i> )}
-          </button>  
-        <SearchBar paginationReset={paginationReset}/>
-        
-          <LoginModal/>  
-        <div>
-          <Link to={'/register'}>
-            <button className={s.btns}>SignUp</button>
-          </Link>
+          <div className={s.divSort}>
+            <button className={s.alpha} onClick={orderRating} >
+              <i className="fa-regular fa-star"></i>
+              {rating ? ( <i className="fa-solid fa-arrow-down-z-a"></i> ) : (
+                <i className="fa-solid fa-arrow-up-a-z"></i> )}
+            </button>  
+          </div>
+        </div>
+
+        <div className={s.divPagination}>
+          <Pagination pageSize={pageSize} totalProducts={listProducts.length} page={page} pagination={pagination}/>
+        </div>
+          
+
+        <div className={s.userMenu}>
+          { user.name &&
+            <button className={s.userButton}>
+              <i className="fa fa-user-circle-o" aria-hidden="true"></i>
+              <span>{user.name}</span>  
+            </button>  
+          }
         </div>
 
       </div>
+      { user.isAdmin && <NavBar/> }
       
-      <div className="">
-
-      </div>
-      <NavBar/>
-      
-      <Pagination pageSize={pageSize} totalProducts={listProducts.length} 
-        page={page} pagination={pagination}/>
       <div className={s.productCards}>
         {
           currentProducts?.map( (product, index) => 

@@ -18,9 +18,7 @@ const LoginModal = () => {
 
   return (
     <div>
-      <button onClick={handleLogin} className="btns">
-        Login
-      </button>
+      <button onClick={handleLogin} className="btns">Login</button>
 
       <Login modalOpen={modalOpen} closeLogin={closeLogin} />
     </div>
