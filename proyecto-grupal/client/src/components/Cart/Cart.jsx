@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect,useState } from "react";
+import { useDispatch, useSelector} from "react-redux";
 import { Link } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
@@ -11,6 +11,18 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+
+  const user=JSON.parse(localStorage.getItem('user'))
+
+  const [order, setOrder] = useState({
+    id: "",
+    price: 0,
+    quantity: 0,
+    pedido:[]
+    
+});
+
+
 
   const totalAmount = cart.reduce((sum, value) => sum + value.amount, 0);
   const totalQuantity = cart.reduce((sum, value) => sum + value.quantity, 0);
@@ -38,7 +50,7 @@ const Cart = () => {
           </div>
           {cart.map((cartItem) => (
             <>
-              <div>{cartItem.productId}</div>
+              <div>{cartItem.title}</div>
               <div>{cartItem.amount}</div>
               <div>{cartItem.quantity}</div>
               <img src={cartItem.images} alt="" />

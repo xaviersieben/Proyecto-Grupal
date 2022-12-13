@@ -32,6 +32,8 @@ export default function Home() {
   let indexFirstGame = indexlastGame- pageSize;
   let currentProducts = listProducts.slice(indexFirstGame, indexlastGame);
 
+
+
   useEffect(() => {
     dispatch(actions.getProducts());
     dispatch(actions.getCategories());

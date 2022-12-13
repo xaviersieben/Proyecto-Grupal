@@ -16,13 +16,13 @@ export default function ProductCard ({ title, id, price, images, rating }) {
   }
 
   function handleCart(){
-    dispatch(addCart(id,price,images))
+    dispatch(addCart(id,price,images,title))
     
   }
   //const dark = useSelector((state) => state.dark);
   return (
     <>
-    {/* <div><Button onClick={handleCart}>CART</Button></div> */}
+    <div><Button onClick={handleCart}>CART</Button></div>
     
     <div onClick={handleClickCard} className={sty.card}>
       

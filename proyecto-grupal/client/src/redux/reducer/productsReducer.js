@@ -155,12 +155,14 @@ export default function productsReducer(state = initialState, action) {
 
     case "ADD_CART":
       
-       
+      
      
       let itemInCart = state.cart.find((item) => item.productId === action.payload.productId);
+      console.log(action.payload)
    
       return itemInCart
         ? {
+          
             
             ...state,
             cart: state.cart.map((i) =>
