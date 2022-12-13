@@ -6,7 +6,7 @@ const {
   storeAllUsers,
   createNewAdminUser,
 } = require("./src/Controllers/dbcharge/dbcharge");
-
+const port = process.env.port || 3001
 // Syncing all the models at once.
 
 conn.sync({ force: true }).then(() => {
