@@ -73,7 +73,7 @@ const Login = ({ children, modalOpen, closeLogin }) => {
             />
             {errors.password && <p className="danger">{errors.password}</p>}
           </label>
-          <button className="btns" type="submit">
+          <button className="btns" type="submit" onClick={closeLogin}>
             Login
           </button>
         </form>
