@@ -5,7 +5,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 
 
-import Swal from "sweetalert2";
+//import Swal from "sweetalert2";
 ;
 
 const Cart = () => {
