@@ -13,9 +13,9 @@ export default function NavBar() {
         <Link to={"/administrateUsers"}>
           <button className={s.btns}>Users Dashboard</button>
         </Link>
-        {/* <Link to={"/cart"}>
+        <Link to={"/cart"}>
           <button className={s.btns}>Cart</button>
-        </Link> */}
+        </Link>
       </div>
     </div>
   );

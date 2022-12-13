@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { addCart } from "../../redux/actions/productsActions";
 import sty from "..//ProductCard/ProductCard.module.css";
 
-export default function ProductCard ({ title, id, price, images, rating }) {
+export default function ProductCard ({ title, id, price, images, rating,name }) {
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -16,13 +16,13 @@ export default function ProductCard ({ title, id, price, images, rating }) {
   }
 
   function handleCart(){
-    dispatch(addCart(id,price,images))
+    dispatch(addCart(id,price,images,name))
     
   }
   //const dark = useSelector((state) => state.dark);
   return (
     <>
-    {/* <div><Button onClick={handleCart}>CART</Button></div> */}
+    <div><Button onClick={handleCart}>CART</Button></div>
     
     <div onClick={handleClickCard} className={sty.card}>
       
