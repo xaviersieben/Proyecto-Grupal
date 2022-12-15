@@ -22,7 +22,7 @@ export default function ProductCard ({ title, id, price, images, rating }) {
   //const dark = useSelector((state) => state.dark);
   return (
     <>
-    <div><Button onClick={handleCart}>CART</Button></div>
+    <div>
     
     <div onClick={handleClickCard} className={sty.card}>
       
@@ -43,6 +43,8 @@ export default function ProductCard ({ title, id, price, images, rating }) {
         </div>
       
       </div>
+      </div>
+      <Button style={{width: '100%'}} variant='contained' size='small' onClick={handleCart}>Add to Cart</Button>
     </div>
     </>
       

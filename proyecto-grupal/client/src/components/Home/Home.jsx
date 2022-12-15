@@ -98,6 +98,7 @@ function handleLogOut() {
               !user.email && <Link to={'/register'}><button className={s.btns}>SignUp</button></Link>
             }
           </div>
+          <Link to={'/cart'}><button className={s.btns}>Cart</button></Link>
         </div>
 
 
@@ -146,6 +147,7 @@ function handleLogOut() {
           </div>
         </div>
 
+        
         <div className={s.divPagination}>
           <Pagination pageSize={pageSize} totalProducts={listProducts.length} page={page} pagination={pagination}/>
         </div>
