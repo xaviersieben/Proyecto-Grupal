@@ -214,6 +214,12 @@ export function setCart(cart) {
   };
 }
 
+export function getCart() {
+  return {
+    type: "GET_CART",
+  }
+}
+
 export function addCart(productId, amount,images,title) {
   
   return {

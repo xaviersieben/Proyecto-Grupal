@@ -150,9 +150,12 @@ export default function productsReducer(state = initialState, action) {
     case "SET_CART":
       return {
         ...state,
-        cart: action.payload,
+        cart: [...action.payload],
       };
-
+    case "GET_CART":
+      return {
+        ...state
+      }
     case "ADD_CART":
       
       
