@@ -16,7 +16,8 @@ export default function Register() {
     surname: '',
     password: '',
     adress: '',
-    email: ''
+    email: '',
+    origin: 'passwdUser'
   }
   const [user, setUser] = useState(initialState);
   const [errors, setErrors] = useState({});
@@ -48,6 +49,9 @@ export default function Register() {
         <div className={s.logo}>
           <img src={logo} alt="LOGO" className={s.logo}/>
           <h3>CloudyBuy</h3>
+        </div>
+        <div>
+          <h1>Welcom to the Store!</h1>
         </div>
         <div>
           <h1>Fulfill your dreams buying the products you want</h1>

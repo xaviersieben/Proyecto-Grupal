@@ -36,6 +36,14 @@ module.exports = (sequelize) => {
             allowNull: false,
             defaultValue: false,
         },
+        origin: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        subId: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         active: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
