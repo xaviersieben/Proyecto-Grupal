@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { getCart } from "../../redux/actions/productsActions";
 import CartProduct from "../CartProduct/CartProduct.jsx";
+import EmptyCart from "../EmptyCart/EmptyCart";
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Button } from "@mui/material";
 import styles from '../Cart/Cart.module.css';
@@ -37,17 +38,18 @@ const Cart = () => {
   //const totalQuantity = cart.reduce((sum, value) => sum + value.quantity, 0);
 
   return (
-    <div>
+    <div className={styles.cart}>
       <Typography variant="h2" className={styles.tableTitle}>Shopping Cart</Typography>
       {cart.length === 0 ? (
-        <div>
-          <p>Your cart is currently empty</p>
+        <div className={styles.fullDiv}>
+          {/* <p>Your cart is currently empty</p>
           <div>
             <Link to="/">
               <ArrowBackIcon />
               <span>Start shopping</span>
             </Link>
-          </div>
+          </div> */}
+          <EmptyCart />
         </div>
       ) : (
         // <div>
