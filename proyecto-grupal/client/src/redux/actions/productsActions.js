@@ -181,6 +181,13 @@ export function searchProduct(payload) {
 }
 
 //ORDERS & CART
+export function postOrder(payload) {
+
+  return async (dispatch) => {
+    const response = await axios.post("http://localhost:3001/orders", payload);
+    return response;
+  };
+}
 
 export function getOrders() {
   return async function (dispatch) {
@@ -228,10 +235,17 @@ export function addCart(productId, amount,images,title) {
   };
 }
 
-export function removeOneItemCart(productId, amount) {
+export function changeItemCart(productId,quantity,amount) {
   return {
     type: "ONE_ITEM_CART",
-    payload: { productId, amount },
+    payload: { productId,quantity,amount },
+  };
+}
+
+export function removeCart(productId) {
+  return {
+    type: "DELETE_ITEMS",
+    payload: { productId },
   };
 }
 
@@ -319,6 +333,7 @@ export function loginUser(payload) {
       //set JWT token to local
       sessionStorage.setItem("token", response.data.token);
       sessionStorage.setItem("isAdmin", response.data.isAdmin);
+      sessionStorage.setItem("userId", response.data.id);
       alert("welcome")
       return dispatch({
         type: 'LOGIN_USER',
