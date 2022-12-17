@@ -17,7 +17,7 @@ const createNewOrder = async (req, res, next) => {
     for (let i = 0; i < req.body.pedido.length; i++) {
       const prodId = await Product.findAll({
         where: {
-          title: req.body.pedido[i].name,
+          title: req.body.pedido[i].title,
         },
       });
 
@@ -88,7 +88,7 @@ const updateOrder = async (req, res, next) => {
     for (let i = 0; i < order.dataValues.OrderDetails.length; i++) {
       const prodId = await Product.findAll({
         where: {
-          title: req.body.pedido[i].name,
+          title: req.body.pedido[i].title,
         },
       });
 
@@ -131,7 +131,7 @@ const updateOrder = async (req, res, next) => {
     for (let i = 0; i < req.body.pedido.length; i++) {
       const prodId = await Product.findAll({
         where: {
-          title: req.body.pedido[i].name,
+          title: req.body.pedido[i].title,
         },
       });
 

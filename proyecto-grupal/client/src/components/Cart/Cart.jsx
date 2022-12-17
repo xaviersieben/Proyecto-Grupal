@@ -25,27 +25,18 @@ const Cart = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const user = localStorage.getItem("user");
-
-console.log(user)
-
-  const [order, setOrder] = useState({
-    id: "",
-    price: 0,
-    quantity: 0,
-    pedido: [],
-  });
+  const user = sessionStorage.getItem("userId");
 
   function onBuy(e) {
     e.preventDefault();
 
-    setOrder({
-      id: user.id,
+    let order = {
+      id: parseInt(user),
 
       price: totalAmount,
       quantity: totalQuantity,
       pedido: cart,
-    });
+    };
     dispatch(postOrder(order));
     console.log(order);
 

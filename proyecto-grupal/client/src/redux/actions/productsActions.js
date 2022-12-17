@@ -184,7 +184,7 @@ export function searchProduct(payload) {
 export function postOrder(payload) {
 
   return async (dispatch) => {
-    const response = await axios.post(`http://localhost:3001/orders`, payload);
+    const response = await axios.post("http://localhost:3001/orders", payload);
     return response;
   };
 }
@@ -333,6 +333,7 @@ export function loginUser(payload) {
       //set JWT token to local
       sessionStorage.setItem("token", response.data.token);
       sessionStorage.setItem("isAdmin", response.data.isAdmin);
+      sessionStorage.setItem("userId", response.data.id);
       alert("welcome")
       return dispatch({
         type: 'LOGIN_USER',

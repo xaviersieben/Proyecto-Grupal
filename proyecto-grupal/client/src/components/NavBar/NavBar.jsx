@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import style from "./NavBar.module.css";
 import s from "../Home/Home.module.css";
 
+
 export default function NavBar() {
   return (
     <div className={style.navbar}>
@@ -12,9 +13,6 @@ export default function NavBar() {
         </Link>
         <Link to={"/administrateUsers"}>
           <button className={s.btns}>Users Dashboard</button>
-        </Link>
-        <Link to={"/cart"}>
-          <button className={s.btns}>Cart</button>
         </Link>
       </div>
     </div>
