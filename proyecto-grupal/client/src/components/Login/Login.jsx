@@ -6,6 +6,7 @@ import { validateLogin } from "./useLogin";
 import * as actions from "../../redux/actions/productsActions";
 import logo from "../../img/logo.JPG";
 import { Link } from "react-router-dom";
+import LogIn from "../Auth0/LogIn";
 
 const Login = ({ children, modalOpen, closeLogin }) => {
   const handleModalContainerClick = (e) => e.stopPropagation();
@@ -35,7 +36,7 @@ const Login = ({ children, modalOpen, closeLogin }) => {
 
     if (Object.keys(dataErrors).length === 0) {
       dispatch(actions.loginUser(user));
-      setUser(initialState);
+      // setUser(initialState);
     }
   };
 
@@ -55,7 +56,7 @@ const Login = ({ children, modalOpen, closeLogin }) => {
         <form className="formCard" onSubmit={(e) => handleSubmit(e)}>
           <label htmlFor="">
             E-mail
-            <input
+            <input className="inputCard"
               type="email"
               value={user.email}
               name="email"
@@ -65,7 +66,7 @@ const Login = ({ children, modalOpen, closeLogin }) => {
           </label>
           <label htmlFor="">
             Password:
-            <input
+            <input className="inputCard"
               type="password"
               value={user.password}
               name="password"
@@ -74,7 +75,7 @@ const Login = ({ children, modalOpen, closeLogin }) => {
             {errors.password && <p className="danger">{errors.password}</p>}
           </label>
           <button className="btns" type="submit">
-            Login
+            Login with Email
           </button>
         </form>
 
@@ -82,11 +83,16 @@ const Login = ({ children, modalOpen, closeLogin }) => {
           <spam>
             Don't have and account? {space}
             <Link className="register_link" to={"/register"}>
-              Sign Here
+              Sign Up Here
             </Link>
           </spam>
         </div>
-
+        
+        <div className="formCard">
+          <div className="textSocial"><h5>Or</h5></div>
+          <LogIn/>
+        </div>
+        
         {/* {children} */}
       </div>
     </article>

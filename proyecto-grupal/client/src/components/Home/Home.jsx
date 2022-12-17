@@ -1,8 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import * as actions from "../../redux/actions/productsActions";
 import SearchBar from "../SearchBar/SearchBar";
+
+import { useAuth0 } from "@auth0/auth0-react";
+import * as actions from '../../redux/actions/productsActions';
+import SearchBar from '../SearchBar/SearchBar';
+
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
 import Pagination from "../Pagination/Pagination";
@@ -10,11 +16,14 @@ import s from "./Home.module.css";
 import logo from "..//../img/logo.JPG";
 import LoginModal from "../Login/LoginModal";
 import NavBar from "../NavBar/NavBar";
+import LogIn from "../Auth0/LogIn";
+import LogOut from "../Auth0/LogOut";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Typography from "@mui/material/Typography";
 
 export default function Home() {
+
   const dispatch = useDispatch();
   let listProducts = useSelector((state) => state.products);
   // Redux
@@ -22,6 +31,18 @@ export default function Home() {
   let allProducts = useSelector((state) => state.allProducts);
   let user = useSelector((state) => state.user);
   let cart = useSelector((state) => state.cart);
+
+
+  // Auth0
+  const { user, isAuthenticated, logout } = useAuth0();
+
+  // Redux
+  const dispatch = useDispatch();
+  let listProducts = useSelector((state) => state.products);
+  let categories = useSelector((state) => state.categories);
+  let allProducts = useSelector((state) => state.allProducts);
+  let userDb = useSelector((state) => state.user);
+
 
   // Local states
   const [alphabet, setAlphabet] = useState(true);
@@ -76,9 +97,16 @@ export default function Home() {
     setPage(1);
   }
 
+
   function handleLogOut() {
     dispatch(actions.logOut(rating));
   }
+
+function handleLogOut() {
+  dispatch(actions.logOut())
+  if(isAuthenticated) logout()
+}
+
 
   return (
     <div className={s.container}>
@@ -87,6 +115,7 @@ export default function Home() {
           <img src={logo} alt="LOGO" className={s.logo} />
           <h4>CloudyBuy</h4>
         </div>
+
 
         <SearchBar paginationReset={paginationReset} />
 
@@ -104,6 +133,15 @@ export default function Home() {
                 <button className={s.btns}>SignUp</button>
               </Link>
             )}
+
+        
+        <SearchBar paginationReset={paginationReset}/>
+
+        <div className={s.login}>
+          {!userDb.email ? <LoginModal/> : <button className={s.btns} onClick={e => handleLogOut(e)}>Log Out</button>}
+          <div>
+            {!userDb.email && <Link to={'/register'}><button className={s.btns}>SignUp</button></Link>}
+
           </div>
           <Link to={"/cart"}>
             {/* <button className={s.btns}>Cart</button> */}
@@ -178,15 +216,29 @@ export default function Home() {
         </div>
 
         <div className={s.userMenu}>
+
           {user.name && (
             <button className={s.userButton}>
               <i className="fa fa-user-circle-o" aria-hidden="true"></i>
               <span>{user.name}</span>
             </button>
           )}
+
+          { userDb.email &&
+            <button className={s.userButton}>
+              <i className="fa fa-user-circle-o" aria-hidden="true"></i>
+              <span>{userDb.name}</span>  
+            </button>  
+          }
+
         </div>
       </div>
+
       {user.isAdmin && <NavBar />}
+
+
+      { userDb.isAdmin && <NavBar/> }
+      
 
       <div className={s.productCards}>
         {currentProducts?.map((product, index) => (

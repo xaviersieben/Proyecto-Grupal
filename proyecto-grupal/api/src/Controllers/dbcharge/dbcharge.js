@@ -43,7 +43,8 @@ const createNewAdminUser = async () => {
             password: await bcrypt.hash(ADMIN_PASS, salt),
             email: "super@gmail.com",
             adress: "noimporta 123",
-            isAdmin: true
+            isAdmin: true,
+            origin: "passwdUser"
         };
         const [_user, created] = await User.findOrCreate({
             where: { email: myUser.email}, 
