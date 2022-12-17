@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 import * as actions from '../../redux/actions/productsActions';
 import SearchBar from '../SearchBar/SearchBar';
 import { Link } from "react-router-dom";
@@ -10,16 +11,21 @@ import s from './Home.module.css';
 import logo from "..//../img/logo.JPG";
 import LoginModal from "../Login/LoginModal";
 import NavBar from "../NavBar/NavBar";
+import LogIn from "../Auth0/LogIn";
+import LogOut from "../Auth0/LogOut";
 
 
 export default function Home() {
 
+  // Auth0
+  const { user, isAuthenticated, logout } = useAuth0();
+
+  // Redux
   const dispatch = useDispatch();
   let listProducts = useSelector((state) => state.products);
-// Redux
   let categories = useSelector((state) => state.categories);
   let allProducts = useSelector((state) => state.allProducts);
-  let user = useSelector((state) => state.user);
+  let userDb = useSelector((state) => state.user);
 
   // Local states 
   const [alphabet, setAlphabet] = useState(true);
@@ -31,8 +37,6 @@ export default function Home() {
   let indexlastGame = page * pageSize;
   let indexFirstGame = indexlastGame- pageSize;
   let currentProducts = listProducts.slice(indexFirstGame, indexlastGame);
-
-
 
   useEffect(() => {
     dispatch(actions.getProducts());
@@ -74,7 +78,8 @@ function orderRating() {
 }
 
 function handleLogOut() {
-  dispatch(actions.logOut(rating));
+  dispatch(actions.logOut())
+  if(isAuthenticated) logout()
 }
 
   return (
@@ -85,23 +90,16 @@ function handleLogOut() {
           <img src={logo} alt="LOGO" className={s.logo}/>
           <h4>CloudyBuy</h4>
         </div>
-
-          
-        <SearchBar paginationReset={paginationReset}/>
         
+        <SearchBar paginationReset={paginationReset}/>
+
         <div className={s.login}>
-          {
-            !user.email ? <LoginModal/>  : <button className={s.btns} onClick={e => handleLogOut(e)}>Log Out</button>
-          }
+          {!userDb.email ? <LoginModal/> : <button className={s.btns} onClick={e => handleLogOut(e)}>Log Out</button>}
           <div>
-            { 
-              !user.email && <Link to={'/register'}><button className={s.btns}>SignUp</button></Link>
-            }
+            {!userDb.email && <Link to={'/register'}><button className={s.btns}>SignUp</button></Link>}
           </div>
           <Link to={'/cart'}><button className={s.btns}>Cart</button></Link>
         </div>
-
-
       </div>
       
       <div className={s.header1}>
@@ -154,16 +152,16 @@ function handleLogOut() {
           
 
         <div className={s.userMenu}>
-          { user.name &&
+          { userDb.email &&
             <button className={s.userButton}>
               <i className="fa fa-user-circle-o" aria-hidden="true"></i>
-              <span>{user.name}</span>  
+              <span>{userDb.name}</span>  
             </button>  
           }
         </div>
 
       </div>
-      { user.isAdmin && <NavBar/> }
+      { userDb.isAdmin && <NavBar/> }
       
       <div className={s.productCards}>
         {

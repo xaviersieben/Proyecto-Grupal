@@ -330,6 +330,38 @@ export function loginUser(payload) {
   };
 }
 
+export function testIsUser(payload) {
+  return async (dispatch) => {
+    try {
+      console.log('action data',payload)
+      const response = await axios.post(`http://localhost:3001/user/isuser/${payload.email}`, payload);
+      console.log("response API", response.data);
+      return dispatch({
+        type: 'TEST_IS_USER',
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.response.data.msg);
+    }
+  };
+}
+
+export function isSocialUser(payload) {
+  return async (dispatch) => {
+    try {
+      console.log('action social data',payload)
+      const response = await axios.get(`http://localhost:3001/user/socialuser/${payload.sub}`);
+      console.log("response API", response.data);
+      return dispatch({
+        type: 'IS_SOCIAL_USER',
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.response.data.msg);
+    }
+  };
+}
+
 export function logOut() {
   try {
     //Unset JWT token to local

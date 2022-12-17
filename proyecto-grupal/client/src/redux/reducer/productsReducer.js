@@ -15,6 +15,7 @@ const initialState = {
   users: [],
   allUsers: [],
   user: {},
+  socialUser: {},
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
 };
@@ -303,7 +304,11 @@ export default function productsReducer(state = initialState, action) {
       return {
         ...state, user: {}
       };
-      
+    case 'IS_SOCIAL_USER':
+      return {
+        ...state, socialUser: action.payload
+      }
+
     default:
       return { ...state };
   }
