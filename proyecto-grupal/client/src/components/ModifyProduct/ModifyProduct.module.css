@@ -23,3 +23,11 @@
     background-color: #25962b;
     font-weight: bolder;
 }
+
+
+
+.fullDiv, .volverAtras, .volverAtras:hover {
+    box-sizing: unset;
+    line-height: normal;
+}
+
