@@ -185,7 +185,10 @@ export function postOrder(payload) {
 
   return async (dispatch) => {
     const response = await axios.post("http://localhost:3001/orders", payload);
-    return response;
+    return dispatch({
+      type: "DELETE_CART",
+      payload: payload,
+    });;
   };
 }
 

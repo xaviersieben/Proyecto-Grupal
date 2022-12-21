@@ -1,12 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useAuth0 } from "@auth0/auth0-react";
 import * as actions from "../../redux/actions/productsActions";
 import SearchBar from "../SearchBar/SearchBar";
-
-import { useAuth0 } from "@auth0/auth0-react";
-
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
 import Pagination from "../Pagination/Pagination";
@@ -16,18 +13,12 @@ import LoginModal from "../Login/LoginModal";
 import NavBar from "../NavBar/NavBar";
 import LogIn from "../Auth0/LogIn";
 import LogOut from "../Auth0/LogOut";
-
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Typography from "@mui/material/Typography";
 
 export default function Home() {
-  // Redux
-
-  let cart = useSelector((state) => state.cart);
-  let user = useSelector((state) => state.user);
-
   // Auth0
-  const {  isAuthenticated, logout } = useAuth0();
+  const { user, isAuthenticated, logout } = useAuth0();
 
   // Redux
   const dispatch = useDispatch();
@@ -35,6 +26,7 @@ export default function Home() {
   let categories = useSelector((state) => state.categories);
   let allProducts = useSelector((state) => state.allProducts);
   let userDb = useSelector((state) => state.user);
+  let cart = useSelector((state) => state.cart);
 
   // Local states
   const [alphabet, setAlphabet] = useState(true);
@@ -90,10 +82,6 @@ export default function Home() {
   }
 
   function handleLogOut() {
-    dispatch(actions.logOut(rating));
-  }
-
-  function handleLogOut() {
     dispatch(actions.logOut());
     if (isAuthenticated) logout();
   }
@@ -109,7 +97,7 @@ export default function Home() {
         <SearchBar paginationReset={paginationReset} />
 
         <div className={s.login}>
-          {!user.email ? (
+          {!userDb.email ? (
             <LoginModal />
           ) : (
             <button className={s.btns} onClick={(e) => handleLogOut(e)}>
@@ -117,14 +105,12 @@ export default function Home() {
             </button>
           )}
           <div>
-            {!user.email && (
+            {!userDb.email && (
               <Link to={"/register"}>
                 <button className={s.btns}>SignUp</button>
               </Link>
             )}
           </div>
-  
-    
           <Link to={"/cart"}>
             {/* <button className={s.btns}>Cart</button> */}
             <Typography sx={{ color: "blue" }}>
@@ -134,6 +120,7 @@ export default function Home() {
               {totalQuantity}
             </Typography>
           </Link>
+          {/* <Link to={'/cart'}><button className={s.btns}>Cart</button></Link> */}
         </div>
       </div>
 
@@ -198,13 +185,6 @@ export default function Home() {
         </div>
 
         <div className={s.userMenu}>
-          {user.name && (
-            <button className={s.userButton}>
-              <i className="fa fa-user-circle-o" aria-hidden="true"></i>
-              <span>{user.name}</span>
-            </button>
-          )}
-
           {userDb.email && (
             <button className={s.userButton}>
               <i className="fa fa-user-circle-o" aria-hidden="true"></i>
@@ -213,9 +193,6 @@ export default function Home() {
           )}
         </div>
       </div>
-
-      {user.isAdmin && <NavBar />}
-
       {userDb.isAdmin && <NavBar />}
 
       <div className={s.productCards}>
