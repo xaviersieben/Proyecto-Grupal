@@ -204,6 +204,7 @@ export default function Home() {
             price={product.price}
             images={product.thumbnail}
             rating={product.rating}
+            stock={product.stock}
           />
         ))}
       </div>
