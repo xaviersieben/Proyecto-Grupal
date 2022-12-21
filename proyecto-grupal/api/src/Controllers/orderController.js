@@ -7,6 +7,7 @@ const createNewOrder = async (req, res, next) => {
     let createdOrder;
 
     const userId = req.body.id;
+    console.log(userId)
 
     createdOrder = await ordersServices.createNewOrder(
       userId,

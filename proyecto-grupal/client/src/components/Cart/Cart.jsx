@@ -38,6 +38,7 @@ const Cart = () => {
       quantity: totalQuantity,
       pedido: cart,
     };
+    !user?console.log("error"):
     dispatch(postOrder(order));
     console.log(order);
 
@@ -56,6 +57,7 @@ const Cart = () => {
       <Typography variant="h2" className={styles.tableTitle}>
         Shopping Cart
       </Typography>
+      
 
     <div className={styles.cart}>
       <Typography variant="h2" className={styles.tableTitle}>Shopping Cart</Typography>
@@ -147,6 +149,7 @@ const Cart = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };

@@ -6,8 +6,6 @@ import * as actions from "../../redux/actions/productsActions";
 import SearchBar from "../SearchBar/SearchBar";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import * as actions from '../../redux/actions/productsActions';
-import SearchBar from '../SearchBar/SearchBar';
 
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
@@ -23,18 +21,13 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Typography from "@mui/material/Typography";
 
 export default function Home() {
-
-  const dispatch = useDispatch();
-  let listProducts = useSelector((state) => state.products);
   // Redux
-  let categories = useSelector((state) => state.categories);
-  let allProducts = useSelector((state) => state.allProducts);
-  let user = useSelector((state) => state.user);
-  let cart = useSelector((state) => state.cart);
 
+  let cart = useSelector((state) => state.cart);
+  let user = useSelector((state) => state.user);
 
   // Auth0
-  const { user, isAuthenticated, logout } = useAuth0();
+  const {  isAuthenticated, logout } = useAuth0();
 
   // Redux
   const dispatch = useDispatch();
@@ -42,7 +35,6 @@ export default function Home() {
   let categories = useSelector((state) => state.categories);
   let allProducts = useSelector((state) => state.allProducts);
   let userDb = useSelector((state) => state.user);
-
 
   // Local states
   const [alphabet, setAlphabet] = useState(true);
@@ -97,16 +89,14 @@ export default function Home() {
     setPage(1);
   }
 
-
   function handleLogOut() {
     dispatch(actions.logOut(rating));
   }
 
-function handleLogOut() {
-  dispatch(actions.logOut())
-  if(isAuthenticated) logout()
-}
-
+  function handleLogOut() {
+    dispatch(actions.logOut());
+    if (isAuthenticated) logout();
+  }
 
   return (
     <div className={s.container}>
@@ -115,7 +105,6 @@ function handleLogOut() {
           <img src={logo} alt="LOGO" className={s.logo} />
           <h4>CloudyBuy</h4>
         </div>
-
 
         <SearchBar paginationReset={paginationReset} />
 
@@ -133,16 +122,9 @@ function handleLogOut() {
                 <button className={s.btns}>SignUp</button>
               </Link>
             )}
-
-        
-        <SearchBar paginationReset={paginationReset}/>
-
-        <div className={s.login}>
-          {!userDb.email ? <LoginModal/> : <button className={s.btns} onClick={e => handleLogOut(e)}>Log Out</button>}
-          <div>
-            {!userDb.email && <Link to={'/register'}><button className={s.btns}>SignUp</button></Link>}
-
           </div>
+  
+    
           <Link to={"/cart"}>
             {/* <button className={s.btns}>Cart</button> */}
             <Typography sx={{ color: "blue" }}>
@@ -216,7 +198,6 @@ function handleLogOut() {
         </div>
 
         <div className={s.userMenu}>
-
           {user.name && (
             <button className={s.userButton}>
               <i className="fa fa-user-circle-o" aria-hidden="true"></i>
@@ -224,21 +205,18 @@ function handleLogOut() {
             </button>
           )}
 
-          { userDb.email &&
+          {userDb.email && (
             <button className={s.userButton}>
               <i className="fa fa-user-circle-o" aria-hidden="true"></i>
-              <span>{userDb.name}</span>  
-            </button>  
-          }
-
+              <span>{userDb.name}</span>
+            </button>
+          )}
         </div>
       </div>
 
       {user.isAdmin && <NavBar />}
 
-
-      { userDb.isAdmin && <NavBar/> }
-      
+      {userDb.isAdmin && <NavBar />}
 
       <div className={s.productCards}>
         {currentProducts?.map((product, index) => (
