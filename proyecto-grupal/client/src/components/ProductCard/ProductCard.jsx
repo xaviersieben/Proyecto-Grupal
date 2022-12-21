@@ -1,12 +1,18 @@
 import { Button } from "@mui/material";
 import React from "react";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { addCart } from "../../redux/actions/productsActions";
 import sty from "..//ProductCard/ProductCard.module.css";
 
-export default function ProductCard ({ title, id, price, images, rating }) {
-
+export default function ProductCard({
+  title,
+  id,
+  price,
+  images,
+  rating,
+  stock,
+}) {
   const history = useHistory();
   const dispatch = useDispatch();
   let cart = useSelector((state) => state.cart);
@@ -15,41 +21,56 @@ export default function ProductCard ({ title, id, price, images, rating }) {
     history.push(`/details/${id}`);
   }
 
-  function handleCart(){
-    dispatch(addCart(id,price,images,title))
-    
+  function handleCart() {
+    const data = cart?.filter((item) => item.productId === id);
+    const dataf = data.length<1?stock-1:data[0].quantity
+    console.log(dataf);
+    stock > 0 && dataf+1<=stock
+      ? dispatch(addCart(id, price, images, title))
+      : alert("no");
   }
   //const dark = useSelector((state) => state.dark);
   return (
     <>
-    <div>
-    
-    <div onClick={handleClickCard} className={sty.card}>
-      
-      <img className={sty.images} src={images} alt="" />
-     
-      <div className={ sty.text }>
-        <strong>{title}</strong>
-        <p className={sty.weight}>
-          <strong>Price: $ </strong>
-          {price?price:"0"}
-        </p>
-        <div className={ sty.ratingbox } > 
-        <p className={sty.weight}>
-          <strong>Rating: </strong>
-          {rating ? rating : "0"}
-        </p>
-            {rating>0 ? <div className={sty.stars}><div className={sty.percent} style={{ width: `${((rating*100)/10)*2}%` }}></div></div> : <div className={sty.stars}><div className={sty.percent} style={{ width: `${0}%` }}></div></div> }
+      <div>
+        <div onClick={handleClickCard} className={sty.card}>
+          <img className={sty.images} src={images} alt="" />
+
+          <div className={sty.text}>
+            <strong>{title}</strong>
+            <p className={sty.weight}>
+              <strong>Price: $ </strong>
+              {price ? price : "0"}
+            </p>
+            <div className={sty.ratingbox}>
+              <p className={sty.weight}>
+                <strong>Rating: </strong>
+                {rating ? rating : "0"}
+              </p>
+              {rating > 0 ? (
+                <div className={sty.stars}>
+                  <div
+                    className={sty.percent}
+                    style={{ width: `${((rating * 100) / 10) * 2}%` }}
+                  ></div>
+                </div>
+              ) : (
+                <div className={sty.stars}>
+                  <div className={sty.percent} style={{ width: `${0}%` }}></div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-      
+        <Button
+          style={{ width: "100%" }}
+          variant="contained"
+          size="small"
+          onClick={handleCart}
+        >
+          Add to Cart
+        </Button>
       </div>
-      </div>
-      <Button style={{width: '100%'}} variant='contained' size='small' onClick={handleCart}>Add to Cart</Button>
-    </div>
     </>
-      
-     
   );
 }
-
-

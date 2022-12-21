@@ -1,14 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useAuth0 } from "@auth0/auth0-react";
 import * as actions from "../../redux/actions/productsActions";
 import SearchBar from "../SearchBar/SearchBar";
-
-import { useAuth0 } from "@auth0/auth0-react";
-import * as actions from '../../redux/actions/productsActions';
-import SearchBar from '../SearchBar/SearchBar';
-
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
 import Pagination from "../Pagination/Pagination";
@@ -18,21 +13,10 @@ import LoginModal from "../Login/LoginModal";
 import NavBar from "../NavBar/NavBar";
 import LogIn from "../Auth0/LogIn";
 import LogOut from "../Auth0/LogOut";
-
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Typography from "@mui/material/Typography";
 
 export default function Home() {
-
-  const dispatch = useDispatch();
-  let listProducts = useSelector((state) => state.products);
-  // Redux
-  let categories = useSelector((state) => state.categories);
-  let allProducts = useSelector((state) => state.allProducts);
-  let user = useSelector((state) => state.user);
-  let cart = useSelector((state) => state.cart);
-
-
   // Auth0
   const { user, isAuthenticated, logout } = useAuth0();
 
@@ -42,7 +26,7 @@ export default function Home() {
   let categories = useSelector((state) => state.categories);
   let allProducts = useSelector((state) => state.allProducts);
   let userDb = useSelector((state) => state.user);
-
+  let cart = useSelector((state) => state.cart);
 
   // Local states
   const [alphabet, setAlphabet] = useState(true);
@@ -97,16 +81,10 @@ export default function Home() {
     setPage(1);
   }
 
-
   function handleLogOut() {
-    dispatch(actions.logOut(rating));
+    dispatch(actions.logOut());
+    if (isAuthenticated) logout();
   }
-
-function handleLogOut() {
-  dispatch(actions.logOut())
-  if(isAuthenticated) logout()
-}
-
 
   return (
     <div className={s.container}>
@@ -116,11 +94,10 @@ function handleLogOut() {
           <h4>CloudyBuy</h4>
         </div>
 
-
         <SearchBar paginationReset={paginationReset} />
 
         <div className={s.login}>
-          {!user.email ? (
+          {!userDb.email ? (
             <LoginModal />
           ) : (
             <button className={s.btns} onClick={(e) => handleLogOut(e)}>
@@ -128,20 +105,11 @@ function handleLogOut() {
             </button>
           )}
           <div>
-            {!user.email && (
+            {!userDb.email && (
               <Link to={"/register"}>
                 <button className={s.btns}>SignUp</button>
               </Link>
             )}
-
-        
-        <SearchBar paginationReset={paginationReset}/>
-
-        <div className={s.login}>
-          {!userDb.email ? <LoginModal/> : <button className={s.btns} onClick={e => handleLogOut(e)}>Log Out</button>}
-          <div>
-            {!userDb.email && <Link to={'/register'}><button className={s.btns}>SignUp</button></Link>}
-
           </div>
           <Link to={"/cart"}>
             {/* <button className={s.btns}>Cart</button> */}
@@ -152,6 +120,7 @@ function handleLogOut() {
               {totalQuantity}
             </Typography>
           </Link>
+          {/* <Link to={'/cart'}><button className={s.btns}>Cart</button></Link> */}
         </div>
       </div>
 
@@ -216,29 +185,15 @@ function handleLogOut() {
         </div>
 
         <div className={s.userMenu}>
-
-          {user.name && (
+          {userDb.email && (
             <button className={s.userButton}>
               <i className="fa fa-user-circle-o" aria-hidden="true"></i>
-              <span>{user.name}</span>
+              <span>{userDb.name}</span>
             </button>
           )}
-
-          { userDb.email &&
-            <button className={s.userButton}>
-              <i className="fa fa-user-circle-o" aria-hidden="true"></i>
-              <span>{userDb.name}</span>  
-            </button>  
-          }
-
         </div>
       </div>
-
-      {user.isAdmin && <NavBar />}
-
-
-      { userDb.isAdmin && <NavBar/> }
-      
+      {userDb.isAdmin && <NavBar />}
 
       <div className={s.productCards}>
         {currentProducts?.map((product, index) => (
@@ -249,6 +204,7 @@ function handleLogOut() {
             price={product.price}
             images={product.thumbnail}
             rating={product.rating}
+            stock={product.stock}
           />
         ))}
       </div>

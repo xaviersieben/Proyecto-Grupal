@@ -19,7 +19,7 @@ export default function CartProduct({
   }
 
   function changeCart(e) {
-    let cant = e.target.value;
+    let cant = e.target.value < 1 ? 1 : parseInt(e.target.value);
 
     dispatch(actions.changeItemCart(productId, cant, amount));
   }
