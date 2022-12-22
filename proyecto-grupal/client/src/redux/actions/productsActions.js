@@ -393,3 +393,26 @@ export function logOut() {
     console.log(error);
   }
 }
+
+export function resetPassword(payload){
+  return async function (){
+    try{
+      let response = await axios.post(`http://localhost:3001/user/reset`, payload);
+      localStorage.setItem("token",response.data.token)
+      localStorage.setItem("email",response.data.mail)
+    }catch(error){
+      console.log(error)
+    }
+  }
+}
+export function resetConfirm(payload){
+  return async function (){
+    try{
+      let response = await axios.put(`http://localhost:3001/user/reset/${payload.email}/${payload.token}`, payload);
+      localStorage.removeItem("token")
+      localStorage.removeItem("email")
+    }catch(error){
+      console.log(error)
+    }
+  }
+}
