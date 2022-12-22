@@ -7,6 +7,7 @@ import * as actions from "../../redux/actions/productsActions";
 import logo from "../../img/logo.JPG";
 import { Link } from "react-router-dom";
 
+
 const Login = ({ children, modalOpen, closeLogin }) => {
   const handleModalContainerClick = (e) => e.stopPropagation();
 
@@ -79,6 +80,10 @@ const Login = ({ children, modalOpen, closeLogin }) => {
         </form>
 
         <div className="sing_redirection">
+          <spam>
+            ¿Forgot password? {space}
+            <Link to={"/passReset"}>Reset Password</Link>/
+          </spam>
           <spam>
             Don't have and account? {space}
             <Link className="register_link" to={"/register"}>

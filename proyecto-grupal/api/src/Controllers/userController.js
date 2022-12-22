@@ -1,8 +1,9 @@
-const userServices = require('../Services/userService.js');
+
 const { User } = require('../db.js');
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const { JWT_KEY } = process.env;
+const { deliverMail, mailDetails } = require('./nodemailerController');
 
 const getAllUsers = async (_req, res, next) => {
     try{
@@ -87,7 +88,7 @@ const swapType = async(req, res, next) =>{
 
 const userLogin = async(req, res, next) =>{
     try{
-        const user = await User.findOne({ where : {email : req.body.email }});
+        const user = await User.findOne({ where : {email : req.body.email, active: true }});
         if(user){
             const validatePassword = await bcrypt.compare(req.body.password,user.password);
             if(validatePassword){
@@ -128,4 +129,50 @@ const userAuth = async (req, res, next) =>{
     }    
 }
 
-module.exports = {createNewUser, swapStatus, getAllUsers, swapType, userLogin, userAuth}
+const resetPw = async (req, res, next)=>{
+    try{
+        const user = await User.findOne({where: {email:  req.body.email}});
+        if(user){
+            let subject = "Password reset";
+            let text = "";
+            let email = user.email;
+            const secret = JWT_KEY + user.password;
+            const token = jwt.sign({email: email, id: user.id},secret,{expiresIn:"5m"})
+            let html = `<p>Click <a href="http://localhost:3000/passConfirm/${email}/${token}">here</a> to reset your password</p><br><p>Please ignore this email if you didnt request a password reset<p>`
+            let result = await deliverMail(email, subject, text, html)
+            if(result){
+                res.status(200).send({token: token, mail: email})
+            }else{
+                res.status(400).send({msg: "Something failed"})
+            }
+        }else{
+            res.status(400).json({msg: "User not found"})
+        }
+    }catch(error){
+        next(error)
+    }
+}
+
+const confirmReset = async (req, res, next)=>{
+    try{
+        const salt = await bcrypt.genSalt(10);
+        const {password, email} = req.body;
+        let newPassword = await bcrypt.hash(password, salt)
+        const user = await User.findOne({where: {email:  email}});
+        if(user){
+            const updated = await User.update(
+                {password: newPassword},
+                {where: {email: email}}
+            )
+            if(updated[0]===1){
+                res.status(200).json({msg: "Password saved"});
+            }
+        }else{
+            res.status(400).json({msg: "User not found in the DB"});
+        }
+    }catch(error){
+        next(error)
+    }
+}
+
+module.exports = {createNewUser, swapStatus, getAllUsers, swapType, userLogin, userAuth, resetPw, confirmReset}

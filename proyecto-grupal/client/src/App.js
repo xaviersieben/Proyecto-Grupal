@@ -12,6 +12,8 @@ import LoginModal from './components/Login/LoginModal';
 import s from './App.module.css';
 import UsersAdministration from './components/UsersAdministration/UsersAdministration';
 import Cart from './components/Cart/Cart.jsx';
+import PasswordReset from "../src/components/PasswordReset/PasswordReset";
+import PasswordConfirm from "../src/components/PasswordReset/PasswordConfirm"
 
 function App() {
   return (
@@ -23,7 +25,8 @@ function App() {
         <AdminRoute path='/createProduct' component={CreateProduct} />
         <AdminRoute path='/createCategory' component={CreateCategory} />
         <Route exact path='/register' component={Register} />
-        
+        <Route path='/passReset' component={PasswordReset} /> 
+        <Route path='/passConfirm/:id/:token' component={PasswordConfirm} />
         <Route path='/administrateUsers' component={UsersAdministration} />    
         <Route path='/cart' component={Cart} />    
         <Route exact path='/login' component={LoginModal} />
