@@ -59,3 +59,39 @@
     display: flex;
     flex-direction: column;
 }
+
+
+/* resetting other's styles */
+
+.fullDiv, .volverAtras, .volverAtras:hover, .mainDiv, .errorSpan, .divFormTable,
+.categoryForm, .labelInput, .input, .spanButton, .divTable  {
+    box-sizing: unset;
+    line-height: normal;
+}
+
+
+.h1 {
+    display: block;
+    font-size: 2.5rem;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+    line-height: normal;
+}
+
+.h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+    line-height: normal;
+}
+
+.labelName {
+    margin-right: 10px;
+}

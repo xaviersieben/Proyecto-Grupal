@@ -77,14 +77,14 @@ export default function CreateCategory () {
 
     return (
         <div className={styles.fullDiv}>
-            <Link className={styles.volverAtras} to='/createProduct'>Go Back...</Link>
+            <Link className={styles.volverAtras} to='/home'>Go Back...</Link>
             <div className={styles.mainDiv}>
-                <h1>Category Creation:</h1>
+                <h1 className={styles.h1}>Category Creation:</h1>
                 <div className={styles.divFormTable}>
                     
                     <form className={styles.categoryForm}>
                         <div className={styles.labelInput}>
-                            <label htmlFor="">Name:</label>
+                            <label className={styles.labelName} htmlFor="">Name:</label>
                             <input className={styles.input} placeholder="Category Name..." value={input.name} name="name" type="text" onChange={(e) => handleInputChange(e)} />
                         </div>
                         <div className={styles.spanButton}>
@@ -94,7 +94,7 @@ export default function CreateCategory () {
                     </form>
                     
                     <div className={styles.divTable}>
-                        <h3>Existing Categories:</h3>
+                        <h3 className={styles.h3}>Existing Categories:</h3>
                         {/* <table>
                 <tbody>
                     <tr>

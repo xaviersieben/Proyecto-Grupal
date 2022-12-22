@@ -26,9 +26,11 @@ const createNewUser = async (req, res, next) => {
         const myUser = {
             name: body.name,
             surname: body.surname,
-            password: await bcrypt.hash(body.password, salt),
+            password: body.password ? await bcrypt.hash(body.password, salt) : '',
             email: body.email,
             adress: body.adress,
+            origin: body.origin,
+            subId: body.subId ? body.subId : null
         };
         const [_user, created] = await User.findOrCreate({
             where: { email: myUser.email}, 
@@ -90,15 +92,22 @@ const userLogin = async(req, res, next) =>{
     try{
         const user = await User.findOne({ where : {email : req.body.email, active: true }});
         if(user){
+					if(user.origin === 'passwdUser'){
             const validatePassword = await bcrypt.compare(req.body.password,user.password);
             if(validatePassword){
-                let payload = { "id": user.id, "email": user.email, "isAdmin": user.isAdmin};
+                let payload = { "id": user.id, "email": user.email, "isAdmin": user.isAdmin, "name": user.name};
                 let token = jwt.sign(payload,JWT_KEY,{expiresIn: "1h"})
                 let info = {...payload, token}
                 res.status(200).json(info);
             }else{
                 res.status(400).json({msg: "Password Incorrect"});
             }
+					}else{
+						let payload = { "id": user.id, "email": user.email, "isAdmin": user.isAdmin, "name": user.name};
+						let token = jwt.sign(payload,JWT_KEY,{expiresIn: "1h"})
+						let info = {...payload, token}
+						res.status(200).json(info);
+					}
         }else{
             res.status(400).json({msg: "User does not exist"});
         }
@@ -129,6 +138,7 @@ const userAuth = async (req, res, next) =>{
     }    
 }
 
+
 const resetPw = async (req, res, next)=>{
     try{
         const user = await User.findOne({where: {email:  req.body.email}});
@@ -153,6 +163,21 @@ const resetPw = async (req, res, next)=>{
     }
 }
 
+const getUser = async (req, res, next) =>{
+    try{
+        console.log('email',req.params.email)
+        const user0 = await User.findOne({ where : {email : req.params.email }});
+        if(user0){
+          res.status(200).json(user0)
+        }else{
+            res.status(400).json({msg: "User not found in the DB"});
+        }        
+    }catch(error){
+        next(error)
+    }
+}
+
+
 const confirmReset = async (req, res, next)=>{
     try{
         const salt = await bcrypt.genSalt(10);
@@ -169,10 +194,25 @@ const confirmReset = async (req, res, next)=>{
             }
         }else{
             res.status(400).json({msg: "User not found in the DB"});
-        }
+        }       
     }catch(error){
         next(error)
     }
 }
 
-module.exports = {createNewUser, swapStatus, getAllUsers, swapType, userLogin, userAuth, resetPw, confirmReset}
+const getSocialUser = async (req, res, next) =>{
+    try{
+        const user0 = await User.findOne({ where : {subId : req.params.sub }});
+        if(user0){
+          res.status(200).json(user0)
+        }else{
+            res.status(400).json({msg: "Social user not found in the DB"});
+        }        
+    }catch(error){
+        next(error)
+    }
+}
+
+
+module.exports = {createNewUser, swapStatus, getAllUsers, swapType, userLogin, userAuth, resetPw, confirmReset, getSocialUser}
+

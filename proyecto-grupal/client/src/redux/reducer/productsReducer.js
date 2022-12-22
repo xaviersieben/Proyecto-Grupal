@@ -15,6 +15,7 @@ const initialState = {
   users: [],
   allUsers: [],
   user: {},
+  socialUser: {},
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
 };
@@ -150,107 +151,60 @@ export default function productsReducer(state = initialState, action) {
     case "SET_CART":
       return {
         ...state,
-        cart: action.payload,
+        cart: [...action.payload],
       };
-
+    case "GET_CART":
+      return {
+        ...state,
+      };
+      case "DELETE_CART":
+        return {
+          ...state,
+          cart:[],
+        };
     case "ADD_CART":
-      
-      
-     
-      let itemInCart = state.cart.find((item) => item.productId === action.payload.productId);
-      console.log(action.payload)
-   
+      let itemInCart = state.cart.find(
+        (item) => item.productId === action.payload.productId
+      );
+
       return itemInCart
         ? {
-          
-            
             ...state,
             cart: state.cart.map((i) =>
               i.productId === action.payload.productId
-                ? { ...i, quantity: i.quantity + 1, amount:i.amount+action.payload.amount }
+                ? {
+                    ...i,
+                    quantity: i.quantity + 1,
+                    amount: i.amount + action.payload.amount,
+                  }
                 : i
             ),
           }
         : {
-            
             ...state,
             cart: [...state.cart, { ...action.payload, quantity: 1 }],
-            
           };
-          
-
-    // let addedCart = [];
-
-    // if (state.cart !== null) {
-    //     addedCart = [...state.cart];
-    // }
-
-    // let indexAddedCart = state.cart?.findIndex(
-    //     (cart) => Number(cart.id) === Number(action.payload.productId)
-    // );
-
-    // if (indexAddedCart !== -1) {
-    //     addedCart[indexAddedCart].amount = action.payload.amount;
-    //     return {
-    //         ...state,
-    //         cart: addedCart,
-    //     };
-    // } else {
-    //     const productSelected = state.Allproducts.find(
-    //         (product) =>
-    //             Number(product.id) === Number(action.payload.productId)
-    //     );
-
-    //     return {
-    //         ...state,
-    //         cart: [
-    //             ...state.cart,
-    //             {
-    //                 id: productSelected.id,
-    //                 title: productSelected.title,
-    //                 price: productSelected.price,
-    //                 images: productSelected.images,
-    //                 amount: action.payload.amount,
-    //             },
-    //         ],
-    //     };
-    // }
 
     case "ONE_ITEM_CART":
-      let newCart = [...state.cart];
-      let cartIndex = state.cart.findIndex(
-        (cart) => Number(cart.id) === Number(action.payload.productId)
-      );
-
-      if (cartIndex !== -1) {
-        newCart[cartIndex].amount = newCart[cartIndex].amount - 1;
-
-        return {
-          ...state,
-          cart: newCart,
-        };
-      } else {
-        const productSelected = state.Allproducts.find(
-          (product) => Number(product.id) === Number(action.payload.productId)
-        );
-
-        return {
-          ...state,
-          cart: [
-            ...state.cart,
-            {
-              id: productSelected.id,
-              title: productSelected.title,
-              price: productSelected.price,
-              images: productSelected.images,
-              amount: action.payload.amount,
-            },
-          ],
-        };
-      }
+      
+      return {
+        ...state,
+        cart: state.cart.map((i) =>
+          i.productId === action.payload.productId
+            ? {
+                ...i,
+                quantity: action.payload.quantity,
+                amount: action.payload.amount,
+              }
+            : i
+        ),
+      };
 
     case "DELETE_ITEMS":
-      const data = state.cart?.filter((item) => item.id !== action.payload.id);
+      const data = state.cart?.filter(
+        (item) => item.productId !== action.payload.productId
+      );
+
       return {
         ...state,
         cart: data,
@@ -294,13 +248,22 @@ export default function productsReducer(state = initialState, action) {
       };
     case "LOGIN_USER":
       return {
-        ...state, user: action.payload
+        ...state,
+        user: action.payload,
       };
     case "LOGOUT_USER":
       return {
-        ...state, user: {}
+        ...state,
+        user: {},
       };
-      
+
+
+    case 'IS_SOCIAL_USER':
+      return {
+        ...state, socialUser: action.payload
+      }
+
+
     default:
       return { ...state };
   }

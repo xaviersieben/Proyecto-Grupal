@@ -238,7 +238,7 @@ export default function ModifyForm({id, productDetails}) {
         <div className={styles.fullDiv}>
             
             <div className={styles.mainDiv}>
-                <h1>Product Modification Form:</h1>
+                <h1 className={styles.h1}>Product Modification Form:</h1>
                 <form className={styles.form}>
                     <div className={styles.divInput}>
                         <label className={styles.label} htmlFor="">Title:</label>
@@ -271,12 +271,18 @@ export default function ModifyForm({id, productDetails}) {
                         {errors.brand && <span className={styles.errorSpan}>*{errors.brand}</span>}
                     </div>
                     <div className={styles.divCategories}>
+                    <div className={styles.divCategoryCreation}>
+                        <p className={styles.textAlignLeft}>If you can't find the category you're looking for, you can create the one you need here:</p>
+                            <Link className={styles.categoryCreationLinkButton} to={'/createCategory'}>
+                                <Button color="success" variant="contained" size="small">Create Category</Button>
+                            </Link>
+                        </div>
                         <label className={styles.label} htmlFor="">Categories:</label>
                         <div className={styles.divCategoriesList}>
                             {allCategories?.map((category, index) => {
                                 return (
                                     <div className={styles.category} key={index}>
-                                        <input type="checkbox" value={category.name} id={category.name} onChange={(e) => { handleCheckBoxChange(e) }} checked={input.categories.includes(category.name)}/>
+                                        <input className={styles.checkbox} type="checkbox" value={category.name} id={category.name} onChange={(e) => { handleCheckBoxChange(e) }} checked={input.categories.includes(category.name)}/>
                                         <label htmlFor={category.name}>{category.name}</label>
                                     </div>
                                 )
