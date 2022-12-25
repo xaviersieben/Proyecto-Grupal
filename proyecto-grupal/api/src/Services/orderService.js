@@ -1,6 +1,6 @@
 const { Order, User, OrderDetail, Product } = require("../db.js");
 
-const createNewOrder = async (userId, amount, quantity) => {
+const createNewOrder = async (userId, amount, quantity,idMp) => {
   try {
     const findUser = await User.findByPk(userId);
 
@@ -8,6 +8,7 @@ const createNewOrder = async (userId, amount, quantity) => {
       price: amount,
       userId: userId,
       quantity: quantity,
+      idMp: idMp,
     });
 
     return newOrder;

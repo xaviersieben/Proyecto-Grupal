@@ -7,6 +7,8 @@ import CartProduct from "../CartProduct/CartProduct.jsx";
 import EmptyCart from "../EmptyCart/EmptyCart";
 import LoginModal from "../Login/LoginModal";
 import Login from "../Login/Login";
+import s from "../CreateProduct/CreateProduct";
+import axios from "axios";
 
 import { useLogin } from "../Login/useLogin";
 
@@ -33,6 +35,20 @@ const Cart = () => {
 
   const user = sessionStorage.getItem("userId");
 
+  const [input, setInput] = useState({
+    address: "",
+  });
+
+  function handleInputChange(e) {
+    e.preventDefault();
+    console.log(input);
+
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  }
+
   function handleLogin() {
     console.log("hola");
     if (!sessionStorage.getItem("token")) {
@@ -42,23 +58,33 @@ const Cart = () => {
     }
   }
 
-  function buy() {
+  async function buy() {
+    const response = await axios.post("http://localhost:3001/checkout", {
+      items: cart,
+      pagador: input,
+    });
+    const pago = response.data.init_point;
+    const pagoId = response.data.id;
+
     let order = {
       id: parseInt(user),
+      idMp: pagoId,
 
       price: totalAmount,
       quantity: totalQuantity,
       pedido: cart,
     };
+
     dispatch(postOrder(order));
-    history.push("/home");
+    window.location.href = pago;
+
+    //history.push("/home");
   }
 
   function onBuy(e) {
     e.preventDefault();
 
     !user ? handleLogin() : buy();
-    
 
     //history.push("/home");
   }
@@ -161,6 +187,21 @@ const Cart = () => {
 
                     setOrderTotal(toSum);
                   })}</p> */}
+                <form className={s.form}>
+                  <div className={s.divInput}>
+                    <label className={s.label} htmlFor="">
+                      Dirección de envío:
+                    </label>
+                    <input
+                      className={s.input}
+                      placeholder="Dirección..."
+                      value={input.address}
+                      name="address"
+                      type="text"
+                      onChange={(e) => handleInputChange(e)}
+                    />
+                  </div>
+                </form>
                 <Button onClick={onBuy} color="success" variant="contained">
                   Buy now
                 </Button>

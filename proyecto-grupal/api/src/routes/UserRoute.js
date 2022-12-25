@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 
-const { createNewUser, swapStatus, getAllUsers, swapType, userLogin, getUser, getSocialUser, confirmReset } = require('../Controllers/userController');
+const { createNewUser, swapStatus, getAllUsers, swapType, userLogin, getUser, getSocialUser, confirmReset,resetPw } = require('../Controllers/userController');
 
 
 //localhost:3001/user

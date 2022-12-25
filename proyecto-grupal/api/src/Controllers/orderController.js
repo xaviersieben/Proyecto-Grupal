@@ -7,13 +7,16 @@ const createNewOrder = async (req, res, next) => {
     let createdOrder;
 
     const userId = req.body.id;
-    console.log(userId)
+    console.log(req.body)
 
     createdOrder = await ordersServices.createNewOrder(
       userId,
       req.body.price,
-      req.body.quantity
+      req.body.quantity,
+      req.body.idMp
     );
+
+     console.log(createdOrder)
 
     for (let i = 0; i < req.body.pedido.length; i++) {
       const prodId = await Product.findAll({
@@ -42,6 +45,7 @@ const createNewOrder = async (req, res, next) => {
     }
 
     if (createdOrder) {
+      console.log(createdOrder)
       res.status(201).send(createdOrder);
     } else {
       res.status(404).send("Error creating order!");

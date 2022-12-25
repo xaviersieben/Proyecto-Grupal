@@ -15,6 +15,8 @@ import UsersAdministration from './components/UsersAdministration/UsersAdministr
 import Cart from './components/Cart/Cart.jsx';
 import PasswordReset from "../src/components/PasswordReset/PasswordReset";
 import PasswordConfirm from "../src/components/PasswordReset/PasswordConfirm"
+import CheckoutSuccess from "../src/components/Checkout/CheckoutSuccess"
+import CheckoutFailure from './components/Checkout/CheckoutFailure';
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
         <Route path='/administrateUsers' component={UsersAdministration} />    
         <Route path='/cart' component={Cart} />    
         <Route exact path='/login' component={LoginModal} />
+        <Route exact path='/checkout/success' component={CheckoutSuccess} />
+        <Route exact path='/checkout/failure' component={CheckoutFailure} />
         <AdminRoute path='/administrateUsers' component={UsersAdministration} />
     </div>
   );
