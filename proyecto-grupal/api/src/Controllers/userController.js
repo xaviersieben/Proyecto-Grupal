@@ -214,5 +214,5 @@ const getSocialUser = async (req, res, next) =>{
 }
 
 
-module.exports = {createNewUser, swapStatus, getAllUsers, swapType, userLogin, userAuth, resetPw, confirmReset, getSocialUser}
+module.exports = {createNewUser, swapStatus, getAllUsers, swapType, userLogin, userAuth, resetPw, confirmReset, getSocialUser,getUser}
 

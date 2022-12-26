@@ -19,6 +19,9 @@ module.exports = (sequelize) => {
     price: {
       type: DataTypes.REAL,
     },
+    idMp: {
+      type: DataTypes.STRING,
+    },
     shippingCost: {
       type: DataTypes.STRING,
     },
