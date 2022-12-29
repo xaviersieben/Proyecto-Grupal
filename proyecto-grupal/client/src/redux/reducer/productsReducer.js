@@ -9,7 +9,7 @@ const initialState = {
   allProducts: [],
   categories: [],
   cart: [],
-  reviews: [],
+  reviews: {},
   orders: [],
   detail: {},
   users: [],
@@ -157,11 +157,11 @@ export default function productsReducer(state = initialState, action) {
       return {
         ...state,
       };
-      case "DELETE_CART":
-        return {
-          ...state,
-          cart:[],
-        };
+    case "DELETE_CART":
+      return {
+        ...state,
+        cart: [],
+      };
     case "ADD_CART":
       let itemInCart = state.cart.find(
         (item) => item.productId === action.payload.productId
@@ -186,7 +186,6 @@ export default function productsReducer(state = initialState, action) {
           };
 
     case "ONE_ITEM_CART":
-      
       return {
         ...state,
         cart: state.cart.map((i) =>
@@ -210,10 +209,16 @@ export default function productsReducer(state = initialState, action) {
         cart: data,
       };
 
-    case "CREATE_REVIEW":
+    /*case "CREATE_REVIEW":
       return {
         ...state,
         reviews: [...state.reviews, action.payload],
+      };*/
+
+    case "GET_REVIEWS":
+      return {
+        ...JSON.parse(JSON.stringify(state)),
+        reviews: action.payload,
       };
 
     case "GET_ORDERS":
@@ -257,12 +262,11 @@ export default function productsReducer(state = initialState, action) {
         user: {},
       };
 
-
-    case 'IS_SOCIAL_USER':
+    case "IS_SOCIAL_USER":
       return {
-        ...state, socialUser: action.payload
-      }
-
+        ...state,
+        socialUser: action.payload,
+      };
 
     default:
       return { ...state };
