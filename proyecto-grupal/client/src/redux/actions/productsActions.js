@@ -334,7 +334,6 @@ export function loginUser(payload) {
   return async (dispatch) => {
     try {
       const response = await axios.post(`http://localhost:3001/user/login`, payload);
-      console.log("response ", response.data);
       //set JWT token to local
       sessionStorage.setItem("token", response.data.token);
       sessionStorage.setItem("isAdmin", response.data.isAdmin);
@@ -355,7 +354,6 @@ export function testIsUser(payload) {
     try {
       console.log('action data',payload)
       const response = await axios.post(`http://localhost:3001/user/isuser/${payload.email}`, payload);
-      console.log("response API", response.data);
       return dispatch({
         type: 'TEST_IS_USER',
         payload: response.data,
@@ -369,11 +367,37 @@ export function testIsUser(payload) {
 export function isSocialUser(payload) {
   return async (dispatch) => {
     try {
-      console.log('action social data',payload)
       const response = await axios.get(`http://localhost:3001/user/socialuser/${payload.sub}`);
-      console.log("response API", response.data);
       return dispatch({
         type: 'IS_SOCIAL_USER',
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.response.data.msg);
+    }
+  };
+}
+
+export function getUserProfile(payload) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/user/profile/${payload.id}`);
+      return dispatch({
+        type: 'GET_USER_PROFILE',
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.response.data.msg);
+    }
+  };
+}
+
+export function updateUserProfile(payload) {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(`http://localhost:3001/user/profile/${payload.id}`, payload);
+      return dispatch({
+        type: 'UPADTE_USER_PROFILE',
         payload: response.data,
       });
     } catch (error) {
@@ -387,6 +411,7 @@ export function logOut() {
     //Unset JWT token to local
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("isAdmin");
+    sessionStorage.removeItem("userId");
     return  {
       type: 'LOGOUT_USER',
       payload: ''

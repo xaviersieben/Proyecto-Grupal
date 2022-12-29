@@ -24,7 +24,7 @@
   justify-self: start;
 }
 
-.userMenu{
+.userNav{
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -185,4 +185,65 @@
   align-items: center;
   justify-content: center;
   font-size: 15px;
+}
+
+.userMenu {
+  list-style: none;
+}
+
+.userMenuLi {
+  display: inline-block;
+  position: relative;
+}
+
+.userMenuLi:hover .userSubMenu {
+  /* display: block; */
+  visibility: visible;
+  opacity: 1;
+}
+
+.userMenuLiA {
+  display: block;
+  text-decoration: none;
+  padding: 0;
+}
+
+.userMenuLiA:hover {
+  transition: all 0.3s;
+}
+
+.userSubMenu {
+  position: absolute;
+  width: 140%;
+  list-style: none;
+  background-color: #004ea8;
+  /* display: none; */
+  visibility: hidden;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 1.5s;
+  padding: 0;
+}
+
+.userSubMenuLi {
+  display: block;
+  width: 100%;
+  background-color:  #0c3d76b8;
+}
+
+.userSubMenuLiA {
+  display: block;
+  text-decoration: none;
+  padding: 0rem;
+  color: white;
+  text-align: start;
+  font-size: 13px;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  padding-left: 0.4rem;
+}
+.userSubMenuLiA:hover {
+  color: white;
+  font-weight: bold;
+  background-color:  #022752b8;
 }
