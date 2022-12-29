@@ -18,6 +18,7 @@ const initialState = {
   socialUser: {},
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
+  userProfile: {},
 };
 
 export default function productsReducer(state = initialState, action) {
@@ -261,12 +262,18 @@ export default function productsReducer(state = initialState, action) {
         ...state,
         user: {},
       };
-
-    case "IS_SOCIAL_USER":
+    case 'IS_SOCIAL_USER':
       return {
-        ...state,
-        socialUser: action.payload,
-      };
+        ...state, socialUser: action.payload
+      }
+    case 'GET_USER_PROFILE':
+      return {
+        ...state, userProfile: action.payload
+      }
+    case 'UPADTE_USER_PROFILE':
+      return {
+        ...state, userProfile: action.payload
+      }
 
     default:
       return { ...state };

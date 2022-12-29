@@ -1,7 +1,8 @@
 const { Router } = require("express");
 const router = Router();
 
-const { createNewUser, swapStatus, getAllUsers, swapType, userLogin, getUser, getSocialUser, confirmReset,resetPw } = require('../Controllers/userController');
+const { createNewUser, swapStatus, getAllUsers, swapType, userLogin, getUser, getSocialUser, 
+    confirmReset,resetPw, getUserProfile, updateUserProfile } = require('../Controllers/userController');
 
 
 //localhost:3001/user
@@ -16,6 +17,7 @@ router.post("/login", userLogin);
 router.post("/reset", resetPw);
 router.put("/reset/:id/:token", confirmReset);
 router.get("/isuser/:email", getUser);
-
+router.get("/profile/:id", getUserProfile);
+router.put("/profile/:id", updateUserProfile);
 
 module.exports = router;
