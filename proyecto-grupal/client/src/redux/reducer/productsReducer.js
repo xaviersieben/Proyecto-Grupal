@@ -133,10 +133,21 @@ export default function productsReducer(state = initialState, action) {
       if (action.payload.length === 0) {
         productList = state.allProducts;
       } else {
-        productList = state.allProducts.filter((product) => {
+        let listTitle = state.allProducts.filter((product) => {
           let nameProduct = product.title.toLowerCase();
           return nameProduct.includes(action.payload.toLowerCase());
         });
+        let listDesc = state.allProducts.filter(product => {
+          let nameProduct = product.description.toLowerCase();
+          return nameProduct.includes(action.payload.toLowerCase());
+        })
+        let listBrand = state.allProducts.filter(product => {
+          let nameProduct = product.brand.toLowerCase();
+          return nameProduct.includes(action.payload.toLowerCase());
+        })
+        const listTotal = listTitle.concat(listDesc.concat(listBrand))
+        const setTotal = new Set(listTotal)
+        productList = Array.from(setTotal)
       }
       return {
         ...state,
