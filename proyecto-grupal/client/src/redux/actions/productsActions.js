@@ -147,7 +147,10 @@ export function getReviews(id) {
   return async function (dispatch) {
     try {
       const result = await axios.get("/review/" + id + "?order=DESC");
-      return dispatch({ type: 'GET_REVIEWS', payload: result.data });
+      return dispatch({
+        type: "GET_REVIEWS",
+        payload: result.data,
+      });
     } catch (error) {
       console.log(error);
     }
