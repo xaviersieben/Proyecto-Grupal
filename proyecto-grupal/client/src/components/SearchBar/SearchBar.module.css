@@ -2,10 +2,9 @@
 
 .container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
     margin-left: 5%;
-    
 }
 
 .formSearch {
@@ -58,4 +57,32 @@
   .alpha:hover {
     color: #004ea8;
     cursor: pointer;
+  }
+
+  .divOptions {
+    position: relative;
+    width: 99%;
+  }
+
+  .listoptions {
+    position: absolute;
+    width: 93%;
+    list-style: none;
+    background-color: #f8f9fa;
+    /* display: none;  */
+    /* visibility: hidden; */
+    /* opacity: 0; */
+    z-index: 1;
+    transition: all 0.5s;
+    padding: 0;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+
+  .option {
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    padding-left: 0.2rem;
+  }
+  .option:hover {
+    background-color: #d9e8f7;
   }
