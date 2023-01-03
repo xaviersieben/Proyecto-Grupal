@@ -54,18 +54,23 @@ right: 1rem;
   flex-direction: column;
   justify-content: space-around;
   margin-left: 40px;
+  padding: 10px;
+  
 }
 .inputCard {
   width: 90%;
   font-size: 1.1rem;
 }
-
+.password_input{
+  padding-bottom: 20px;
+}
 .textSocial {
   display: flex;
   justify-content: center;
   text-align: center;
   width: 90%;
   font-size: 1.1rem;
+  
 }
 
 .btns {
