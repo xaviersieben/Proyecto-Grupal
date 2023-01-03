@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, TableRow, TableCell, TextField } from "@mui/material";
 import * as actions from "../../redux/actions/productsActions";
 
@@ -13,14 +13,21 @@ export default function CartProduct({
   images,
 }) {
   const dispatch = useDispatch();
+  let product = useSelector((state) => state.products);
 
   function removeCart() {
     dispatch(actions.removeCart(productId));
   }
 
   function changeCart(e) {
-    let cant = e.target.value < 1 ? 1 : parseInt(e.target.value);
+    const data = product?.filter((item) => item.id === productId);
 
+    let cant = e.target.value < 1 ? 1 : e.target.value > data[0].stock ? data[0].stock: parseInt(e.target.value);
+
+    let canti = cant > data[0].stock ? data[0].stock : parseInt(e.target.value);
+
+    //console.log(data[0].stock)
+    
     dispatch(actions.changeItemCart(productId, cant, amount));
   }
 
