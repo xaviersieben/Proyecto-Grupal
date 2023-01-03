@@ -8,11 +8,10 @@ import logo from "../../img/logo.JPG";
 import { Link } from "react-router-dom";
 import LogIn from "../Auth0/LogIn";
 
-
 const Login = ({ children, modalOpen, closeLogin }) => {
   const handleModalContainerClick = (e) => e.stopPropagation();
 
-  const space = '\u00A0'
+  const space = "\u00A0";
 
   const dispatch = useDispatch();
   const initialState = {
@@ -57,7 +56,8 @@ const Login = ({ children, modalOpen, closeLogin }) => {
         <form className="formCard" onSubmit={(e) => handleSubmit(e)}>
           <label htmlFor="">
             E-mail
-            <input className="inputCard"
+            <input
+              className="inputCard"
               type="email"
               value={user.email}
               name="email"
@@ -65,9 +65,10 @@ const Login = ({ children, modalOpen, closeLogin }) => {
             />
             {errors.email && <p className="danger">{errors.email}</p>}
           </label>
-          <label htmlFor="">
+          <label className="password_input" htmlFor="">
             Password:
-            <input className="inputCard"
+            <input
+              className="inputCard"
               type="password"
               value={user.password}
               name="password"
@@ -80,24 +81,30 @@ const Login = ({ children, modalOpen, closeLogin }) => {
           </button>
         </form>
 
+        <div className="formCard">
+          
+          <LogIn />
+        </div>
+
         <div className="sing_redirection">
           <spam>
             ¿Forgot password? {space}
-            <Link to={"/passReset"}>Reset Password</Link>/
+            <Link className="register_link" to={"/passReset"}>
+              Reset Password
+            </Link>
           </spam>
+        </div>
+        <div className="sing_redirection">
           <spam>
-            Don't have and account? {space}
+            Don't have an account? {space}
             <Link className="register_link" to={"/register"}>
               Sign Up Here
             </Link>
           </spam>
         </div>
+
         
-        <div className="formCard">
-          <div className="textSocial"><h5>Or</h5></div>
-          <LogIn/>
-        </div>
-        
+
         {/* {children} */}
       </div>
     </article>
