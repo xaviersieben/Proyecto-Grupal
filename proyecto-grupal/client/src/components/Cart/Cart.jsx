@@ -7,7 +7,7 @@ import CartProduct from "../CartProduct/CartProduct.jsx";
 import EmptyCart from "../EmptyCart/EmptyCart";
 import LoginModal from "../Login/LoginModal";
 import Login from "../Login/Login";
-import s from "../CreateProduct/CreateProduct";
+//import s from "../CreateProduct/CreateProduct";
 import axios from "axios";
 
 import { useLogin } from "../Login/useLogin";
@@ -98,9 +98,9 @@ const Cart = () => {
   return (
     <div>
       <Login modalOpen={modalOpen} closeLogin={closeLogin} />
-      <Typography variant="h2" className={styles.tableTitle}>
+      {/* <Typography variant="h2" className={styles.tableTitle}>
         Shopping Cart
-      </Typography>
+      </Typography> */}
 
       <div className={styles.cart}>
         <Typography variant="h2" className={styles.tableTitle}>
@@ -178,31 +178,52 @@ const Cart = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-              <div>
-                <h3>Order total: </h3>
-                <p>$ {totalAmount}</p>
+              <div className={styles.orderTotalAddressAndBuy}>
+                  <div className={styles.orderTotal}>
+                    <Typography variant="h3">Order total: </Typography>
+                    <Typography variant="p" className={styles.orderTotalP}><span style={{marginLeft: '20px'}}></span>$ {totalAmount}</Typography>
+                  </div>
                 {/* <h3>Order total: </h3>
                   <p>{cart?.forEach((cartItem) => {
                     let toSum = orderTotal + (cartItem.amount * cartItem.quantity);
 
                     setOrderTotal(toSum);
                   })}</p> */}
-                <form className={s.form}>
-                  <div className={s.divInput}>
-                    <label className={s.label} htmlFor="">
-                      Dirección de envío:
-                    </label>
-                    <input
-                      className={s.input}
-                      placeholder="Dirección..."
-                      value={input.address}
-                      name="address"
-                      type="text"
-                      onChange={(e) => handleInputChange(e)}
-                    />
+                  {/* <div>
+                    <form className={s.form}>
+                      <div className={s.divInput}>
+                        <label className={s.label} htmlFor="">
+                          Dirección de envío:
+                        </label>
+                        <input
+                          className={s.input}
+                          placeholder="Dirección..."
+                          value={input.address}
+                          name="address"
+                          type="text"
+                          onChange={(e) => handleInputChange(e)}
+                        />
+                      </div>
+                    </form>
+                  </div> */}
+                   <div>
+                    <form>
+                      <div className={styles.addressDiv}>
+                        <label className={styles.addressDivLabel} htmlFor="">
+                          Shipping address:
+                        </label>
+                        <input
+                          className={styles.addressDivInput}
+                          placeholder="Address..."
+                          value={input.address}
+                          name="address"
+                          type="text"
+                          onChange={(e) => handleInputChange(e)}
+                        />
+                      </div>
+                    </form>
                   </div>
-                </form>
-                <Button onClick={onBuy} color="success" variant="contained">
+                <Button onClick={onBuy} color="success" variant="contained" className={styles.buyButton}>
                   Buy now
                 </Button>
               </div>
