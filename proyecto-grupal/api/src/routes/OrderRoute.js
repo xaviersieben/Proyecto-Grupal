@@ -4,7 +4,9 @@ const {
   getAllOrders,
   updateOrder,
   deleteOrder,
+  updateStatus,
 } = require("../Controllers/orderController");
+
 
 const router = require("express").Router();
 
@@ -19,6 +21,8 @@ router.post("/cart", saveUserCart);
 router.get("/cart", getUserCart);
 
 router.put("/:id", updateOrder);
+
+router.put("/status/:id", updateStatus);
 
 router.delete("/:id", deleteOrder);
 

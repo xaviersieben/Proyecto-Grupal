@@ -33,6 +33,7 @@ const Cart = () => {
   const history = useHistory();
   const [modalOpen, openLogin, closeLogin] = useLogin(false);
 
+
   const user = sessionStorage.getItem("userId");
 
   const [input, setInput] = useState({
@@ -74,6 +75,10 @@ const Cart = () => {
       quantity: totalQuantity,
       pedido: cart,
     };
+
+      localStorage.setItem('orders', JSON.stringify(order));
+      localStorage.setItem('user', JSON.stringify(user));
+      
 
     dispatch(postOrder(order));
     window.location.href = pago;

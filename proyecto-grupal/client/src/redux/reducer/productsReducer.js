@@ -216,6 +216,19 @@ export default function productsReducer(state = initialState, action) {
         reviews: [...state.reviews, action.payload],
       };
 
+      case "CREATE_ORDER":
+       let pay = action.payload;
+       if (pay != "Error creating order!")
+       {
+        return {
+          ...state,
+          orders: pay,
+        }
+       }  
+         return {
+          ...state,
+        };
+
     case "GET_ORDERS":
       return {
         ...state,
