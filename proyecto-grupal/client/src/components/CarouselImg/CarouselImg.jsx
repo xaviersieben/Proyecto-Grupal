@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Carousel from 'react-bootstrap/Carousel';
+import { height } from '@mui/system';
 
 
 
@@ -12,7 +13,7 @@ export default function CarouselImg () {
       
     return (
     
-      <Carousel style={{width: "700px"}}>
+      <Carousel style={{width: "29rem"}}>
       <Carousel.Item>
         <img
           className="d-block w-100"
