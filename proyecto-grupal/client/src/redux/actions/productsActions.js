@@ -199,11 +199,11 @@ export function postOrder(payload) {
   return async (dispatch) => {
     const response = await axios.post("http://localhost:3001/orders", payload);
     //console.log(response)
-    return dispatch({
+        return dispatch({
       type: "CREATE_ORDER",
-      payload: payload,
-      response,
-    });
+
+      payload: payload, response
+    });;
   };
 }
 
@@ -229,6 +229,21 @@ export function getOrderDetail(id) {
       type: "GET_ORDER_DETAIL",
       payload: detail?.data,
     });
+  };
+}
+
+
+export function putOrder(id, body) {
+  return async function (dispatch) {
+    try {
+      let res = await axios.put(`http://localhost:3001/orders/status/${id}`, body);
+      return dispatch({
+        type: "PUT_ORDER",
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 

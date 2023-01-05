@@ -168,6 +168,29 @@ const updateOrder = async (req, res, next) => {
   }
 };
 
+const updateStatus = async (req, res, next) => {
+  const { id } = req.params;
+  console.log("entro");
+  const ordId = await Order.findAll({ 
+    where: {
+      idMp: id,
+    },
+    attibutes: ["id"]
+  });
+    console.log(req.body);
+    console.log(ordId);
+  try {
+    const ordById = await ordersServices.orderUpdate(ordId[0].dataValues.id,req.body);
+    if (ordById) {
+      res.status(200).send(ordById);
+    } else {
+      res.status(404).send("Not Found");
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 const deleteOrder = async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -190,6 +213,7 @@ module.exports = {
   getAllOrders,
   createNewOrder,
   updateOrder,
+  updateStatus,
   getOrderById,
-  deleteOrder
+  deleteOrder,
 };
