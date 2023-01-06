@@ -14,6 +14,9 @@ export default function NavBar() {
         <Link to={"/administrateUsers"}>
           <button className={s.btns}>Users Dashboard</button>
         </Link>
+        <Link to={"/administrateOrders"}>
+          <button className={s.btns}>Orders Dashboard</button>
+        </Link>
       </div>
     </div>
   );

@@ -418,3 +418,10 @@ export function resetConfirm(payload){
     }
   }
 }
+
+export function filterByStatus(type){
+  return{
+    type: "FILTER_BY_STATUS",
+    payload: type
+  }
+}
