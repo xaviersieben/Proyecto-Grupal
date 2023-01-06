@@ -468,5 +468,14 @@ export function resetConfirm(payload) {
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 }
+
+export function filterByStatus(type){
+  return{
+    type: "FILTER_BY_STATUS",
+    payload: type
+  }
+}
+
+

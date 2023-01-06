@@ -4,6 +4,7 @@ const {
   getAllOrders,
   updateOrder,
   deleteOrder,
+  getOrderById,
   updateStatus,
 } = require("../Controllers/orderController");
 
@@ -12,7 +13,7 @@ const router = require("express").Router();
 
 router.get("/", getAllOrders);
 
-router.get("/:id", getAllOrders);
+router.get("/:id", getOrderById);
 
 router.post("/", createNewOrder);
 

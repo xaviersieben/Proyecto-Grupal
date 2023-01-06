@@ -92,22 +92,22 @@ const userLogin = async(req, res, next) =>{
     try{
         const user = await User.findOne({ where : {email : req.body.email, active: true }});
         if(user){
-		    	if(user.origin === 'passwdUser'){
-            const validatePassword = await bcrypt.compare(req.body.password,user.password);
-            if(validatePassword){
+			    if(user.origin === 'passwdUser'){
+                const validatePassword = await bcrypt.compare(req.body.password,user.password);
+                if(validatePassword){
+                    let payload = { "id": user.id, "email": user.email, "isAdmin": user.isAdmin, "name": user.name};
+                    let token = jwt.sign(payload,JWT_KEY,{expiresIn: "1h"})
+                    let info = {...payload, token}
+                    res.status(200).json(info);
+                }else{
+                    res.status(400).json({msg: "Password Incorrect"});
+                }
+            }else{
                 let payload = { "id": user.id, "email": user.email, "isAdmin": user.isAdmin, "name": user.name};
                 let token = jwt.sign(payload,JWT_KEY,{expiresIn: "1h"})
                 let info = {...payload, token}
                 res.status(200).json(info);
-            }else{
-                res.status(400).json({msg: "Password Incorrect"});
             }
-					}else{
-						let payload = { "id": user.id, "email": user.email, "isAdmin": user.isAdmin, "name": user.name};
-						let token = jwt.sign(payload,JWT_KEY,{expiresIn: "1h"})
-						let info = {...payload, token}
-						res.status(200).json(info);
-					}
         }else{
             res.status(400).json({msg: "User does not exist"});
         }
@@ -150,6 +150,7 @@ const resetPw = async (req, res, next)=>{
             const token = jwt.sign({email: email, id: user.id},secret,{expiresIn:"5m"})
             let html = `<p>Click <a href="http://localhost:3000/passConfirm/${email}/${token}">here</a> to reset your password</p><br><p>Please ignore this email if you didnt request a password reset<p>`
             let result = await deliverMail(email, subject, text, html)
+            console.log(result)
             if(result){
                 res.status(200).send({token: token, mail: email})
             }else{

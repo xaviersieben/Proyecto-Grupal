@@ -209,6 +209,26 @@ const deleteOrder = async (req, res, next) => {
   }
 };
 
+const orderStatus = async (req, res, next) => {
+  const { id } = req.params;
+  try{
+    const order = await Order.findOne({ where : {id : id }});
+    if(order){
+      const updated = await Order.update(
+        {status: "Cancelled"},
+        {where: {id: id}}
+      );
+      if(updated[0]===1){
+        res.status(200).json({msg: `New Order status: Cancelled`})
+      }
+    }else{
+      res.status(400).json({msg: "Order not found in the DB"});
+    } 
+  }catch(error){
+    next(error)
+  }
+}
+
 module.exports = {
   getAllOrders,
   createNewOrder,
@@ -216,4 +236,5 @@ module.exports = {
   updateStatus,
   getOrderById,
   deleteOrder,
+  orderStatus,
 };

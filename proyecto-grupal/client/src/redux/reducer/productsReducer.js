@@ -11,6 +11,7 @@ const initialState = {
   cart: [],
   reviews: {},
   orders: [],
+  allOrders:[],
   detail: {},
   users: [],
   allUsers: [],
@@ -241,6 +242,7 @@ export default function productsReducer(state = initialState, action) {
     case "GET_ORDERS":
       return {
         ...state,
+        allOrders: action.payload,
         orders: action.payload,
       };
 
@@ -282,6 +284,15 @@ export default function productsReducer(state = initialState, action) {
       return {
         ...state, socialUser: action.payload
       }
+    case "FILTER_BY_STATUS":
+      console.log("filtro: " + action.payload);
+      if(action.payload === "all"){
+        return{...state, orders: state.allOrders}
+      }else{
+        const orders = state.allOrders;
+        const filter = orders.filter(e=>e.status === action.payload)
+        return{...state, orders: filter}
+      }
     case 'GET_USER_PROFILE':
       return {
         ...state, userProfile: action.payload
@@ -290,7 +301,6 @@ export default function productsReducer(state = initialState, action) {
       return {
         ...state, userProfile: action.payload
       }
-
     default:
       return { ...state };
   }

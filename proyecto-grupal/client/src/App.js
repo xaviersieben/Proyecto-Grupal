@@ -17,7 +17,9 @@ import PasswordReset from "../src/components/PasswordReset/PasswordReset";
 import PasswordConfirm from "../src/components/PasswordReset/PasswordConfirm"
 import CheckoutSuccess from "../src/components/Checkout/CheckoutSuccess"
 import CheckoutFailure from './components/Checkout/CheckoutFailure';
+import OrderAdministration from './components/OrdersAdministration/OrderAdministration';
 import Profile from './components/Profile/Profile';
+
 
 function App() {
   return (
@@ -38,6 +40,7 @@ function App() {
         <Route exact path='/checkout/success' component={CheckoutSuccess} />
         <Route exact path='/checkout/failure' component={CheckoutFailure} />
         <AdminRoute path='/administrateUsers' component={UsersAdministration} />
+        <AdminRoute path='/administrateOrders' component={OrderAdministration}/>
         <Route exact path={'/profile'} component={Profile} />
     </div>
   );
