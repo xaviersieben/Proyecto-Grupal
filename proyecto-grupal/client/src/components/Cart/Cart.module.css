@@ -52,3 +52,44 @@
 .filler {
     min-height: 100px;
 }
+.orderTotalAddressAndBuy {
+    display: flex;
+    flex-direction: column;
+}
+.orderTotal {
+    align-self: flex-end;
+    display: flex;
+    width: 550px;
+    height: 60px;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.orderTotalP {
+    /* width: 150px; */
+    height: 60px;
+    display: block;
+    margin: 0;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    font-size: 3rem;
+    line-height: 1.167;
+    letter-spacing: 0em;
+}
+.addressDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+.addressDivLabel {
+    margin-right: 15px;
+}
+.addressDivInput {
+    width: 450px;
+}
+.buyButton {
+    width: 180px;
+    align-self: center;
+}

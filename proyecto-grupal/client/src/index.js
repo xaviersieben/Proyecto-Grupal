@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { Auth0Provider } from "@auth0/auth0-react";
-import store from './redux/store';
+import {store} from './redux/store';
 
 // Configuracion Auth0
 console.log(

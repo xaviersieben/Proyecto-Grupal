@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { addCart } from "../../redux/actions/productsActions";
 import sty from "..//ProductCard/ProductCard.module.css";
+import Swal from "sweetalert2"
 
 export default function ProductCard({
   title,
@@ -23,11 +24,16 @@ export default function ProductCard({
 
   function handleCart() {
     const data = cart?.filter((item) => item.productId === id);
-    const dataf = data.length<1?stock-1:data[0].quantity
-    console.log(dataf);
-    stock > 0 && dataf+1<=stock
+    const dataf = data.length < 1 ? stock - 1 : data[0].quantity;
+    //console.log(dataf);
+    stock > 0 && dataf + 1 <= stock
       ? dispatch(addCart(id, price, images, title))
-      : alert("no");
+      : Swal.fire({
+        title: 'Out of Stock!',
+        //text: 'Do you want to continue',
+        icon: 'error',
+        confirmButtonText: 'Continue'
+      });
   }
   //const dark = useSelector((state) => state.dark);
   return (
@@ -62,14 +68,20 @@ export default function ProductCard({
             </div>
           </div>
         </div>
-        <Button
-          style={{ width: "100%" }}
-          variant="contained"
-          size="small"
-          onClick={handleCart}
-        >
-          Add to Cart
-        </Button>
+        {stock ? (
+          <Button
+            style={{ width: "100%" }}
+            variant="contained"
+            size="small"
+            onClick={handleCart}
+          >
+            Add to Cart
+          </Button>
+        ) : (
+          <Button style={{ width: "100%" }} variant="contained" size="small">
+            Not Available
+          </Button>
+        )}
       </div>
     </>
   );

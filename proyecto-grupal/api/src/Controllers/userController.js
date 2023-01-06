@@ -92,7 +92,7 @@ const userLogin = async(req, res, next) =>{
     try{
         const user = await User.findOne({ where : {email : req.body.email, active: true }});
         if(user){
-			if(user.origin === 'passwdUser'){
+			    if(user.origin === 'passwdUser'){
                 const validatePassword = await bcrypt.compare(req.body.password,user.password);
                 if(validatePassword){
                     let payload = { "id": user.id, "email": user.email, "isAdmin": user.isAdmin, "name": user.name};
@@ -214,6 +214,45 @@ const getSocialUser = async (req, res, next) =>{
     }
 }
 
+const getUserProfile = async (req, res, next) =>{
+    try{
+        const user0 = await User.findOne({ where : {id : req.params.id }});
+        if(user0){
+          res.status(200).json(user0)
+        }else{
+            res.status(400).json({msg: "User not found in the DB"});
+        }        
+    }catch(error){
+        next(error)
+    }
+}
 
-module.exports = {createNewUser, swapStatus, getAllUsers, swapType, userLogin, userAuth, resetPw, confirmReset, getSocialUser,getUser}
+const updateUserProfile = async(req, res, next) =>{
+	try{
+			const { body } = req;
+			const user = await User.findOne({ where : {id : req.params.id }});
+			if(user){
+					const updated = await User.update(
+							{
+								name: body.name,
+            		surname: body.surname,
+            		email: body.email,
+            		adress: body.adress,
+							},
+							{where: {id: req.params.id}}
+					);
+					if(updated[0]===1){
+							userStatus = !user.isAdmin;
+							res.status(200).json({msg: `User is admin: ${userStatus}`})
+					}
+			}else{
+					res.status(400).json({msg: "User not found in the DB"});
+			}  
+	}catch(error){
+			next(error);
+	}
+}
+
+module.exports = {createNewUser, swapStatus, getAllUsers, swapType, userLogin, userAuth, resetPw, 
+	confirmReset, getSocialUser, getUser, getUserProfile, updateUserProfile}
 

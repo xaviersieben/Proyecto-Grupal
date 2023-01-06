@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import * as actions from "../../redux/actions/productsActions";
 import SearchBar from "../SearchBar/SearchBar";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
 import Pagination from "../Pagination/Pagination";
 import s from "./Home.module.css";
@@ -184,14 +184,23 @@ export default function Home() {
           />
         </div>
 
-        <div className={s.userMenu}>
+        <nav className={s.userNav}>
           {userDb.email && (
-            <button className={s.userButton}>
-              <i className="fa fa-user-circle-o" aria-hidden="true"></i>
-              <span>{userDb.name}</span>
-            </button>
+            <ul className={s.userMenu}>
+              <li className={s.userMenuLi}>
+                <button className={s.userButton}>
+                  <i className="fa fa-user-circle-o" aria-hidden="true"></i>
+                  <span>{userDb.name}</span>
+                </button>
+                <ul className={s.userSubMenu}>
+                  <li className={s.userSubMenuLi}><Link className={s.userSubMenuLiA} href="#"> My Orders</Link></li>
+                  <li className={s.userSubMenuLi}><Link to={'/profile'} className={s.userSubMenuLiA} href="#"> My Profile</Link></li>
+                  <li className={s.userSubMenuLi} onClick={(e) => handleLogOut(e)} ><Link className={s.userSubMenuLiA} href="#"> Log Out</Link></li>
+                </ul>
+              </li>
+            </ul>
           )}
-        </div>
+        </nav>
       </div>
       {userDb.isAdmin && <NavBar />}
 

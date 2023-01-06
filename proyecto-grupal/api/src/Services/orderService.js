@@ -53,7 +53,7 @@ const findOrders = async (order) => {
 const orderUpdate = async (id, body) => {
   const ordUpdate = await Order.update(body, {
     where: {
-      id: id,
+      "id": id,
     },
   });
 

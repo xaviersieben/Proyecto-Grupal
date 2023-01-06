@@ -3,7 +3,9 @@ const router = Router();
 const mercadopago = require("mercadopago");
 const { userLogin } = require("..//Controllers/userController");
 //Provisional de esta forma, luego va en el .env
+
 const ACCESS_TOKEN = "APP_USR-2136680771902247-071214-4767199d5dfa22b7c0885a9e58ff3bec-1159384629";
+//const ACCESS_TOKEN = "TEST-6405482469447912-122618-bdf78e9edc3a5200ee09947407b8f220-108067496";
 //const ACCESS_TOKEN = "TEST-3513189841843574-122218-a2e90018ba813e2fee73acec8437541e-196223807";
 
 //5031 7557 3453 0604	
@@ -58,7 +60,7 @@ router.post("/", (req, res) => {
                 },
             back_urls:{
                 success: "http://localhost:3000/checkout/success/",
-                failure: "http://localhost:3000/checkout/failure/",
+                failure: "http://localhost:3000/checkout/success/",
             },
             auto_return: "approved",
             //binary_mode: true,
