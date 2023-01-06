@@ -60,7 +60,7 @@ router.post("/", (req, res) => {
                 },
             back_urls:{
                 success: "http://localhost:3000/checkout/success/",
-                failure: "http://localhost:3000/checkout/failure/",
+                failure: "http://localhost:3000/checkout/success/",
             },
             auto_return: "approved",
             //binary_mode: true,

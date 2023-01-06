@@ -1,37 +1,37 @@
 import React from 'react';
-import { useState, useEffect } from "react";
-import { useDispatch} from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector} from "react-redux";
 import { useHistory } from "react-router-dom";
-import { useLogin } from "../Login/useLogin";
 import estilos from "./CheckoutSuccess.module.css";
 import {
     Button,
 } from "@mui/material";
-import { putOrder } from '../../redux/actions/productsActions.js';
+import { putOrder, setCart, getUsers, getOrders } from '../../redux/actions/productsActions.js';
 
 
 function CheckoutSuccess() {
-
- const [RespMP, setRespMP] = useState({});
  const dispatch = useDispatch();
  const history = useHistory();
- const [modalOpen, openLogin, closeLogin] = useLogin(false);
+ const user = useSelector((state) => state.user);
+ const users = useSelector((state) => state.users);
+ const orders = useSelector((state) => state.orders);
+
+ const params = new URLSearchParams(window.location.search)
+ const [RespMP] = useState(Array.from(params.keys()).reduce((acc, val) => ({ ...acc, [val]: params.get(val) }),{}));
+ const user2 = JSON.parse(localStorage.getItem("user2")) || [];
+ const order = JSON.parse(localStorage.getItem("order2")) || [];
  let datosDePago;
- const user2 = JSON.parse(localStorage.getItem("user")) || [];
- const order = JSON.parse(localStorage.getItem("orders")) || [];
-
- const user = sessionStorage.getItem("userId");
-
- useEffect(() => {
-  const params = new URLSearchParams(window.location.search)
-  setRespMP(Array.from(params.keys()).reduce((acc, val) => ({ ...acc, [val]: params.get(val) }),{}));
-  console.log(RespMP);
-  
-  // seguir con el dispatch para aprobar el pedido y ver como obtener los datos del usuario para mostrarlos tambien abajo
-}, []);
+let dataOrder = [];
+let dataUser = [];
 
 if(RespMP){
-        
+ 
+  dispatch(getUsers());
+  dispatch(getOrders());  
+  
+  dataOrder = orders.filter(o => o.idMp === order.idMp); 
+  dataUser = users.filter(u => u.id === user.id);
+  
   datosDePago = {
         nroOperacion: RespMP.payment_id,
         estado: "",
@@ -52,11 +52,10 @@ if(RespMP){
         default: datosDePago.medioDePago = "Otro";
     }
   }   
-
    
   function onAcepta(e) {
     e.preventDefault();
-
+     (RespMP.status === "approved") && dispatch(setCart([]));
        history.push("/home");
   }
 
@@ -70,40 +69,40 @@ if(RespMP){
         
            <> 
                 <div id={estilos.contenedorDatos}>
-                    <h2>Datos del pedido</h2>
+                    <h2>Order Status</h2>
                     <br />
                     <ul id={estilos.lista}>
                         <li className={estilos.itemLista}>
-                            <span className={estilos.items}>Nro. de operacion: </span>
+                            <span className={estilos.items}>Operation Nro.: </span>
                             <span className={estilos.items}>{datosDePago.nroOperacion}</span>
                         </li>
                         <li className={estilos.itemLista}>
-                            <span className={estilos.items}>Estado: </span>
+                            <span className={estilos.items}>Payment Status: </span>
                             <span className={estilos.items}>{datosDePago.estado}</span>
                         </li>
                         <li className={estilos.itemLista}>
-                            <span className={estilos.items}>Numero de Pedido: </span>
-                            <span className={estilos.items}>{order.id}</span>
+                            <span className={estilos.items}>Order Number: </span>
+                            <span className={estilos.items}>{dataOrder[0]?.id}</span>
                         </li>
                         <li className={estilos.itemLista}>
-                            <span className={estilos.items}>Total de productos: </span>
-                            <span className={estilos.items}>${Intl.NumberFormat("es-AR").format(order.price)}</span>
+                            <span className={estilos.items}>Total Ammount: </span>
+                            <span className={estilos.items}>${Intl.NumberFormat("es-AR").format(dataOrder[0]?.price)}</span>
                         </li>
                         <li className={estilos.itemLista}>
-                            <span className={estilos.items}>Método de pago: </span>
+                            <span className={estilos.items}>Payment Method: </span>
                             <span className={estilos.items}>{datosDePago.medioDePago}</span>
                         </li>
                         <li className={estilos.itemLista}>
-                            <span className={estilos.items}>Nombre: </span>
-                            <span className={estilos.items}>{user2?.name+" "+ user2?.surname}</span>
+                            <span className={estilos.items}>User: </span>
+                            <span className={estilos.items}>{dataUser[0]?.name + " " + dataUser[0]?.surname}</span>
                         </li>
                         <li className={estilos.itemLista}>
-                            <span className={estilos.items}>Mail: </span>
-                            <span className={estilos.items}>{user2?.email}</span>
+                            <span className={estilos.items}>eMail: </span>
+                            <span className={estilos.items}>{user?.email}</span>
                         </li>
                         <li className={estilos.itemLista}>
-                            <span className={estilos.items}>Dirección: </span>
-                            <span className={estilos.items}>{user2?.adress}</span>
+                            <span className={estilos.items}>Address: </span>
+                            <span className={estilos.items}>{dataUser[0]?.adress}</span>
                         </li>
                     </ul>
                     <br />

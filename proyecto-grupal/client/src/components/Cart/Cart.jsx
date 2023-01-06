@@ -75,10 +75,10 @@ const Cart = () => {
       quantity: totalQuantity,
       pedido: cart,
     };
-
-      localStorage.setItem('orders', JSON.stringify(order));
-      localStorage.setItem('user', JSON.stringify(user));
       
+    localStorage.setItem('order2', JSON.stringify(order));
+    localStorage.setItem('user2', JSON.stringify(user));
+
 
     dispatch(postOrder(order));
     window.location.href = pago;
