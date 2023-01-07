@@ -193,9 +193,31 @@ export default function Home() {
                   <span>{userDb.name}</span>
                 </button>
                 <ul className={s.userSubMenu}>
-                  <li className={s.userSubMenuLi}><Link className={s.userSubMenuLiA} href="#"> My Orders</Link></li>
-                  <li className={s.userSubMenuLi}><Link to={'/profile'} className={s.userSubMenuLiA} href="#"> My Profile</Link></li>
-                  <li className={s.userSubMenuLi} onClick={(e) => handleLogOut(e)} ><Link className={s.userSubMenuLiA} href="#"> Log Out</Link></li>
+                  <li className={s.userSubMenuLi}>
+                    <Link
+                      to={"/orders/user"}
+                      className={s.userSubMenuLiA}
+                      href="#"
+                    >
+                      {" "}
+                      My Orders
+                    </Link>
+                  </li>
+                  <li className={s.userSubMenuLi}>
+                    <Link to={"/profile"} className={s.userSubMenuLiA} href="#">
+                      {" "}
+                      My Profile
+                    </Link>
+                  </li>
+                  <li
+                    className={s.userSubMenuLi}
+                    onClick={(e) => handleLogOut(e)}
+                  >
+                    <Link className={s.userSubMenuLiA} href="#">
+                      {" "}
+                      Log Out
+                    </Link>
+                  </li>
                 </ul>
               </li>
             </ul>

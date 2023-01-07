@@ -6,8 +6,8 @@ const {
   deleteOrder,
   getOrderById,
   updateStatus,
+  getOrdersByUser,
 } = require("../Controllers/orderController");
-
 
 const router = require("express").Router();
 
@@ -26,5 +26,7 @@ router.put("/:id", updateOrder);
 router.put("/status/:id", updateStatus);
 
 router.delete("/:id", deleteOrder);
+
+router.get("/user", getOrdersByUser);
 
 module.exports = router;

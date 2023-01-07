@@ -11,7 +11,7 @@ const initialState = {
   cart: [],
   reviews: {},
   orders: [],
-  allOrders:[],
+  allOrders: [],
   detail: {},
   users: [],
   allUsers: [],
@@ -138,17 +138,17 @@ export default function productsReducer(state = initialState, action) {
           let nameProduct = product.title.toLowerCase();
           return nameProduct.includes(action.payload.toLowerCase());
         });
-        let listDesc = state.allProducts.filter(product => {
+        let listDesc = state.allProducts.filter((product) => {
           let nameProduct = product.description.toLowerCase();
           return nameProduct.includes(action.payload.toLowerCase());
-        })
-        let listBrand = state.allProducts.filter(product => {
+        });
+        let listBrand = state.allProducts.filter((product) => {
           let nameProduct = product.brand.toLowerCase();
           return nameProduct.includes(action.payload.toLowerCase());
-        })
-        const listTotal = listTitle.concat(listDesc.concat(listBrand))
-        const setTotal = new Set(listTotal)
-        productList = Array.from(setTotal)
+        });
+        const listTotal = listTitle.concat(listDesc.concat(listBrand));
+        const setTotal = new Set(listTotal);
+        productList = Array.from(setTotal);
       }
       return {
         ...state,
@@ -234,10 +234,10 @@ export default function productsReducer(state = initialState, action) {
         reviews: action.payload,
       };
 
-      case "CREATE_ORDER":
-        return {
-          ...state,
-        };
+    case "CREATE_ORDER":
+      return {
+        ...state,
+      };
 
     case "GET_ORDERS":
       return {
@@ -251,6 +251,13 @@ export default function productsReducer(state = initialState, action) {
         ...state,
         orderDetail: action.payload,
       };
+
+    case "GET_ORDERS_BY_USER":
+      return {
+        ...state,
+        orders: action.payload,
+      };
+
     case "SIGN_USER":
       return {
         ...state,
@@ -280,27 +287,30 @@ export default function productsReducer(state = initialState, action) {
         ...state,
         user: {},
       };
-    case 'IS_SOCIAL_USER':
+    case "IS_SOCIAL_USER":
       return {
-        ...state, socialUser: action.payload
-      }
+        ...state,
+        socialUser: action.payload,
+      };
     case "FILTER_BY_STATUS":
       console.log("filtro: " + action.payload);
-      if(action.payload === "all"){
-        return{...state, orders: state.allOrders}
-      }else{
+      if (action.payload === "all") {
+        return { ...state, orders: state.allOrders };
+      } else {
         const orders = state.allOrders;
-        const filter = orders.filter(e=>e.status === action.payload)
-        return{...state, orders: filter}
+        const filter = orders.filter((e) => e.status === action.payload);
+        return { ...state, orders: filter };
       }
-    case 'GET_USER_PROFILE':
+    case "GET_USER_PROFILE":
       return {
-        ...state, userProfile: action.payload
-      }
-    case 'UPADTE_USER_PROFILE':
+        ...state,
+        userProfile: action.payload,
+      };
+    case "UPADTE_USER_PROFILE":
       return {
-        ...state, userProfile: action.payload
-      }
+        ...state,
+        userProfile: action.payload,
+      };
     default:
       return { ...state };
   }
