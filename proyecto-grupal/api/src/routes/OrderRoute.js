@@ -7,8 +7,8 @@ const {
   getOrderById,
   updateStatus,
   confirmOrder,
+  getOrdersByUser,
 } = require("../Controllers/orderController");
-
 
 const router = require("express").Router();
 
@@ -29,5 +29,8 @@ router.put("/status/:id", updateStatus);
 router.delete("/:id", deleteOrder);
 
 router.post("/:id", confirmOrder)
+
+router.get("/user", getOrdersByUser);
+
 
 module.exports = router;

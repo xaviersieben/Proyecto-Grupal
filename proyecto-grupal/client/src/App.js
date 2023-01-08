@@ -1,25 +1,26 @@
-import './App.css';
-import { Route } from 'react-router-dom';
-import PrivateRoute from './helpers/PrivateRoute';
-import AdminRoute from './helpers/AdminRoute';
-import CreateProduct from './components/CreateProduct/CreateProduct.jsx';
-import ModifyProduct from './components/ModifyProduct/ModifyProduct.jsx';
-import CreateCategory from './components/CreateCategory/CreateCategory.jsx'
-import Home from './components/Home/Home';
-import ProductDetails from './components/ProductDetails/ProductDetails';
-import Register from './components/Register/Register';
-import PostLogIn from './components/Auth0/PostLogIn';
-import LoginModal from './components/Login/LoginModal';
-import s from './App.module.css';
-import UsersAdministration from './components/UsersAdministration/UsersAdministration';
-import Cart from './components/Cart/Cart.jsx';
+import "./App.css";
+import { Route } from "react-router-dom";
+import PrivateRoute from "./helpers/PrivateRoute";
+import AdminRoute from "./helpers/AdminRoute";
+import CreateProduct from "./components/CreateProduct/CreateProduct.jsx";
+import ModifyProduct from "./components/ModifyProduct/ModifyProduct.jsx";
+import CreateCategory from "./components/CreateCategory/CreateCategory.jsx";
+import Home from "./components/Home/Home";
+import ProductDetails from "./components/ProductDetails/ProductDetails";
+import Register from "./components/Register/Register";
+import PostLogIn from "./components/Auth0/PostLogIn";
+import LoginModal from "./components/Login/LoginModal";
+import s from "./App.module.css";
+import UsersAdministration from "./components/UsersAdministration/UsersAdministration";
+import Cart from "./components/Cart/Cart.jsx";
 import PasswordReset from "../src/components/PasswordReset/PasswordReset";
-import PasswordConfirm from "../src/components/PasswordReset/PasswordConfirm"
-import CheckoutSuccess from "../src/components/Checkout/CheckoutSuccess"
+import PasswordConfirm from "../src/components/PasswordReset/PasswordConfirm";
+import CheckoutSuccess from "../src/components/Checkout/CheckoutSuccess";
 import CheckoutFailure from './components/Checkout/CheckoutFailure';
-import OrderAdministration from './components/OrdersAdministration/OrderAdministration';
+import OrderAdministration from "./components/OrdersAdministration/OrderAdministration";
 import Profile from './components/Profile/Profile';
 import OrderDetail from './components/OrdersAdministration/OrderDetail'
+import WishList from './components/WishList/WishList';
 
 
 function App() {
@@ -41,9 +42,11 @@ function App() {
         <Route exact path='/checkout/success' component={CheckoutSuccess} />
         <Route exact path='/checkout/failure' component={CheckoutFailure} />
         <AdminRoute path='/administrateUsers' component={UsersAdministration} />
-        <AdminRoute path='/administrateOrders' component={OrderAdministration}/>
+        <AdminRoute path="/administrateOrders" component={OrderAdministration} />
         <Route exact path={'/profile'} component={Profile} />
         <Route exact path = '/orderDetails/:id/:id' component={OrderDetail} />
+        <Route path='/wishList' component={WishList}/>
+        <Route exact path={"/orders/user"} component={OrderList} />
     </div>
   );
 }

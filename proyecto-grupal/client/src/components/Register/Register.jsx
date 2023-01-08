@@ -6,6 +6,7 @@ import * as actions from '../../redux/actions/productsActions';
 import s from './Register.module.css';
 import logo  from '../../img/logo.JPG';
 import validateData from "./RegisterValidateData";
+import Swal from "sweetalert2"
 
 export default function Register() {
 
@@ -36,7 +37,13 @@ export default function Register() {
 
     if (Object.keys(dataErrors).length === 0) {
       dispatch(actions.signNewUser(user))
-      alert('New User created!');
+      
+      Swal.fire({
+        title: 'New User created!',
+        //text: 'Do you want to continue',
+        icon: 'success',
+        confirmButtonText: 'Continue'
+      })
       setUser(initialState)
       history.push('/')
     }
@@ -51,7 +58,7 @@ export default function Register() {
           <h3>CloudyBuy</h3>
         </div>
         <div>
-          <h1>Welcom to the Store!</h1>
+          <h1>Welcome to the Store!</h1>
         </div>
         <div>
           <h1>Fulfill your dreams buying the products you want</h1>

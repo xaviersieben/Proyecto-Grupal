@@ -1,4 +1,5 @@
 const { Order, User, OrderDetail, Product } = require("../db.js");
+const { deliverMail } = require('./nodemailerController');
 
 const ordersServices = require("../Services/orderService");
 
@@ -7,7 +8,7 @@ const createNewOrder = async (req, res, next) => {
     let createdOrder;
 
     const userId = req.body.id;
-    console.log(req.body)
+    console.log(req.body);
 
     createdOrder = await ordersServices.createNewOrder(
       userId,
@@ -16,7 +17,7 @@ const createNewOrder = async (req, res, next) => {
       req.body.idMp
     );
 
-     console.log(createdOrder)
+    console.log(createdOrder);
 
     for (let i = 0; i < req.body.pedido.length; i++) {
       const prodId = await Product.findAll({
@@ -45,7 +46,7 @@ const createNewOrder = async (req, res, next) => {
     }
 
     if (createdOrder) {
-      console.log(createdOrder)
+      console.log(createdOrder);
       res.status(201).send(createdOrder);
     } else {
       res.status(404).send("Error creating order!");
@@ -171,16 +172,19 @@ const updateOrder = async (req, res, next) => {
 const updateStatus = async (req, res, next) => {
   const { id } = req.params;
   console.log("entro");
-  const ordId = await Order.findAll({ 
+  const ordId = await Order.findAll({
     where: {
       idMp: id,
     },
-    attibutes: ["id"]
+    attibutes: ["id"],
   });
-    console.log(req.body);
-    console.log(ordId);
+  console.log(req.body);
+  console.log(ordId);
   try {
-    const ordById = await ordersServices.orderUpdate(ordId[0].dataValues.id,req.body);
+    const ordById = await ordersServices.orderUpdate(
+      ordId[0].dataValues.id,
+      req.body
+    );
     if (ordById) {
       res.status(200).send(ordById);
     } else {
@@ -196,7 +200,7 @@ const deleteOrder = async (req, res, next) => {
   try {
     const order = await ordersServices.getOrders(id);
     !order ? res.status(404).send("There are no orders...") : null;
-   
+
     const destroy = await ordersServices.deleteOrder(id);
     if (destroy) {
       const newlist = await ordersServices.getAllOrders();
@@ -211,9 +215,9 @@ const deleteOrder = async (req, res, next) => {
 
 const confirmOrder = async (req, res, next) => {
   const { id } = req.params;
-  try{
-    const order = await Order.findOne({ where : {id : id }});
-    if(order){
+  try {
+    const order = await Order.findOne({ where: { id: id } });
+    if (order) {
       const updated = await Order.update(
         {status: "confirmed"},
         {where: {id: id}}
@@ -221,11 +225,56 @@ const confirmOrder = async (req, res, next) => {
       if(updated[0]===1){
         res.status(200).json({msg: `New Order status: Confirmed`})
       }
-    }else{
-      res.status(400).json({msg: "Order not found in the DB"});
-    } 
+    } else {
+      res.status(400).json({ msg: "Order not found in the DB" });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getOrdersByUser = async (req, res) => {
+  try {
+    const userId = req.session.userId;
+
+    const orders = await ordersService.findOrders(productId);
+
+    const userOrders = [];
+    for (let i = 0; i < orders.length; i++) {
+      const order = await ordersService.getOrdersById(orders[i].userId);
+      userOrders.push(order);
+    }
+
+    //Envío las órdenes encontradas
+    res.send({ orders: userOrders });
+  } catch (err) {
+    res.send({ error: err });
+  }
+};
+
+const notificationOrder = async (req, res, next)=>{
+  try{
+      const user = await User.findOne({where: {email:  req.body.email}});
+      if(user){
+          let subject = "CloudyBuy";
+          let text = "your payment was approved";
+          let email = user.email;
+          let html = ""
+          //const secret = JWT_KEY + user.password;
+          //const token = jwt.sign({email: email, id: user.id},secret,{expiresIn:"5m"})
+          //let html = `<p>Click <a href="http://localhost:3000/passConfirm/${email}/${token}">here</a> to reset your password</p><br><p>Please ignore this email if you didnt request a password reset<p>`
+          let result = await deliverMail(email, subject, text, html)
+          console.log(result)
+          if(result){
+              res.status(200).send({ mail: email})
+          }else{
+              res.status(400).send({msg: "Something failed"})
+          }
+      }else{
+          res.status(400).json({msg: "User not found"})
+      }
   }catch(error){
-    next(error)
+      next(error)
   }
 }
 
@@ -237,4 +286,7 @@ module.exports = {
   getOrderById,
   deleteOrder,
   confirmOrder,
+  orderStatus,
+  getOrdersByUser,
+  notificationOrder,
 };
