@@ -8,6 +8,7 @@ import s from './PostLogIn.module.css';
 import logo  from '../../img/logo.JPG'
 import validateData from "./LoginSocialValidateData";
 import Loading from '../Loading/Loading';
+import Swal from "sweetalert2"
 
 export default function PostLogIn() {
   let dataAuth0, userExists
@@ -80,7 +81,12 @@ useEffect(() => {
       if (Object.keys(dataErrors).length === 0) {
         dispatch(actions.signNewUser(userDb))
         .then(reponse => dispatch(actions.loginUser(userDb)))
-        alert('New User created!');
+         Swal.fire({
+          title: 'New User created!',
+          //text: 'Do you want to continue',
+          icon: 'success',
+          confirmButtonText: 'Continue'
+        })
         setUser(initialState)
       }
     } 
