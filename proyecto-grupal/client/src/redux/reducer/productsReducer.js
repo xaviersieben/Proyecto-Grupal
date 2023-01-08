@@ -20,6 +20,7 @@ const initialState = {
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
   userProfile: {},
+  wishListItems: [],
 };
 
 export default function productsReducer(state = initialState, action) {
@@ -311,6 +312,49 @@ export default function productsReducer(state = initialState, action) {
         ...state,
         userProfile: action.payload,
       };
+      }
+      case 'GET_USER_WISH_LIST':
+        return {
+          ...state,
+          wishListItems: action.payload
+        }
+      case 'ADD_PRODUCT_TO_WISH_LIST':
+      console.log('action.payload de ADD_PRODUCT_TO_WISH_LIST', action.payload);
+      const wishListItemToAdd = {
+          id: action.payload.productId,
+          thumbnail: action.payload.thumbnail,
+          title: action.payload.title,
+          description: action.payload.description,
+          price: action.payload.price,
+        }
+        console.log('wishListItemToAdd: ', wishListItemToAdd);
+        // for(let i = 0; i < state.wishListItems.length; i++) {
+        //   console.log('entra al for');
+        //   console.log('wishListItemToAdd.id: ', wishListItemToAdd.id);
+        //   console.log('state.wishListItems[i].id: ', state.wishListItems[i].id);
+        //   if(wishListItemToAdd.id === state.wishListItems[i].id) {
+        //     console.log('entra a wishListItemToAdd.id === state.wishListItems[i].id: ' + wishListItemToAdd.id === state.wishListItems[i].id)
+        //     return {
+        //       ...state,
+        //       wishListItems: [...state.wishListItems]
+        //     }
+        //   }
+        // }
+        return {
+          ...state,
+          wishListItems: [
+            ...state.wishListItems,
+            wishListItemToAdd
+          ]
+        }
+      case 'REMOVE_PRODUCT_FROM_WISH_LIST':
+        console.log('action.payload de REMOVE_PRODUCT_FROM_WISH_LIST: ' + action.payload);
+        return {
+          ...state,
+          wishListItems: state.wishListItems.filter(wishListItem => {
+            return (wishListItem.id !== action.payload)
+          })
+        }
     default:
       return { ...state };
   }

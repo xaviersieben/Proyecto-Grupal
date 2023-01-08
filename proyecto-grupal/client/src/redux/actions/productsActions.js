@@ -503,9 +503,53 @@ export function resetConfirm(payload) {
   };
 }
 
+
+// WISHLIST-START
+
+export function getUserWishList() {
+  const user_id = sessionStorage.getItem("userId");
+  return (dispatch) => {
+    fetch("http://localhost:3001/wishlist?user_id=" + user_id)
+      .then((res) => res.json())
+      .then((json) => {
+        dispatch({
+          type: "GET_USER_WISH_LIST",
+          payload: json.wishListItems,
+        });
+      });
+  };
+}
+
+export function saveUserWishList(payload) {
+  console.log(`Payload de action saveUserWishList: `);
+  console.dir(payload);
+  return async (dispatch) => {
+    const response = await axios.post(`http://localhost:3001/wishlist`, payload);
+    return response;
+  };
+}
+
+export function addProductToWishList(productId, thumbnail, title, description, price) {
+  return {
+    type: "ADD_PRODUCT_TO_WISH_LIST",
+    payload: { productId, thumbnail, title, description, price },
+  };
+}
+
+export function removeProductFromWishList(productId) {
+  return {
+    type: "REMOVE_PRODUCT_FROM_WISH_LIST",
+    payload: productId,
+  };
+}
+
+// WISHLIST-END
+
+
 export function filterByStatus(type) {
   return {
     type: "FILTER_BY_STATUS",
     payload: type,
   };
 }
+
