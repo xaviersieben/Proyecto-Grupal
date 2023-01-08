@@ -6,6 +6,7 @@ const Review = require("./ReviewRoute");
 const User = require("./UserRoute.js");
 const checksuccess = require("./Cheksuccess");
 const createPreference = require("./checkout");
+const WishList = require('./WishListRoute.js');
 
 
 const router = Router();
@@ -18,6 +19,7 @@ router.use("/user", User);
 router.use("/checkout", createPreference);
 router.use("/checkout/success", checksuccess);
 router.use("/review", Review);
+router.use("/wishlist", WishList);
 
 
 
