@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from "sweetalert2"
 
 export function getProducts() {
   return (dispatch) => {
@@ -381,7 +382,13 @@ export function loginUser(payload) {
       sessionStorage.setItem("token", response.data.token);
       sessionStorage.setItem("isAdmin", response.data.isAdmin);
       sessionStorage.setItem("userId", response.data.id);
-      alert("welcome");
+      sessionStorage.setItem("email", response.data.email);
+      Swal.fire({
+        title: 'Welcome',
+        //text: 'Do you want to continue',
+        icon: 'success',
+        confirmButtonText: 'Continue'
+      })
       return dispatch({
         type: "LOGIN_USER",
         payload: response.data,
@@ -507,5 +514,24 @@ export function filterByStatus(type) {
   return {
     type: "FILTER_BY_STATUS",
     payload: type,
+  };
+}
+
+
+export function notOrder(payload) {
+ 
+  return async function () {
+    try {
+      
+      let response = await axios.post(
+        `http://localhost:3001/checkout/success`,
+        payload
+      );
+      
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("email", response.data.mail);
+    } catch (error) {
+      console.log(error);
+    }
   };
 }

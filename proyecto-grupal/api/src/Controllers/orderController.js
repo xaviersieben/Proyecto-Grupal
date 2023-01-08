@@ -1,4 +1,5 @@
 const { Order, User, OrderDetail, Product } = require("../db.js");
+const { deliverMail } = require('./nodemailerController');
 
 const ordersServices = require("../Services/orderService");
 
@@ -251,6 +252,32 @@ const getOrdersByUser = async (req, res) => {
   }
 };
 
+const notificationOrder = async (req, res, next)=>{
+  try{
+      const user = await User.findOne({where: {email:  req.body.email}});
+      if(user){
+          let subject = "CloudyBuy";
+          let text = "your payment was approved";
+          let email = user.email;
+          let html = ""
+          //const secret = JWT_KEY + user.password;
+          //const token = jwt.sign({email: email, id: user.id},secret,{expiresIn:"5m"})
+          //let html = `<p>Click <a href="http://localhost:3000/passConfirm/${email}/${token}">here</a> to reset your password</p><br><p>Please ignore this email if you didnt request a password reset<p>`
+          let result = await deliverMail(email, subject, text, html)
+          console.log(result)
+          if(result){
+              res.status(200).send({ mail: email})
+          }else{
+              res.status(400).send({msg: "Something failed"})
+          }
+      }else{
+          res.status(400).json({msg: "User not found"})
+      }
+  }catch(error){
+      next(error)
+  }
+}
+
 module.exports = {
   getAllOrders,
   createNewOrder,
@@ -260,4 +287,5 @@ module.exports = {
   deleteOrder,
   orderStatus,
   getOrdersByUser,
+  notificationOrder,
 };
