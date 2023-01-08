@@ -19,6 +19,7 @@ import CheckoutSuccess from "../src/components/Checkout/CheckoutSuccess"
 import CheckoutFailure from './components/Checkout/CheckoutFailure';
 import OrderAdministration from './components/OrdersAdministration/OrderAdministration';
 import Profile from './components/Profile/Profile';
+import OrderDetail from './components/OrdersAdministration/OrderDetail'
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <AdminRoute path='/administrateUsers' component={UsersAdministration} />
         <AdminRoute path='/administrateOrders' component={OrderAdministration}/>
         <Route exact path={'/profile'} component={Profile} />
+        <Route exact path = '/orderDetails/:id/:id' component={OrderDetail} />
     </div>
   );
 }

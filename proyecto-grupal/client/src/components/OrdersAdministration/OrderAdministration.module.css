@@ -41,3 +41,14 @@
 .filler {
     min-height: 100px;
 }
+.reload{
+    background-color: lightgray;
+    color: black;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    align-items: center;
+    font-weight: bold;
+    text-decoration: none;
+}

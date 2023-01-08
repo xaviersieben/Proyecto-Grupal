@@ -11,15 +11,21 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typog
 export default function OrderAdministration() {
     const dispatch = useDispatch();
     const orders = useSelector((state) => state.orders);
+    const [dummyState, rerender] = React.useState(1)
 
     function handleStatus(e){
-        e.preventDefault();
+        e.preventDefault(e);
         dispatch(actions.filterByStatus(e.target.value));
     }
 
+    function reload(e){
+        e.preventDefault();
+        rerender(dummyState + 1);
+    }
     useEffect(() => {
         dispatch(actions.getOrders());
-    },[dispatch])
+    },[dummyState])
+    
     return (
         <div className={styles.fullDiv}>
             <Link className={styles.volverAtras} to='/home'>Home...</Link>
@@ -27,7 +33,8 @@ export default function OrderAdministration() {
                 <Typography variant="h2" className={styles.tableTitle}>Orders administration</Typography>
                 <span className={styles.filler}></span>
                 <div>
-                    Filter by Status: 
+                    {<button type="submit" className={styles.reload} onClick={(e) => reload(e)}>Reload Orders</button>}
+                    <h5>Filter by Status: </h5>
                     <select>
                         <option value="all" onClick={(e) => handleStatus(e)}>All</option>
                         <option value="in process" onClick={(e) => handleStatus(e)}>In Process</option>
@@ -39,12 +46,14 @@ export default function OrderAdministration() {
                     <Table sx={{ minWidth: '1440px' }} size="medium" aria-label="simple table">
                         <TableHead>
                         <TableRow>
-                            <TableCell sx={{ color: '#e7ebf0' }}>ID</TableCell>
+                            <TableCell sx={{ color: '#e7ebf0' }}>Order ID</TableCell>
                             <TableCell sx={{ color: '#e7ebf0' }}>Status</TableCell>
                             <TableCell sx={{ color: '#e7ebf0' }}>Item Quantity</TableCell>
                             <TableCell sx={{ color: '#e7ebf0' }}>Price</TableCell>
-                            <TableCell sx={{ color: '#e7ebf0' }}>User</TableCell>
-                            <TableCell sx={{ color: '#e7ebf0' }}>Order Detail</TableCell>
+                            <TableCell sx={{ color: '#e7ebf0' }}>User ID</TableCell>
+                            <TableCell sx={{ color: '#e7ebf0' }}>Order Detail (Products)</TableCell>
+                            <TableCell sx={{ color: '#e7ebf0' }}>Cancel Order</TableCell>
+                            <TableCell sx={{ color: '#e7ebf0' }}>Confirm Order</TableCell>
                         </TableRow>
                         </TableHead>
                         <TableBody>

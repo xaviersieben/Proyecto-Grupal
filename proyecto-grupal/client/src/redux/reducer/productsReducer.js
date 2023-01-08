@@ -20,6 +20,7 @@ const initialState = {
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
   userProfile: {},
+  doNothing: 0,
 };
 
 export default function productsReducer(state = initialState, action) {
@@ -249,7 +250,7 @@ export default function productsReducer(state = initialState, action) {
     case "GET_ORDER_DETAIL":
       return {
         ...state,
-        orderDetail: action.payload,
+        detail: action.payload,
       };
     case "SIGN_USER":
       return {
@@ -300,6 +301,18 @@ export default function productsReducer(state = initialState, action) {
     case 'UPADTE_USER_PROFILE':
       return {
         ...state, userProfile: action.payload
+      }
+    case 'CANCELL_ORDER':
+      return{
+        ...state
+      }
+    case 'CONFIRM_ORDER':
+      return{
+        ...state
+      }
+    case 'DO_NOTHING':
+      return{
+        ...state, doNothing: action.payload
       }
     default:
       return { ...state };
