@@ -27,6 +27,7 @@ export default function Home() {
   let allProducts = useSelector((state) => state.allProducts);
   let userDb = useSelector((state) => state.user);
   let cart = useSelector((state) => state.cart);
+  let wishList = useSelector((state) => state.wishListItems);
 
   // Local states
   const [alphabet, setAlphabet] = useState(true);
@@ -42,6 +43,7 @@ export default function Home() {
   useEffect(() => {
     dispatch(actions.getProducts());
     dispatch(actions.getCategories());
+    dispatch(actions.getUserWishList());
   }, [dispatch]);
 
   const totalQuantity = cart.reduce((sum, value) => sum + value.quantity, 0);
@@ -195,6 +197,7 @@ export default function Home() {
                 <ul className={s.userSubMenu}>
                   <li className={s.userSubMenuLi}><Link className={s.userSubMenuLiA} href="#"> My Orders</Link></li>
                   <li className={s.userSubMenuLi}><Link to={'/profile'} className={s.userSubMenuLiA} href="#"> My Profile</Link></li>
+                  <li className={s.userSubMenuLi}><Link to={'/wishlist'} className={s.userSubMenuLiA} href="#"> My Wishlist</Link></li>
                   <li className={s.userSubMenuLi} onClick={(e) => handleLogOut(e)} ><Link className={s.userSubMenuLiA} href="#"> Log Out</Link></li>
                 </ul>
               </li>
@@ -214,6 +217,7 @@ export default function Home() {
             images={product.thumbnail}
             rating={product.rating}
             stock={product.stock}
+            description={product.description}
           />
         ))}
       </div>

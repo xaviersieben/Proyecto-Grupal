@@ -18,6 +18,7 @@ import PasswordConfirm from "../src/components/PasswordReset/PasswordConfirm"
 import CheckoutSuccess from "../src/components/Checkout/CheckoutSuccess"
 import CheckoutFailure from './components/Checkout/CheckoutFailure';
 import Profile from './components/Profile/Profile';
+import WishList from './components/WishList/WishList';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route exact path='/checkout/failure' component={CheckoutFailure} />
         <AdminRoute path='/administrateUsers' component={UsersAdministration} />
         <Route exact path={'/profile'} component={Profile} />
+        <Route path='/wishList' component={WishList}/>
     </div>
   );
 }
