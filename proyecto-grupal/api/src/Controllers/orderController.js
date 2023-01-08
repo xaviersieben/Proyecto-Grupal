@@ -7,7 +7,7 @@ const createNewOrder = async (req, res, next) => {
     let createdOrder;
 
     const userId = req.body.id;
-    console.log(req.body)
+    console.log(req.body);
 
     createdOrder = await ordersServices.createNewOrder(
       userId,
@@ -16,7 +16,7 @@ const createNewOrder = async (req, res, next) => {
       req.body.idMp
     );
 
-     console.log(createdOrder)
+    console.log(createdOrder);
 
     for (let i = 0; i < req.body.pedido.length; i++) {
       const prodId = await Product.findAll({
@@ -45,7 +45,7 @@ const createNewOrder = async (req, res, next) => {
     }
 
     if (createdOrder) {
-      console.log(createdOrder)
+      console.log(createdOrder);
       res.status(201).send(createdOrder);
     } else {
       res.status(404).send("Error creating order!");
@@ -171,16 +171,19 @@ const updateOrder = async (req, res, next) => {
 const updateStatus = async (req, res, next) => {
   const { id } = req.params;
   console.log("entro");
-  const ordId = await Order.findAll({ 
+  const ordId = await Order.findAll({
     where: {
       idMp: id,
     },
-    attibutes: ["id"]
+    attibutes: ["id"],
   });
-    console.log(req.body);
-    console.log(ordId);
+  console.log(req.body);
+  console.log(ordId);
   try {
-    const ordById = await ordersServices.orderUpdate(ordId[0].dataValues.id,req.body);
+    const ordById = await ordersServices.orderUpdate(
+      ordId[0].dataValues.id,
+      req.body
+    );
     if (ordById) {
       res.status(200).send(ordById);
     } else {
@@ -196,7 +199,7 @@ const deleteOrder = async (req, res, next) => {
   try {
     const order = await ordersServices.getOrders(id);
     !order ? res.status(404).send("There are no orders...") : null;
-   
+
     const destroy = await ordersServices.deleteOrder(id);
     if (destroy) {
       const newlist = await ordersServices.getAllOrders();
@@ -209,6 +212,45 @@ const deleteOrder = async (req, res, next) => {
   }
 };
 
+const orderStatus = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const order = await Order.findOne({ where: { id: id } });
+    if (order) {
+      const updated = await Order.update(
+        { status: "Cancelled" },
+        { where: { id: id } }
+      );
+      if (updated[0] === 1) {
+        res.status(200).json({ msg: `New Order status: Cancelled` });
+      }
+    } else {
+      res.status(400).json({ msg: "Order not found in the DB" });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getOrdersByUser = async (req, res) => {
+  try {
+    const userId = req.session.userId;
+
+    const orders = await ordersService.findOrders(productId);
+
+    const userOrders = [];
+    for (let i = 0; i < orders.length; i++) {
+      const order = await ordersService.getOrdersById(orders[i].userId);
+      userOrders.push(order);
+    }
+
+    //Envío las órdenes encontradas
+    res.send({ orders: userOrders });
+  } catch (err) {
+    res.send({ error: err });
+  }
+};
+
 module.exports = {
   getAllOrders,
   createNewOrder,
@@ -216,4 +258,6 @@ module.exports = {
   updateStatus,
   getOrderById,
   deleteOrder,
+  orderStatus,
+  getOrdersByUser,
 };

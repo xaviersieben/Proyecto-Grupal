@@ -199,11 +199,12 @@ export function postOrder(payload) {
   return async (dispatch) => {
     const response = await axios.post("http://localhost:3001/orders", payload);
     //console.log(response)
-        return dispatch({
+    return dispatch({
       type: "CREATE_ORDER",
 
-      payload: payload, response
-    });;
+      payload: payload,
+      response,
+    });
   };
 }
 
@@ -232,17 +233,35 @@ export function getOrderDetail(id) {
   };
 }
 
-
 export function putOrder(id, body) {
   return async function (dispatch) {
     try {
-      let res = await axios.put(`http://localhost:3001/orders/status/${id}`, body);
+      let res = await axios.put(
+        `http://localhost:3001/orders/status/${id}`,
+        body
+      );
       return dispatch({
         type: "PUT_ORDER",
         payload: res.data,
       });
     } catch (error) {
       console.log(error);
+    }
+  };
+}
+
+export function getOrdersByUser(userId) {
+  return async function (dispatch) {
+    try {
+      const res = await axios.get(
+        `http://localhost:3001/orders/user/${userId}`
+      );
+      dispatch({
+        type: "GET_ORDERS_BY_USER",
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 }
@@ -354,7 +373,10 @@ export function turnIntoAdminOrUser(id) {
 export function loginUser(payload) {
   return async (dispatch) => {
     try {
-      const response = await axios.post(`http://localhost:3001/user/login`, payload);
+      const response = await axios.post(
+        `http://localhost:3001/user/login`,
+        payload
+      );
       //set JWT token to local
       sessionStorage.setItem("token", response.data.token);
       sessionStorage.setItem("isAdmin", response.data.isAdmin);
@@ -373,8 +395,11 @@ export function loginUser(payload) {
 export function testIsUser(payload) {
   return async (dispatch) => {
     try {
-      console.log('action data',payload)
-      const response = await axios.post(`http://localhost:3001/user/isuser/${payload.email}`, payload);
+      console.log("action data", payload);
+      const response = await axios.post(
+        `http://localhost:3001/user/isuser/${payload.email}`,
+        payload
+      );
       return dispatch({
         type: "TEST_IS_USER",
         payload: response.data,
@@ -388,7 +413,9 @@ export function testIsUser(payload) {
 export function isSocialUser(payload) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`http://localhost:3001/user/socialuser/${payload.sub}`);
+      const response = await axios.get(
+        `http://localhost:3001/user/socialuser/${payload.sub}`
+      );
       return dispatch({
         type: "IS_SOCIAL_USER",
         payload: response.data,
@@ -402,9 +429,11 @@ export function isSocialUser(payload) {
 export function getUserProfile(payload) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`http://localhost:3001/user/profile/${payload.id}`);
+      const response = await axios.get(
+        `http://localhost:3001/user/profile/${payload.id}`
+      );
       return dispatch({
-        type: 'GET_USER_PROFILE',
+        type: "GET_USER_PROFILE",
         payload: response.data,
       });
     } catch (error) {
@@ -416,9 +445,12 @@ export function getUserProfile(payload) {
 export function updateUserProfile(payload) {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`http://localhost:3001/user/profile/${payload.id}`, payload);
+      const response = await axios.put(
+        `http://localhost:3001/user/profile/${payload.id}`,
+        payload
+      );
       return dispatch({
-        type: 'UPADTE_USER_PROFILE',
+        type: "UPADTE_USER_PROFILE",
         payload: response.data,
       });
     } catch (error) {
@@ -433,10 +465,10 @@ export function logOut() {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("isAdmin");
     sessionStorage.removeItem("userId");
-    return  {
-      type: 'LOGOUT_USER',
-      payload: ''
-    }
+    return {
+      type: "LOGOUT_USER",
+      payload: "",
+    };
   } catch (error) {
     console.log(error);
   }
@@ -471,7 +503,8 @@ export function resetConfirm(payload) {
   };
 }
 
-// WISHLIST
+
+// WISHLIST-START
 
 export function getUserWishList() {
   const user_id = sessionStorage.getItem("userId");
@@ -509,3 +542,14 @@ export function removeProductFromWishList(productId) {
     payload: productId,
   };
 }
+
+// WISHLIST-END
+
+
+export function filterByStatus(type) {
+  return {
+    type: "FILTER_BY_STATUS",
+    payload: type,
+  };
+}
+
