@@ -52,7 +52,7 @@ function CheckoutSuccess() {
   if (RespMP.status === "approved") {
     datosDePago.estado = "Aprobado";
     dispatch(putOrder(order.idMp, { status: "confirmed" }));
-    dispatch(notOrder({email: dataUser[0].email}))
+    dispatch(notOrder({email: dataUser[0].email, name: dataUser[0].name}))
   } else {
     datosDePago.estado = "Rechazado";
   }

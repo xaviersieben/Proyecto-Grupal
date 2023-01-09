@@ -312,7 +312,7 @@ export default function productsReducer(state = initialState, action) {
         ...state,
         userProfile: action.payload,
       };
-      }
+      
     case 'CANCELL_ORDER':
       return{
         ...state
