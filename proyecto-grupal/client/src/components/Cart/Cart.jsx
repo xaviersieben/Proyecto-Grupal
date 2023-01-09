@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { getCart, postOrder } from "../../redux/actions/productsActions";
+import { getCart, postOrder,getUsers } from "../../redux/actions/productsActions";
 import CartProduct from "../CartProduct/CartProduct.jsx";
 import EmptyCart from "../EmptyCart/EmptyCart";
 import LoginModal from "../Login/LoginModal";
@@ -91,7 +91,9 @@ const Cart = () => {
   let userAddress;
   const cart = useSelector((state) => state.cart);
   const users = useSelector((state) => state.users);
+  
   const user1 = useSelector((state) => state.user);
+  
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -99,9 +101,13 @@ const Cart = () => {
   const user = sessionStorage.getItem("userId");
 
   useEffect(()=>{
+    dispatch(getUsers())
+    
     userAddress = users.filter(userEl => (userEl.id === user1.id));
-    setInput( prevState => ({...prevState, address: userAddress[0].adress}));
-  },[users])
+    console.log(userAddress)
+    if(userAddress.length>0){
+    setInput( prevState => ({...prevState, address: userAddress[0].adress}))}else{input.address=""}
+  },[dispatch])
 
   const [input, setInput] = useState({
     address: "",

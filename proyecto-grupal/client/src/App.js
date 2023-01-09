@@ -21,6 +21,7 @@ import OrderAdministration from "./components/OrdersAdministration/OrderAdminist
 import Profile from './components/Profile/Profile';
 import OrderDetail from './components/OrdersAdministration/OrderDetail'
 import WishList from './components/WishList/WishList';
+import OrderList from './components/Reviews/OrderList'
 
 
 function App() {

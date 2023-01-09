@@ -255,14 +255,16 @@ const getOrdersByUser = async (req, res) => {
 const notificationOrder = async (req, res, next)=>{
   try{
       const user = await User.findOne({where: {email:  req.body.email}});
+      var emailTemplate = `Hello ${req.body.name}, \n
+      thank you for your order! \n
+      Your full order details are available at http://localhost:3000/orders/user \n
+      Thank you!`;
       if(user){
           let subject = "CloudyBuy";
           let text = "your payment was approved";
           let email = user.email;
-          let html = ""
-          //const secret = JWT_KEY + user.password;
-          //const token = jwt.sign({email: email, id: user.id},secret,{expiresIn:"5m"})
-          //let html = `<p>Click <a href="http://localhost:3000/passConfirm/${email}/${token}">here</a> to reset your password</p><br><p>Please ignore this email if you didnt request a password reset<p>`
+          let html = emailTemplate
+     
           let result = await deliverMail(email, subject, text, html)
           console.log(result)
           if(result){
@@ -286,7 +288,7 @@ module.exports = {
   getOrderById,
   deleteOrder,
   confirmOrder,
-  orderStatus,
+  //orderStatus,
   getOrdersByUser,
   notificationOrder,
 };
