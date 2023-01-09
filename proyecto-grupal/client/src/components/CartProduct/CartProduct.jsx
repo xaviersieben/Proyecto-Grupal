@@ -37,13 +37,11 @@ export default function CartProduct({
       className={productId % 2 === 0 ? styles.tableRowEven : styles.tableRowOdd}
     >
       {/* <TableCell sx={{ color: "#e7ebf0" }}>{productId}</TableCell> */}
-      <TableCell sx={{ color: "#e7ebf0" }}>
-        <img src={images} alt={title} />
-      </TableCell>
-      <TableCell sx={{ color: "#e7ebf0" }}>{title}</TableCell>
-      <TableCell sx={{ color: "#e7ebf0" }}>$ {amount}</TableCell>
+      <TableCell><img src={images} alt={title} /></TableCell>
+      <TableCell>{title}</TableCell>
+      <TableCell>$ {amount}</TableCell>
       {/* <TableCell sx={{color: '#e7ebf0'}}><TextField sx={{ color: '#e7ebf0', maxWidth: '75px'}} id='filled-number' type='number' variant='filled' defaultValue={quantity} /></TableCell> */}
-      <TableCell sx={{ color: "#e7ebf0" }}>
+      <TableCell>
         {" "}
         <input
           className={styles.quantityInput}
@@ -53,10 +51,10 @@ export default function CartProduct({
           onChange={changeCart}
         />{" "}
       </TableCell>
-      <TableCell sx={{ color: "#e7ebf0" }}>$ {amount * quantity}</TableCell>
-      <TableCell sx={{ color: "#e7ebf0" }}>
+      <TableCell>$ {amount * quantity}</TableCell>
+      <TableCell>
         <Button onClick={removeCart} color="error" variant="contained">
-          Remove from Cart
+          Remove
         </Button>
       </TableCell>
     </TableRow>

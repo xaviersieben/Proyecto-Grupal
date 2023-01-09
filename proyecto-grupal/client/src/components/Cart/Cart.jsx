@@ -9,6 +9,7 @@ import LoginModal from "../Login/LoginModal";
 import Login from "../Login/Login";
 //import s from "../CreateProduct/CreateProduct";
 import axios from "axios";
+import logo from "..//../img/logo.JPG";
 
 import { useLogin } from "../Login/useLogin";
 
@@ -21,20 +22,86 @@ import {
   TableRow,
   Typography,
   Button,
+  Grid,
 } from "@mui/material";
+import { makeStyles } from "@material-ui/core/styles";
 import styles from "../Cart/Cart.module.css";
 
 //import Swal from "sweetalert2";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    display: "flex",
+    direction: "row",
+    justifyContent: "center",
+    marginTop: 5,
+  },
+  detail: {
+    direction:"row",
+    justifyContent:"center",
+    alignItems:"center",
+  },
+  header: {
+    display: "flex",
+    direction:"row",
+    justifyContent:"flex-start",
+    alignItems:"center",
+    marginTop:"2px"
+  },
+  paper: {
+    height: 140,
+    width: 100,
+  },
+  control: {
+    padding: theme.spacing(2),
+  },
+  card: {
+    width: 400,
+    height: 800,
+  },
+  typo: {
+    fontfamily: "Poppins",
+    fontSize: 30,
+    display: "flex",
+    justifyContent: "center",
+  },
+  paragraph: {
+    margin: "10px 0",
+  },
+  image: {
+    width:"50px",
+    height:"50px"
+  },
+  trade: {
+    display:"flex",
+    direction:"row",
+    justifyContent:"flex-start",
+    alignItems:"center",
+    paddingLeft:"5px"
+  },
+  tradeName: {
+    fontfamily: "Poppins",
+    fontSize: 25,
+  }
+}));
+
+
 const Cart = () => {
+  let userAddress;
   const cart = useSelector((state) => state.cart);
-  // const [orderTotal, setOrderTotal] = useState(0);
+  const users = useSelector((state) => state.users);
+  const user1 = useSelector((state) => state.user);
+  const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   const [modalOpen, openLogin, closeLogin] = useLogin(false);
-
-
   const user = sessionStorage.getItem("userId");
+
+  useEffect(()=>{
+    userAddress = users.filter(userEl => (userEl.id === user1.id));
+    setInput( prevState => ({...prevState, address: userAddress[0].adress}));
+  },[users])
 
   const [input, setInput] = useState({
     address: "",
@@ -66,7 +133,6 @@ const Cart = () => {
     });
     const pago = response.data.init_point;
     const pagoId = response.data.id;
-
     let order = {
       id: parseInt(user),
       idMp: pagoId,
@@ -74,15 +140,11 @@ const Cart = () => {
       price: totalAmount,
       quantity: totalQuantity,
       pedido: cart,
-    };
-      
+    };  
     localStorage.setItem('order2', JSON.stringify(order));
     localStorage.setItem('user2', JSON.stringify(user));
-
-
     dispatch(postOrder(order));
     window.location.href = pago;
-
     //history.push("/home");
   }
 
@@ -94,77 +156,55 @@ const Cart = () => {
     //history.push("/home");
   }
 
-  const totalAmount = cart.reduce(
-    (sum, value) => sum + value.amount * value.quantity,
-    0
-  );
+  const totalAmount = cart.reduce((sum, value) => sum + value.amount * value.quantity,0);
   const totalQuantity = cart.reduce((sum, value) => sum + value.quantity, 0);
 
+  function handleClickBack() {
+    history.push("/home");
+  }
+  
   return (
     <div>
       <Login modalOpen={modalOpen} closeLogin={closeLogin} />
-      {/* <Typography variant="h2" className={styles.tableTitle}>
-        Shopping Cart
-      </Typography> */}
-
+      <Grid container spacing={2} className={classes.header}>
+        <Grid item xs={4} className={classes.trade}>
+          <Typography>
+          <img src={logo} alt={"logo"} className={classes.image}/>
+          </Typography>
+          <Typography className={classes.tradeName}>CloudyBuy</Typography>
+        </Grid>
+        <Grid item>
+          <Typography className={classes.typo}>Shopping Cart</Typography>
+        </Grid>
+        <Grid item>
+          <Button size="small" variant="contained" color="primary" onClick={handleClickBack}>Go to Store</Button>
+        </Grid>
+      </Grid>
+      <hr />
       <div className={styles.cart}>
-        <Typography variant="h2" className={styles.tableTitle}>
-          Shopping Cart
-        </Typography>
-
         {cart.length === 0 ? (
           <div className={styles.fullDiv}>
-            {/* <p>Your cart is currently empty</p>
-          <div>
-            <Link to="/">
-              <ArrowBackIcon />
-              <span>Start shopping</span>
-            </Link>
-          </div> */}
             <EmptyCart />
           </div>
-        ) : (
-          // <div>
-          //   <div>
-          //     <h3>Product</h3>
-          //     <h3>Price</h3>
-          //     <h3>Quantity</h3>
-          //     <h3>Total</h3>
-          //   </div>
-          //   {cart.map((cartItem) => (
-          //     <>
-          //       <div>{cartItem.title}</div>
-          //       <div>{cartItem.amount}</div>
-          //       <div>{cartItem.quantity}</div>
-          //       <img src={cartItem.images} alt="" />
-          //     </>
-          //   ))}
-          //   <div>{totalAmount}</div>
-
-          //   <div>{totalQuantity}</div>
-          // </div>
-
+        ) : 
+        (
           <div className={styles.fullDiv}>
-            <Link className={styles.volverAtras} to="/home">
-              Home...
-            </Link>
             <div className={styles.mainDiv}>
-              <span className={styles.filler}></span>
               <TableContainer>
                 <Table
-                  sx={{ minWidth: "1440px" }}
+                  sx={{ minWidth: "60rem" }}
                   size="medium"
                   aria-label="simple table"
+                  className={styles.dataTable}
                 >
                   <TableHead>
                     <TableRow>
-                      {/* <TableCell sx={{ color: "#e7ebf0" }}>ID</TableCell> */}
-                      <TableCell sx={{ color: "#e7ebf0" }}>Image</TableCell>
-                      <TableCell sx={{ color: "#e7ebf0" }}>Product</TableCell>
-                      <TableCell sx={{ color: "#e7ebf0" }}>Price</TableCell>
-                      <TableCell sx={{ color: "#e7ebf0" }}>Quantity</TableCell>
-                      <TableCell sx={{ color: "#e7ebf0" }}>Total</TableCell>
-                      <TableCell sx={{ color: "#e7ebf0" }}>Action</TableCell>
+                      <TableCell >Image</TableCell>
+                      <TableCell >Product</TableCell>
+                      <TableCell >Price</TableCell>
+                      <TableCell >Quantity</TableCell>
+                      <TableCell >Total</TableCell>
+                      <TableCell >Action</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -185,34 +225,11 @@ const Cart = () => {
               </TableContainer>
               <div className={styles.orderTotalAddressAndBuy}>
                   <div className={styles.orderTotal}>
-                    <Typography variant="h3">Order total: </Typography>
-                    <Typography variant="p" className={styles.orderTotalP}><span style={{marginLeft: '20px'}}></span>$ {totalAmount}</Typography>
+                    <div><Typography variant="p">Order total: </Typography></div>
+                    <div><Typography variant="p"> $ {totalAmount}</Typography></div>
                   </div>
-                {/* <h3>Order total: </h3>
-                  <p>{cart?.forEach((cartItem) => {
-                    let toSum = orderTotal + (cartItem.amount * cartItem.quantity);
-
-                    setOrderTotal(toSum);
-                  })}</p> */}
-                  {/* <div>
-                    <form className={s.form}>
-                      <div className={s.divInput}>
-                        <label className={s.label} htmlFor="">
-                          Dirección de envío:
-                        </label>
-                        <input
-                          className={s.input}
-                          placeholder="Dirección..."
-                          value={input.address}
-                          name="address"
-                          type="text"
-                          onChange={(e) => handleInputChange(e)}
-                        />
-                      </div>
-                    </form>
-                  </div> */}
-                   <div>
-                    <form>
+                  <div className={styles.addressDiv}>
+                      <form>
                       <div className={styles.addressDiv}>
                         <label className={styles.addressDivLabel} htmlFor="">
                           Shipping address:
@@ -226,11 +243,11 @@ const Cart = () => {
                           onChange={(e) => handleInputChange(e)}
                         />
                       </div>
-                    </form>
+                      </form>
                   </div>
-                <Button onClick={onBuy} color="success" variant="contained" className={styles.buyButton}>
+                  <Button size="small" onClick={onBuy} color="primary" variant="contained" className={styles.buyButton}>
                   Buy now
-                </Button>
+                  </Button>
               </div>
             </div>
           </div>
