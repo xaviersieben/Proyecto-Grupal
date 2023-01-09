@@ -250,7 +250,7 @@ export default function productsReducer(state = initialState, action) {
     case "GET_ORDER_DETAIL":
       return {
         ...state,
-        orderDetail: action.payload,
+        detail: action.payload,
       };
 
     case "GET_ORDERS_BY_USER":
@@ -313,7 +313,15 @@ export default function productsReducer(state = initialState, action) {
         userProfile: action.payload,
       };
       }
-      case 'GET_USER_WISH_LIST':
+    case 'CANCELL_ORDER':
+      return{
+        ...state
+      }
+    case 'CONFIRM_ORDER':
+      return{
+        ...state
+      }
+    case 'GET_USER_WISH_LIST':
         return {
           ...state,
           wishListItems: action.payload

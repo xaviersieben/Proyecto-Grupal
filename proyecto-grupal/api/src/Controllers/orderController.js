@@ -213,17 +213,17 @@ const deleteOrder = async (req, res, next) => {
   }
 };
 
-const orderStatus = async (req, res, next) => {
+const confirmOrder = async (req, res, next) => {
   const { id } = req.params;
   try {
     const order = await Order.findOne({ where: { id: id } });
     if (order) {
       const updated = await Order.update(
-        { status: "Cancelled" },
-        { where: { id: id } }
+        {status: "confirmed"},
+        {where: {id: id}}
       );
-      if (updated[0] === 1) {
-        res.status(200).json({ msg: `New Order status: Cancelled` });
+      if(updated[0]===1){
+        res.status(200).json({msg: `New Order status: Confirmed`})
       }
     } else {
       res.status(400).json({ msg: "Order not found in the DB" });
@@ -285,6 +285,7 @@ module.exports = {
   updateStatus,
   getOrderById,
   deleteOrder,
+  confirmOrder,
   orderStatus,
   getOrdersByUser,
   notificationOrder,

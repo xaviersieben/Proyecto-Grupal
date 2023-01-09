@@ -26,7 +26,7 @@ const getAllOrders = async () => {
 
 const getOrderById = async (id) => {
   const OrderId = await User.findByPk(id, {
-    include: [Order],
+    include: [{ model: Order, include: [{ model: OrderDetail, include: [Product]}]}],
   });
   return OrderId;
 };

@@ -226,7 +226,6 @@ export function getOrders() {
 export function getOrderDetail(id) {
   return async function (dispatch) {
     const detail = await axios.get(`http://localhost:3001/orders/${id}`);
-
     return dispatch({
       type: "GET_ORDER_DETAIL",
       payload: detail?.data,
@@ -558,6 +557,40 @@ export function filterByStatus(type) {
     type: "FILTER_BY_STATUS",
     payload: type,
   };
+}
+
+export function cancellOrder(id) {
+  return async function (dispatch){
+    try {
+      await axios.delete(`http://localhost:3001/orders/${id}`);
+      return dispatch({
+        type: 'CANCELL_ORDER',
+        payload: '',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+export function confirmOrder(id) {
+  return async function (dispatch){
+    try {
+      await axios.post(`http://localhost:3001/orders/${id}`);
+      return dispatch({
+        type: 'CONFIRM_ORDER',
+        payload: '',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+export function donothing(){
+  return{
+    type: "DO_NOTHING",
+    payload: 1,
+  }
 }
 
 
