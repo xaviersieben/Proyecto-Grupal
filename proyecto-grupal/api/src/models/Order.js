@@ -13,6 +13,11 @@ module.exports = (sequelize) => {
       allowNull: false,
       defaultValue: "in process",
     },
+    shippingStatus: {
+      type: DataTypes.ENUM("in process", "sent"),
+      allowNull: false,
+      defaultValue: "in process",
+    },
     quantity: {
       type: DataTypes.INTEGER,
     },
