@@ -37,7 +37,6 @@ function App() {
         <Route path='/passReset' component={PasswordReset} /> 
         <Route path='/passConfirm/:id/:token' component={PasswordConfirm} />
         <Route exact path='/postlogin' component={PostLogIn} />
-        <Route path='/administrateUsers' component={UsersAdministration} />    
         <Route path='/cart' component={Cart} />    
         <Route exact path='/login' component={LoginModal} />
         <Route exact path='/checkout/success' component={CheckoutSuccess} />
