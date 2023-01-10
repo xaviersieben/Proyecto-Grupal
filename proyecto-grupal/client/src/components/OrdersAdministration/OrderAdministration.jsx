@@ -11,6 +11,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typog
 export default function OrderAdministration() {
     const dispatch = useDispatch();
     const orders = useSelector((state) => state.orders);
+    
     const [dummyState, rerender] = React.useState(1)
 
 

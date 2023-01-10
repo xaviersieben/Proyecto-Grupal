@@ -306,6 +306,44 @@ const swapShipping = async (req, res, next) => {
   }
 };
 
+const notShippingOrder = async (req, res, next) => {
+  try {
+    
+    const order = await Order.findOne({ where: { id: req.body.id } })
+    
+    const user = await User.findOne({ where: { id: order.userId } });
+    
+    function random10DigitNumber() {
+      var number = Math.floor(Math.random() * 100000000000);
+      var str = number.toString();
+      return str.slice(0,10);
+    }
+    
+    var emailTemplate = `Hello ${user.name}, \n
+      your order number: ${req.body.id} has been shipped! \n
+      your tracking code is ${random10DigitNumber()} \n
+      Thank you!`;
+    if (user) {
+      let subject = "CloudyBuy";
+      let text = " your order has been shipped";
+      let email = user.email;
+      let html = emailTemplate;
+
+      let result = await deliverMail(email, subject, text, html);
+      //console.log(result);
+      if (result) {
+        res.status(200).send({ mail: email });
+      } else {
+        res.status(400).send({ msg: "Something failed" });
+      }
+    } else {
+      res.status(400).json({ msg: "User not found" });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllOrders,
   createNewOrder,
@@ -318,4 +356,5 @@ module.exports = {
   //orderStatus,
   getOrdersByUser,
   notificationOrder,
+  notShippingOrder,
 };
