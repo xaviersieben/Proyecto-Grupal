@@ -250,7 +250,7 @@ export function putOrder(id, body) {
   };
 }
 
-export function getOrdersByUser(userId) {
+/*export function getOrdersByUser(userId) {
   return async function (dispatch) {
     try {
       const res = await axios.get(
@@ -264,7 +264,7 @@ export function getOrdersByUser(userId) {
       console.log(err);
     }
   };
-}
+}*/
 
 export function setCart(cart) {
   return {
@@ -583,13 +583,6 @@ export function confirmOrder(id) {
     } catch (error) {
       console.log(error);
     }
-  }
-}
-
-export function donothing(){
-  return{
-    type: "DO_NOTHING",
-    payload: 1,
   }
 }
 

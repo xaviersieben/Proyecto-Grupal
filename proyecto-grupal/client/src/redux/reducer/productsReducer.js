@@ -13,6 +13,7 @@ const initialState = {
   orders: [],
   allOrders: [],
   detail: {},
+  orderDetail: {},
   users: [],
   allUsers: [],
   user: {},
@@ -250,13 +251,7 @@ export default function productsReducer(state = initialState, action) {
     case "GET_ORDER_DETAIL":
       return {
         ...state,
-        detail: action.payload,
-      };
-
-    case "GET_ORDERS_BY_USER":
-      return {
-        ...state,
-        orders: action.payload,
+        orderDetail: action.payload,
       };
 
     case "SIGN_USER":
