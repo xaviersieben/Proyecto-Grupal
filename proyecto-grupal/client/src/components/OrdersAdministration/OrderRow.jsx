@@ -32,6 +32,10 @@ export default function OrderRow({
   async function handleShipping(e) {
     e.preventDefault();
     await dispatch(actions.shippingOrder(id));
+
+    orderShipping === "in process"
+      ? dispatch(actions.getOrders())
+      : dispatch(actions.notShippOrder({ id: id }));
     dispatch(actions.getOrders());
   }
 

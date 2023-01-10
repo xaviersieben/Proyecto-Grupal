@@ -620,3 +620,22 @@ export function notOrder(payload) {
   };
 }
 
+export function notShippOrder(payload) {
+  
+ 
+  return async function () {
+    try {
+      
+      let response = await axios.post(
+        `http://localhost:3001/checkout/success/shipping/`,
+        payload
+      );
+      
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("email", response.data.mail);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+

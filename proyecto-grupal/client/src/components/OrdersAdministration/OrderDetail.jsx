@@ -9,7 +9,9 @@ import styles from './OrderDetail.module.css';
 export default function OrderAdministration() {
     const dispatch = useDispatch();
     let data = window.location.toString().split("/");
+    console.log(data)
     const order = useSelector((state) => state.orderDetail);
+    console.log(order)
     let id = data[4]
     let orderid = data[5]
     useEffect(() => {
