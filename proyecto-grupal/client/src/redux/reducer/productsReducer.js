@@ -316,6 +316,10 @@ export default function productsReducer(state = initialState, action) {
       return{
         ...state
       }
+      case 'SHIPPING_ORDER':
+        return{
+          ...state
+        }
     case 'GET_USER_WISH_LIST':
         return {
           ...state,

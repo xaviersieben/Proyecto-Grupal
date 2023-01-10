@@ -1,5 +1,5 @@
 const { Order, User, OrderDetail, Product } = require("../db.js");
-const { deliverMail } = require('./nodemailerController');
+const { deliverMail } = require("./nodemailerController");
 
 const ordersServices = require("../Services/orderService");
 
@@ -8,7 +8,7 @@ const createNewOrder = async (req, res, next) => {
     let createdOrder;
 
     const userId = req.body.id;
-    console.log(req.body);
+    //console.log(req.body);
 
     createdOrder = await ordersServices.createNewOrder(
       userId,
@@ -17,7 +17,7 @@ const createNewOrder = async (req, res, next) => {
       req.body.idMp
     );
 
-    console.log(createdOrder);
+    //console.log(createdOrder);
 
     for (let i = 0; i < req.body.pedido.length; i++) {
       const prodId = await Product.findAll({
@@ -46,7 +46,7 @@ const createNewOrder = async (req, res, next) => {
     }
 
     if (createdOrder) {
-      console.log(createdOrder);
+      //console.log(createdOrder);
       res.status(201).send(createdOrder);
     } else {
       res.status(404).send("Error creating order!");
@@ -171,15 +171,15 @@ const updateOrder = async (req, res, next) => {
 
 const updateStatus = async (req, res, next) => {
   const { id } = req.params;
-  console.log("entro");
+  //console.log("entro");
   const ordId = await Order.findAll({
     where: {
       idMp: id,
     },
     attibutes: ["id"],
   });
-  console.log(req.body);
-  console.log(ordId);
+  //console.log(req.body);
+  //console.log(ordId);
   try {
     const ordById = await ordersServices.orderUpdate(
       ordId[0].dataValues.id,
@@ -219,11 +219,11 @@ const confirmOrder = async (req, res, next) => {
     const order = await Order.findOne({ where: { id: id } });
     if (order) {
       const updated = await Order.update(
-        {status: "confirmed"},
-        {where: {id: id}}
+        { status: "confirmed" },
+        { where: { id: id } }
       );
-      if(updated[0]===1){
-        res.status(200).json({msg: `New Order status: Confirmed`})
+      if (updated[0] === 1) {
+        res.status(200).json({ msg: `New Order status: Confirmed` });
       }
     } else {
       res.status(400).json({ msg: "Order not found in the DB" });
@@ -252,33 +252,59 @@ const getOrdersByUser = async (req, res) => {
   }
 };
 
-const notificationOrder = async (req, res, next)=>{
-  try{
-      const user = await User.findOne({where: {email:  req.body.email}});
-      var emailTemplate = `Hello ${req.body.name}, \n
+const notificationOrder = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ where: { email: req.body.email } });
+    var emailTemplate = `Hello ${req.body.name}, \n
       thank you for your order! \n
       Your full order details are available at http://localhost:3000/orders/user \n
       Thank you!`;
-      if(user){
-          let subject = "CloudyBuy";
-          let text = "your payment was approved";
-          let email = user.email;
-          let html = emailTemplate
-     
-          let result = await deliverMail(email, subject, text, html)
-          console.log(result)
-          if(result){
-              res.status(200).send({ mail: email})
-          }else{
-              res.status(400).send({msg: "Something failed"})
-          }
-      }else{
-          res.status(400).json({msg: "User not found"})
+    if (user) {
+      let subject = "CloudyBuy";
+      let text = "your payment was approved";
+      let email = user.email;
+      let html = emailTemplate;
+
+      let result = await deliverMail(email, subject, text, html);
+      //console.log(result);
+      if (result) {
+        res.status(200).send({ mail: email });
+      } else {
+        res.status(400).send({ msg: "Something failed" });
       }
-  }catch(error){
-      next(error)
+    } else {
+      res.status(400).json({ msg: "User not found" });
+    }
+  } catch (error) {
+    next(error);
   }
-}
+};
+
+const swapShipping = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const order = await Order.findOne({ where: { id: id } });
+    const shippingType =
+      order.shippingStatus === "in process"
+        ? (order.shippingStatus = "sent")
+        : "in process";
+        console.log(shippingType)
+    if (order) {
+      const updated = await Order.update(
+        { shippingStatus: shippingType },
+        { where: { id: req.params.id } }
+      );
+      if (updated[0] === 1) {
+        //userStatus = !user.isAdmin;
+        res.status(200).json(updated);
+      }
+    } else {
+      res.status(400).json({ msg: "User not found in the DB" });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   getAllOrders,
@@ -288,6 +314,7 @@ module.exports = {
   getOrderById,
   deleteOrder,
   confirmOrder,
+  swapShipping,
   //orderStatus,
   getOrdersByUser,
   notificationOrder,

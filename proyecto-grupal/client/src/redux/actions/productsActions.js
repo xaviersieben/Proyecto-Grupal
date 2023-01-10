@@ -586,6 +586,20 @@ export function confirmOrder(id) {
   }
 }
 
+export function shippingOrder(id) {
+  return async function (dispatch){
+    try {
+      await axios.put(`http://localhost:3001/orders/shipping/${id}`);
+      return dispatch({
+        type: 'SHIPPING_ORDER',
+        payload: '',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 
 
 export function notOrder(payload) {

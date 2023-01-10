@@ -13,6 +13,8 @@ export default function OrderAdministration() {
     const orders = useSelector((state) => state.orders);
     const [dummyState, rerender] = React.useState(1)
 
+
+
     function handleStatus(e){
         e.preventDefault(e);
         dispatch(actions.filterByStatus(e.target.value));
@@ -54,6 +56,7 @@ export default function OrderAdministration() {
                             <TableCell sx={{ color: '#e7ebf0' }}>Order Detail (Products)</TableCell>
                             <TableCell sx={{ color: '#e7ebf0' }}>Cancel Order</TableCell>
                             <TableCell sx={{ color: '#e7ebf0' }}>Confirm Order</TableCell>
+                            <TableCell sx={{ color: '#e7ebf0' }}>Shipping Status</TableCell>
                         </TableRow>
                         </TableHead>
                         <TableBody>
@@ -67,6 +70,7 @@ export default function OrderAdministration() {
                                     price={order.price}
                                     user={order.userId}
                                     orderDetail={order.OrderDetails}
+                                    orderShipping={order.shippingStatus}
                                 />
                             );
                         })}
