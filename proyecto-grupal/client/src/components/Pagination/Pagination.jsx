@@ -18,7 +18,7 @@ export default function Pagination({pageSize, totalProducts, page, pagination}) 
        
       }
       <div><input className={s.page} type="number" value={page} readOnly/></div>
-      <div><span className={s.p_page} >de:</span></div>
+      <div><span className={s.p_page}>of</span></div>
       <div><input className={s.page} type="number" value={lastPage} readOnly/></div>
       { page < lastPage && 
         <i className={"fa-solid fa-circle-right"} onClick={()=> pagination('next')}></i>

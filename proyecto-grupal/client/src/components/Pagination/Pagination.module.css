@@ -34,7 +34,9 @@
 
   .page {
     display: inline-block;
-    margin-left: 0.5rem;
+    margin-left: 0.3rem;
+    margin-right: 0;
+    padding-right: 0;
     width: 2.5rem;
     text-align: center;
     font-weight: bold;
@@ -44,7 +46,8 @@
   }
 
   .p_page {
-    margin-left: 0;
+    margin: 0;
+    padding: 0;
     font-weight: bold;
   }
 
