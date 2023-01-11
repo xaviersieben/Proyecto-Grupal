@@ -86,3 +86,27 @@
   .option:hover {
     background-color: #d9e8f7;
   }
+
+  /* Responsive CSS */
+
+@media screen and (max-width:1020px) {
+  .formSearch {
+    width: 25rem;
+  }
+}
+
+@media screen and (max-width:730px) {
+  .formSearch {
+    width: 30rem;
+  }
+}
+
+@media screen and (max-width:670px) {
+  .formSearch {
+    width: 21rem;
+  }
+  .container {
+    justify-content: flex-start;
+    margin-left: 4%;
+}
+}

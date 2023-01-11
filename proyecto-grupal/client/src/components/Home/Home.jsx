@@ -11,6 +11,7 @@ import s from "./Home.module.css";
 import logo from "..//../img/logo.JPG";
 import LoginModal from "../Login/LoginModal";
 import NavBar from "../NavBar/NavBar";
+import MenuBar from "../MenuBar/MenuBar";
 import LogIn from "../Auth0/LogIn";
 import LogOut from "../Auth0/LogOut";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -93,11 +94,15 @@ export default function Home() {
       <div className={s.header}>
         <div className={s.logo}>
           <img src={logo} alt="LOGO" className={s.logo} />
-          <h4>CloudyBuy</h4>
+          <h4 className={s.shopName}>CloudyBuy</h4>
         </div>
 
         <SearchBar paginationReset={paginationReset} />
 
+        <div className={s.menuBar}>
+          <MenuBar email={userDb.email} handleLogOut={handleLogOut}/>
+        </div>
+        
         <div className={s.login}>
           {!userDb.email ? (
             <LoginModal />
@@ -113,16 +118,18 @@ export default function Home() {
               </Link>
             )}
           </div>
-          <Link to={"/cart"}>
-            {/* <button className={s.btns}>Cart</button> */}
-            <Typography sx={{ color: "blue" }}>
-              <ShoppingCartIcon className={s.shop} fontSize="small" />
-            </Typography>
-            <Typography variant="caption text" className={s.topIconBag}>
-              {totalQuantity}
-            </Typography>
-          </Link>
-          {/* <Link to={'/cart'}><button className={s.btns}>Cart</button></Link> */}
+          <div className={s.divCart}>
+            <Link to={"/cart"}>
+              {/* <button className={s.btns}>Cart</button> */}
+              <Typography sx={{ color: "blue" }}>
+                <ShoppingCartIcon className={s.shop} fontSize="small" />
+              </Typography>
+              <Typography variant="caption text" className={s.topIconBag}>
+                {totalQuantity}
+              </Typography>
+            </Link>
+            {/* <Link to={'/cart'}><button className={s.btns}>Cart</button></Link> */}
+          </div>
         </div>
       </div>
 
@@ -213,14 +220,11 @@ export default function Home() {
                     </Link>
                   </li>
                   <li className={s.userSubMenuLi}><Link to={'/wishlist'} className={s.userSubMenuLiA} href="#"> My Wishlist</Link></li>
-                  <li
-                    className={s.userSubMenuLi}
-                    onClick={(e) => handleLogOut(e)}
-                  >
-                    <Link className={s.userSubMenuLiA} href="#">
+                  <li>
+                    <a className={s.userSubMenuLiA} onClick={(e) => handleLogOut(e)} href="#">
                       {" "}
                       Log Out
-                    </Link>
+                    </a>
                   </li>
 
                 </ul>

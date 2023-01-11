@@ -133,9 +133,10 @@ export default function ProductCard({
             </div>
           </div>
         </div>
+        <div className={sty.divBtns}>
         {stock ? (
           <Button
-            style={{ width: "100%" }}
+            style={{ width: "70%" }}
             variant="contained"
             size="small"
             onClick={handleCart}
@@ -143,21 +144,21 @@ export default function ProductCard({
             Add to Cart
           </Button>
         ) : (
-          <Button style={{ width: "100%" }} variant="contained" size="small">
+          <Button style={{ width: "70%" }} variant="contained" size="small">
             Not Available
           </Button>
         )}
         {
           (showWishListButtons()) && (
           (checkIsInWishList(id)) ? <Button
-          style={{ width: "100%" }}
+          style={{ width: "70%" }}
           variant="contained"
           size="small"
           onClick={handleWishListDelete}
         >
           Remove from wishlist
         </Button> : <Button
-            style={{ width: "100%" }}
+            style={{ width: "70%" }}
             variant="contained"
             size="small"
             onClick={handleWishList}
@@ -166,7 +167,7 @@ export default function ProductCard({
           </Button>
           )
         }
-        
+        </div>
           
       </div>
     </>

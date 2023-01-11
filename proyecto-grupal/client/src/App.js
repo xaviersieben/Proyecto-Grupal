@@ -45,7 +45,7 @@ function App() {
         <AdminRoute path="/administrateOrders" component={OrderAdministration} />
         <Route exact path={'/profile'} component={Profile} />
         <Route exact path = '/orderDetails/:id/:id' component={OrderDetail} />
-        <Route path='/wishList' component={WishList}/>
+        <Route exact path='/wishList' component={WishList}/>
         <Route exact path={"/orders/user"} component={OrderList} />
     </div>
   );

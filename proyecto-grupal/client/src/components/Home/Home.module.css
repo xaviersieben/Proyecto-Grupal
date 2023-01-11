@@ -34,6 +34,17 @@
   font-family: "Poppins", sans-serif;
 }
 
+.menuBar{
+  display: none;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1em;
+  font-family: "Poppins", sans-serif; 
+  padding: 0;
+  margin: 0;
+}
+
 .alpha {
   background-color: transparent;
   border: none;
@@ -246,4 +257,53 @@
   color: white;
   font-weight: bold;
   background-color:  #022752b8;
+}
+
+/* .shopName {
+  display: none;
+} */
+
+/* Responsive CSS */
+
+@media screen and (max-width:730px) {
+  .menuBar{
+    display: flex;
+    margin-left: 1rem;
+    padding-left: 1rem;
+    font-size: 1em;
+    font-family: "Poppins", sans-serif;
+  }
+  .login {
+    display: none;
+  }
+  .userNav {
+    display: none;
+  }
+  .alpha i {
+    font-size: 1rem;
+  }
+  .select {
+    font-size: 1rem;
+  }
+  .header1 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (max-width:1020px) {
+  .shopName {
+    display: none;
+  }
+}
+
+@media screen and (max-width:670px) {
+  .header {
+    justify-content: flex-start;
+  }
+  .logo {
+    justify-content: flex-start;
+    margin-left: 1px;
+  }
 }
