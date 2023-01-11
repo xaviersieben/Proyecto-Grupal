@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useLogin } from "../Login/useLogin";
 import s from "./MenuBar.module.css";
+import LoginModal from "../Login/LoginModal";
 
 
 export default function MenuBar({email, handleLogOut}) {

@@ -51,7 +51,7 @@ const handleOption = (e) => {
   return (
     <div className={s.container}>
       <form className={s.formSearch} onSubmit={e => handleSubmit(e)}>
-        <input className={s.name} type="text" placeholder="Busca productos o marcas...." value={nameProduct}
+        <input className={s.name} type="text" placeholder="Search for products or brands..." value={nameProduct}
           onChange={e => handleOnChange(e)} />
         <button className={s.alpha} type="submit">
           <i className="fa-solid fa-magnifying-glass"></i>
