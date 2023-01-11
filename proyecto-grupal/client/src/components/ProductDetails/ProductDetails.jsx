@@ -2,11 +2,11 @@ import React, { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 //import Loading from '..//Loading/Loading.jsx';
-import {getProductsDetails, addCart} from '..//../redux/actions/productsActions.js';
+import {getProductsDetails, addCart, addProductToWishList, saveUserWishList, removeProductFromWishList, getUserWishList } from '..//../redux/actions/productsActions.js';
 import sty from "./ProductDetails.module.css";
 import CarouselImg from "../CarouselImg/CarouselImg";
 import logo from "..//../img/logo.JPG";
-
+import { Button } from '@mui/material';
 
 export default function ProductDetails() {
     const {id} = useParams()
@@ -19,9 +19,11 @@ export default function ProductDetails() {
     let userDb = useSelector((state) => state.user);
     console.log(prod);
     //const dark = useSelector(state=>state.dark)
+    let wishList = useSelector((state) => state.wishListItems);
 
    useEffect(()=>{
-       dispatch(getProductsDetails(id))  
+       dispatch(getProductsDetails(id));
+       dispatch(getUserWishList());  
           
    },[id, dispatch])
 
@@ -34,15 +36,86 @@ export default function ProductDetails() {
   }
 
   function handleCart() {
-    const data = cart?.filter((item) => item.productId === id);
+    const data = cart?.filter((item) => item.productId === parseInt(id));
     const dataf = data.length<1?prod.stock-1:data[0].quantity
     console.log(dataf);
     prod.stock > 0 && dataf+1<=prod.stock
-      ? dispatch(addCart(id, prod.price, prod.images, prod.title))
+      ? dispatch(addCart(parseInt(id), prod.price, prod.thumbnail, prod.title))
       : alert("no");
+      console.log('prod:', prod);
     history.goBack();
   }
   
+  //----------------Wishlist------------------
+
+  function handleWishList() {
+    const data = wishList?.find(item => {
+      return item.id === parseInt(id);
+    });
+    console.log('data de handleWishList: ', data);
+    if(!data) {
+      console.log('entra al if(!data)');
+      dispatch(addProductToWishList(parseInt(id), prod.thumbnail, prod.title, prod.description, prod.price));
+      const objWishListItem = {
+        id: parseInt(id),
+        thumbnail: prod.thumbnail,
+        title: prod.title,
+        description: prod.description,
+        price: prod.price
+      }
+      const objWishList = {
+        user_id: sessionStorage.getItem("userId"),
+        wishListItems: [
+          ...wishList,
+          objWishListItem
+        ]
+      }
+      console.log('objWishList.wishListItems: ', objWishList.wishListItems);
+      dispatch(saveUserWishList(objWishList));
+    }
+  }
+  function handleWishListDelete() {
+    console.log('entra a handleWishListDelete. El id es: ' + parseInt(id));
+    console.log('la wishList es: ', wishList);
+    const data = wishList?.find(item => {
+      return item.id === parseInt(id);
+    });
+    console.log('la data de handleWishListDelete es: ', data);
+    if(data) {
+      dispatch(removeProductFromWishList(data.id));
+      const objWishList = {
+        user_id: sessionStorage.getItem("userId"),
+        wishListItems: wishList.filter(wishListItem => {
+          return (wishListItem.id !== data.id)
+        })
+      }
+      dispatch(saveUserWishList(objWishList));
+    }
+  }
+  function showWishListButtons() {
+    if(sessionStorage.getItem("userId")!==null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function checkIsInWishList(id) {
+    const wishListItemFound = wishList.find(wishListItem => {
+      return wishListItem.id === id;
+    });
+    return wishListItemFound? true: false;    
+  }
+  function checkIsInCart(id) {
+    console.log(id);
+    console.log(cart);
+    const cartItemFound = cart.find(cartItem => {
+      return cartItem.productId === id;
+    });
+    //dispatch(getCart());
+    console.log(cartItemFound);
+    return cartItemFound? true: false;
+  }
     return (
     <div className={sty.details}>
       <div className={sty.header}>
@@ -115,6 +188,26 @@ export default function ProductDetails() {
                   <i className="fa-solid fa-plus"></i> Modify product
                 </button>
               }
+              {
+                (showWishListButtons()) && (
+                  (checkIsInWishList(parseInt(id))) ? <Button
+                    style={{ width: "70%" }}
+                    variant="contained"
+                    size="small"
+                    color="error"
+                    onClick={handleWishListDelete}
+                    >
+                      Remove from wishlist
+                    </Button> : <Button
+                      style={{ width: "70%" }}
+                      variant="contained"
+                      size="small"
+                      onClick={handleWishList}
+                      >
+                        Add to wishlist
+                      </Button>
+                    )
+                }
             </div>
 
             
@@ -128,12 +221,26 @@ export default function ProductDetails() {
             <div className={sty.specs}>
               <h4 htmlFor=""><strong>Actual Stock</strong></h4>
               <p>
-              <strong>{prod.stock? prod.stock:"0"} Und.</strong>
+              <strong>{prod.stock? prod.stock:"0"} Units</strong>
               </p>
               <br />
-              <button className={sty.btns} onClick={()=> handleCart()} >
-                Add to car
-              </button>
+              {(checkIsInCart(parseInt(id))) ? (
+                <button className={sty.btns} disabled={true}
+                style={{
+                  color:"#ffff",
+                  cursor: "not-allowed",
+                  backgroundColor: "rgba(160, 4, 4, 0.7)"
+                }} >
+                  In Cart!
+                </button>
+              ) : (
+                <button className={sty.btns} onClick={()=> handleCart()} >
+                  Add to Cart
+                </button>
+                
+              )
+            }
+              
               <hr />
               <button className={sty.btns} onClick={()=> history.goBack()} >
                 Go to Store

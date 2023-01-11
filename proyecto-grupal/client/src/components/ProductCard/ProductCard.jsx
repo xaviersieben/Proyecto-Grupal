@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { addCart, addProductToWishList, saveUserWishList, removeProductFromWishList, getUserWishList } from "../../redux/actions/productsActions";
+import { addCart, addProductToWishList, saveUserWishList, removeProductFromWishList, getUserWishList, getCart, removeCart } from "../../redux/actions/productsActions";
 import sty from "..//ProductCard/ProductCard.module.css";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
@@ -22,9 +22,10 @@ export default function ProductCard({
   let userDb = useSelector((state) => state.user);
   let wishList = useSelector((state) => state.wishListItems);
 
-  useEffect(() => {
-    dispatch(getUserWishList());
-}, [dispatch]);
+//   useEffect(() => {
+//     dispatch(getUserWishList());
+//     //dispatch(getCart);
+// }, [dispatch]);
 
   function handleClickCard() {
     history.push(`/details/${id}`);
@@ -101,6 +102,21 @@ export default function ProductCard({
     });
     return wishListItemFound? true: false;
   }
+
+  function checkIsInCart(id) {
+    console.log(id);
+    console.log(cart);
+    const cartItemFound = cart.find(cartItem => {
+      return cartItem.productId === id;
+    });
+    //dispatch(getCart());
+    console.log(cartItemFound);
+    return cartItemFound? true: false;
+  }
+  // function removeCart() {
+  //   console.log('id removeCart: ', id);
+  //   dispatch(removeCart(id));
+  // }
   return (
     <>
       <div>
@@ -134,7 +150,17 @@ export default function ProductCard({
           </div>
         </div>
         <div className={sty.divBtns}>
-        {stock ? (
+        {stock && (checkIsInCart(id)) ? (
+          <Button
+          style={{ width: "70%" }}
+          variant="contained"
+          size="small"
+          color="error"
+          //onClick={removeCart}
+          disabled={true}
+        >
+          In Cart!
+        </Button> ) : stock ? (
           <Button
             style={{ width: "70%" }}
             variant="contained"
@@ -154,6 +180,7 @@ export default function ProductCard({
           style={{ width: "70%" }}
           variant="contained"
           size="small"
+          color="error"
           onClick={handleWishListDelete}
         >
           Remove from wishlist

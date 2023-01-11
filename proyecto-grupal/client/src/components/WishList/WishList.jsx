@@ -51,7 +51,7 @@ export default function WishList() {
           {/* <Login modalOpen={modalOpen} closeLogin={closeLogin} /> */}
           <div className={styles.wishList}>
             <Typography variant="h2" className={styles.tableTitle}>
-              Wishlist
+              My Wishlist
             </Typography>
     
             {wishList.length === 0 ? (
