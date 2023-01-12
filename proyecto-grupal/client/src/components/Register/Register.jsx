@@ -58,16 +58,16 @@ export default function Register() {
           <h3>CloudyBuy</h3>
         </div>
         <div>
-          <h1>Welcome to the Store!</h1>
+          <h2>Welcome to the Store!</h2>
         </div>
         <div>
-          <h1>Fulfill your dreams buying the products you want</h1>
+          <h2>Fulfill your dreams buying the products you want</h2>
         </div>
       </section>
 
       <section className={s.section2}>
         <div className={s.content}>
-          <h1>Sign Up</h1>
+          <h2>Sign Up</h2>
           <form className={s.formCard} onSubmit={(e) => handleSubmit(e)}>
             <label htmlFor="">
               Name:
