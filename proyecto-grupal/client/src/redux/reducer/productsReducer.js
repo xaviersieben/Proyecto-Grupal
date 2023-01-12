@@ -22,6 +22,7 @@ const initialState = {
   cartTotalAmount: 0,
   userProfile: {},
   wishListItems: [],
+  detailOrder:[]
 };
 
 export default function productsReducer(state = initialState, action) {
@@ -253,7 +254,12 @@ export default function productsReducer(state = initialState, action) {
         allOrders: action.payload,
         orders: action.payload,
       };
-
+      case "GET_ORDERSBYID":
+        return {
+          ...state,
+          detailOrder: action.payload,
+      
+        };
     case "GET_ORDER_DETAIL":
       return {
         ...state,
