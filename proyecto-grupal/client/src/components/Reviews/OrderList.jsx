@@ -7,11 +7,15 @@ import Grid from "@material-ui/core/Grid";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import Box from "@material-ui/core/Box";
 import { Button } from "@material-ui/core";
 import * as actions from "../../redux/actions/productsActions";
 import s from "./OrderList.module.css";
 import logo from "..//../img/logo.JPG";
+import IconButton from "@material-ui/core/IconButton";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import ReviewForm from "./ReviewForm";
+import SearchIcon from "@mui/icons-material/Search";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -112,17 +116,28 @@ export default function OrderList({ onOrderSelect }) {
       </Grid>
       <Grid container spacing={2} className={classes.root}>
         {orders.length === 0 ? (
-          <Typography variant="body1" color="initial">
-            You have no orders created yet.
-            <Button
-              size="small"
-              variant="contained"
-              color="primary"
-              onClick={handleClickBack}
-            >
-              Go back and buy!
-            </Button>
-          </Typography>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            m={1}
+            p={1}
+            bgcolor="background.paper"
+            className={s.boxStyle}
+          >
+            <Typography variant="h5" color="initial">
+              You have no orders created yet.
+            </Typography>
+            <br />
+            <Typography variant="h6" color="initial">
+              Go to the store and buy!
+            </Typography>
+            <br />
+            <IconButton onClick={handleClickBack} size="large">
+              <SearchIcon />
+              <ShoppingBasketIcon />
+            </IconButton>
+          </Box>
         ) : (
           orders.map((order) => {
             const orderDetails = order.OrderDetails;
@@ -132,10 +147,6 @@ export default function OrderList({ onOrderSelect }) {
               totalPrice += productPrice;
             }
 
-            // return (
-            //   <Grid container className={classes.root} spacing={2}>
-            //     {orders.map((order) => {
-            //       const orderDetails = order.OrderDetails;
             return (
               <Grid spacing={2} item xs={4} key={order._id}>
                 <Card className={classes.card}>
@@ -159,7 +170,7 @@ export default function OrderList({ onOrderSelect }) {
                         <Grid container className={classes.detail}>
                           <Typography
                             key={orderDetail._id}
-                            className={classes.paragraph}
+                            className={s.paragraph}
                           >
                             <img
                               src={orderDetail.product.thumbnail}
@@ -202,9 +213,6 @@ export default function OrderList({ onOrderSelect }) {
                 </Card>
               </Grid>
             );
-            //     })}
-            //   </Grid>
-            // );
           })
         )}
       </Grid>
