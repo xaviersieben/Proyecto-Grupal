@@ -115,22 +115,64 @@ export default function productsReducer(state = initialState, action) {
         products: sortedArr3,
       };
 
-    case "FILTER_BY_CATEGORIES":
-      const allProductsCategories = state.allProducts;
-      console.log(action.payload);
-      const categoriesFiltered =
-        action.payload === "All"
-          ? allProductsCategories
-          : allProductsCategories.filter((pro) =>
-              pro.categories
-                ?.find((e) => e.hasOwnProperty("name"))
-                .name.includes(action.payload)
-            );
-      console.log(categoriesFiltered);
-      return {
-        ...state,
-        products: categoriesFiltered,
-      };
+      case "FILTER_BY_CATEGORIES":
+        const allProductsCategories = state.allProducts;
+        console.log('Filtrando por categoría: ', action.payload);
+        let categoriesFiltered;
+        if (action.payload === "All") {
+          categoriesFiltered = allProductsCategories;
+        } else {
+          console.log(allProductsCategories);
+          categoriesFiltered = allProductsCategories.map(elementoProducto => {
+            let tieneCategoria = undefined;
+            if (elementoProducto.categories) {
+              console.log('Entra al if de elementoProducto.categories: ', elementoProducto.categories);
+              tieneCategoria = elementoProducto.categories.find(elementoCategoria => {
+                console.log('Entra al .find para el elementoCategoria: ', elementoCategoria);
+                console.log('elementoCategoria.name === action.payload?: ', elementoCategoria.name === action.payload);
+                return elementoCategoria.name === action.payload;
+              })
+            }
+            console.log('al terminar el .find, tieneCategoria es: ', tieneCategoria);
+            if (tieneCategoria !== undefined) {
+              console.log('entra a tieneCategoria !== undefined porque eso es: ', tieneCategoria !== undefined);
+              console.log('el elementoProducto a devolver es: ', elementoProducto);
+              return elementoProducto;
+            }
+          })
+        }
+        // console.log(action.payload);
+        // const categoriesFiltered =
+        //   action.payload === "All"
+        //     ? allProductsCategories
+        //     : allProductsCategories.map((productItem) => {
+        //       let foundItem;
+        //       console.log('Entra al allProductsCategories.map. productItem es: ', productItem);
+        //       if(productItem.categories) {
+        //         console.log('Entra al if de productItem.categories: ', productItem.categories);
+        //         foundItem = productItem.categories.find(categoryItem => {
+        //           return categoryItem.hasOwnProperty("name");
+        //         });
+        //         console.log('foundItem: ', foundItem);
+        //       if (foundItem && foundItem.name.includes(action.payload)) {
+        //         console.log('entra al doble if');
+        //         return productItem;
+        //       }
+        //       }
+              
+        //       // if(foundItem) {
+        //       //   console.log('entra al if de foundItem y lo devuelve');
+        //       //   return foundItem;
+        //       // }
+        //       // productItem.categories
+        //       //     ?.find((e) => e.hasOwnProperty("name"))
+        //       //     .name.includes(action.payload)
+        //         });
+        console.log('categoriesFiltered: ', categoriesFiltered);
+        return {
+          ...state,
+          products: categoriesFiltered.filter(elementoProducto => elementoProducto !== undefined),
+        };
 
     case "SEARCH_PRODUCT":
       let productList;
