@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tradeName: {
     fontfamily: "Poppins",
-    fontSize: 25,
+    fontSize: 20,
   }
 }));
 
@@ -170,7 +170,7 @@ const Cart = () => {
   }
   
   return (
-    <div>
+    <div className={styles.container}>
       <Login modalOpen={modalOpen} closeLogin={closeLogin} />
       <Grid container spacing={2} className={classes.header}>
         <Grid item xs={4} className={classes.trade}>
@@ -195,7 +195,6 @@ const Cart = () => {
         ) : 
         (
           <div className={styles.fullDiv}>
-            <div className={styles.mainDiv}>
               <TableContainer>
                 <Table
                   sx={{ minWidth: "60rem" }}
@@ -231,12 +230,11 @@ const Cart = () => {
               </TableContainer>
               <div className={styles.orderTotalAddressAndBuy}>
                   <div className={styles.orderTotal}>
-                    <div><Typography variant="p">Order total: </Typography></div>
+                    <div><Typography variant="p">Total Order: </Typography></div>
                     <div><Typography variant="p"> $ {totalAmount}</Typography></div>
                   </div>
                   <div className={styles.addressDiv}>
-                      <form>
-                      <div className={styles.addressDiv}>
+                      <form className={styles.addressDiv}>
                         <label className={styles.addressDivLabel} htmlFor="">
                           Shipping address:
                         </label>
@@ -248,14 +246,12 @@ const Cart = () => {
                           type="text"
                           onChange={(e) => handleInputChange(e)}
                         />
-                      </div>
                       </form>
                   </div>
                   <Button size="small" onClick={onBuy} color="primary" variant="contained" className={styles.buyButton}>
                   Buy now
                   </Button>
               </div>
-            </div>
           </div>
         )}
       </div>

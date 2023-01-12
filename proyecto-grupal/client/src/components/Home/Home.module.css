@@ -96,6 +96,7 @@
 
 .container {
   background: linear-gradient(rgb(220, 228, 227), rgb(161, 197, 202));
+  min-height: 100vh;
   }
   
 .productCards {

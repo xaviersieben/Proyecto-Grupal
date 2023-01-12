@@ -164,9 +164,9 @@ export default function Home() {
             <button className={s.alpha} onClick={orderPrice}>
               <i className="fa-solid fa-hand-holding-dollar"></i>
               {price ? (
-                <i className="fa-solid fa-arrow-down-z-a"></i>
-              ) : (
-                <i className="fa-solid fa-arrow-up-a-z"></i>
+                <i className="fa-solid fa-arrow-up-9-1"></i>
+              ) : ( 
+                <i className="fa-solid fa-arrow-up-1-9"></i>
               )}
             </button>
           </div>
@@ -176,9 +176,9 @@ export default function Home() {
             <button className={s.alpha} onClick={orderRating}>
               <i className="fa-regular fa-star"></i>
               {rating ? (
-                <i className="fa-solid fa-arrow-down-z-a"></i>
+                <i className="fa-solid fa-arrow-up-9-1"></i>
               ) : (
-                <i className="fa-solid fa-arrow-up-a-z"></i>
+                <i className="fa-solid fa-arrow-up-1-9"></i>
               )}
             </button>
           </div>

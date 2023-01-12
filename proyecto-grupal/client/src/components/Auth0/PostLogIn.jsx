@@ -103,7 +103,7 @@ useEffect(() => {
           <img src={logo} alt="LOGO" className={s.logo}/>
           <h3>CloudyBuy</h3>
         </div>
-        <div> <h1>Welcom to the Store!</h1></div>
+        <div><h1>Welcom to the Store!</h1></div>
         { !userDb.userExists && 
           <div><h3>The following data will be stored in our store, in order to interact with you</h3></div>
         }
