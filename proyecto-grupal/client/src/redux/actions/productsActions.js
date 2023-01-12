@@ -503,10 +503,21 @@ export function resetPassword(payload) {
         `http://localhost:3001/user/reset`,
         payload
       );
-      localStorage.setItem("token", response.data.token);
+      Swal.fire({
+        title: 'Email sent!',
+        icon: 'success',
+        confirmButtonText: 'Continue'
+      })
+      localStorage.setItem("token2", response.data.token);
       localStorage.setItem("email", response.data.mail);
-    } catch (error) {
-      console.log(error);
+      console.log(response.data.mail)
+      console.log(response.data.token)
+    }catch(error){
+      Swal.fire({
+        title: 'Invalid Email',
+        icon: 'error',
+        confirmButtonText: 'Continue'
+      })
     }
   };
 }

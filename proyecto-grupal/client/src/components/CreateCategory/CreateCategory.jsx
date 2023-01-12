@@ -5,6 +5,7 @@ import { postCategory } from '../../redux/actions/productsActions';
 import { getCategories } from '../../redux/actions/productsActions';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './CreateCategory.module.css';
+import Swal from "sweetalert2"
 
 //import Container from "@mui/material/Container";
 import { Table, TableBody, TableContainer, TableRow, TableCell, TableHead, Button } from '@mui/material';
@@ -65,7 +66,11 @@ export default function CreateCategory () {
             let category = {};
             category.name = input.name;
             dispatch(postCategory(category));
-            alert('Category created!');
+            Swal.fire({
+                title: 'Category Created',
+                icon: 'success',
+                confirmButtonText: 'Continue'
+              })
             setInput({
                 name:''
             });

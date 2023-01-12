@@ -4,12 +4,15 @@ import { useDispatch } from "react-redux";
 import * as actions from "../../redux/actions/productsActions";
 import "./PasswordReset.css";
 import logo from "../../img/logo.JPG";
+import Swal from "sweetalert2"
 
 export default function PasswordConfirm() {
   const dispatch = useDispatch();
   let data = window.location.toString().split("/");
   let email = data[4];
   let token = data[5];
+  console.log("token reset", token)
+  console.log("email reset", email)
   const [userData, setUserData] = useState({
     email: email,
     password: "",
@@ -23,25 +26,41 @@ export default function PasswordConfirm() {
     e.preventDefault();
     if (userData.password && userData.password2) {
       if (userData.password === userData.password2) {
-        if (
-          token === localStorage.getItem("token") &&
+        if(
+          token === localStorage.getItem("token2") &&
           email === localStorage.getItem("email")
-        ) {
+        ){
           dispatch(actions.resetConfirm(userData));
           setUserData({
             email: "",
             password: "",
             password2: "",
           });
-          alert("password changed");
-        } else {
-          alert("access denied");
+          Swal.fire({
+            title: 'Password Changed!',
+            icon: 'success',
+            confirmButtonText: 'Continue'
+          })
+        }else{
+          Swal.fire({
+            title: 'Acess Denied!',
+            icon: 'error',
+            confirmButtonText: 'Continue'
+          })
         }
       } else {
-        alert("passwords do not match");
+        Swal.fire({
+          title: 'Password do not match',
+          icon: 'error',
+          confirmButtonText: 'Continue'
+        })
       }
     } else {
-      alert("Please fill all fields");
+      Swal.fire({
+        title: 'Incomplete data!',
+        icon: 'error',
+        confirmButtonText: 'Continue'
+      })
     }
   };
   return (

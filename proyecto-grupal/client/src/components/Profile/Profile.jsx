@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import * as actions from '../../redux/actions/productsActions';
 import logo  from '../../img/logo.JPG'
 import s from './Profile.module.css';
+import Swal from "sweetalert2"
 
 export default function Profile() {
 
@@ -47,7 +48,11 @@ export default function Profile() {
       setErrors(prevState => (dataErrors))
       if (Object.keys(dataErrors).length === 0) {
         dispatch(actions.updateUserProfile(userDb))
-        alert('Update User success!');
+        Swal.fire({
+          title: 'Data updated!',
+          icon: 'success',
+          confirmButtonText: 'Continue'
+        })
         history.push('/')
       }
     } else {
