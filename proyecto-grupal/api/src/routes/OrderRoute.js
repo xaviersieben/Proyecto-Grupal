@@ -8,7 +8,8 @@ const {
   updateStatus,
   confirmOrder,
   getOrdersByUser,
-  swapShipping
+  swapShipping,
+  getOrdById
 } = require("../Controllers/orderController");
 
 const router = require("express").Router();
@@ -34,6 +35,9 @@ router.post("/:id", confirmOrder)
 router.get("/user", getOrdersByUser);
 
 router.put("/shipping/:id", swapShipping);
+
+
+router.get("/admind/:id", getOrdById);
 
 
 module.exports = router;

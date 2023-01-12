@@ -73,6 +73,13 @@ const deleteOrder = async (id) => {
   return ordUpdate;
 };
 
+const getOrdById = async (id) => {
+  const OrderId = await Order.findByPk(id, {
+    include: [{ model: OrderDetail, include: [Product]}],
+  });
+  return OrderId;
+};
+
 module.exports = {
   createNewOrder,
   getAllOrders,
@@ -81,4 +88,5 @@ module.exports = {
   findOrders,
   getOrders,
   deleteOrder,
+  getOrdById
 };

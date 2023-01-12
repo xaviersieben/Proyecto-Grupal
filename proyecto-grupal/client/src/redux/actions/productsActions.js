@@ -639,3 +639,17 @@ export function notShippOrder(payload) {
   };
 }
 
+export function getOrdById(id) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get(`http://localhost:3001/orders/admind/${id}`);
+      return dispatch({
+        type: "GET_ORDERSBYID",
+        payload: json.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
+
