@@ -344,6 +344,20 @@ const notShippingOrder = async (req, res, next) => {
   }
 };
 
+const getOrdById = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const ordById = await ordersServices.getOrdById(id);
+    if (ordById) {
+      res.status(200).send(ordById);
+    } else {
+      res.status(404).send("Not Found");
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllOrders,
   createNewOrder,
@@ -357,4 +371,5 @@ module.exports = {
   getOrdersByUser,
   notificationOrder,
   notShippingOrder,
+  getOrdById
 };

@@ -3,6 +3,7 @@ import React from "react";
 //import { useState } from "react";
 //import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import * as actions from "../../redux/actions/productsActions";
 import styles from "../UserRow/userRow.module.css";
 import s from "./OrderRow.module.css";
@@ -20,6 +21,7 @@ export default function OrderRow({
   orderShipping,
 }) {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   function handleCancell(e) {
     e.preventDefault();
@@ -39,6 +41,10 @@ export default function OrderRow({
     dispatch(actions.getOrders());
   }
 
+  function handleDetailCard() {
+    history.push(`orders/admind/${id}`);
+  }
+
   return (
     <TableRow
       key={id}
@@ -50,7 +56,14 @@ export default function OrderRow({
       <TableCell sx={{ color: "#e7ebf0" }}>{price}</TableCell>
       <TableCell sx={{ color: "#e7ebf0" }}>{user}</TableCell>
       <TableCell sx={{ color: "#e7ebf0" }}>
-        <Link to={`/orderDetails/${user}/${id}`}>More Details</Link>
+      <button
+          className={s.btns0}
+          type="submit"
+          onClick={() => handleDetailCard()}
+        >
+         More Details
+        </button>
+        {/* <Link to={`/orderDetails/${user}/${id}`}>More Details</Link> */}
       </TableCell>
       <TableCell sx={{ color: "#e7ebf0" }}>
         <button
