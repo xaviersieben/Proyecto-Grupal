@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { postProduct } from '../../redux/actions/productsActions';
 import { getCategories } from '../../redux/actions/productsActions';
 import { useDispatch, useSelector } from 'react-redux';
-
+import Swal from "sweetalert2"
 import styles from './CreateProduct.module.css'
 
 import { Button } from '@mui/material';
@@ -200,7 +200,6 @@ export default function CreateProduct() {
             // console.log(`Producto a agregar:`);
             // console.dir(input);
             dispatch(postProduct(input));
-            alert('Product created!');
             setInput({
                 title: '',
                 description: '',
@@ -214,7 +213,11 @@ export default function CreateProduct() {
                 images: [],
                 active: true
             });
-
+  Swal.fire({
+    title: 'Product Created',
+    icon: 'success',
+    confirmButtonText: 'Continue'
+  })
             history.push('/home');
         }
     }
