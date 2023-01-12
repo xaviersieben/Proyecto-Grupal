@@ -104,13 +104,13 @@ export default function ProductCard({
   }
 
   function checkIsInCart(id) {
-    console.log(id);
-    console.log(cart);
+    // console.log(id);
+    // console.log(cart);
     const cartItemFound = cart.find(cartItem => {
       return cartItem.productId === id;
     });
     //dispatch(getCart());
-    console.log(cartItemFound);
+    // console.log(cartItemFound);
     return cartItemFound? true: false;
   }
   // function removeCart() {
