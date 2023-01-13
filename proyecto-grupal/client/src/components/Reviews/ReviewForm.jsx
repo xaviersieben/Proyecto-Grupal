@@ -32,8 +32,8 @@ export default function ReviewForm({ productId, orderId, userId }) {
   const [image, setImage] = useState(null);
   const [formVisible, setFormVisible] = useState(true);
   const [formData, setFormData] = useState({
-    productId: "",
-    orderId: "",
+    productId: productId,
+    orderId: orderId,
     comment: "",
     rating: "",
     image: null,
@@ -71,12 +71,12 @@ export default function ReviewForm({ productId, orderId, userId }) {
       console.log(orderId, productId, userId, rating, comment, image);
       setFormData({
         ...formData,
-        productId: { productId },
-        orderId: { orderId },
+        productId: productId,
+        orderId: orderId,
       });
-      console.log(formData);
+      console.log('data submited', formData);
       dispatch(
-        actions.postReview(orderId, productId, userId, rating, comment, image)
+        actions.postReview(formData)
       );
 
       setFormVisible(false);

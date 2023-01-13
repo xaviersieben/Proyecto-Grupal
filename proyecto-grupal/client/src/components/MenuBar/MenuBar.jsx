@@ -8,7 +8,7 @@ import LoginModal from "../Login/LoginModal";
 export default function MenuBar({email, handleLogOut}) {
 
   const [modalOpen, openLogin, closeLogin] = useLogin(false);
-  console.log(email)
+  // console.log(email)
 
   function handleLogin() {
     return (

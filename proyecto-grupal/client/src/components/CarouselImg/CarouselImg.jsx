@@ -13,8 +13,18 @@ export default function CarouselImg () {
       
     return (
     
-      <Carousel style={{width: "29rem"}}>
-      <Carousel.Item>
+      <Carousel style={{ width: "29rem" }}>
+        {detail.images && detail.images.map((img) => {
+          return (<Carousel.Item>
+            <img
+              className="d-block w-100"
+              src={img}
+              alt="First slide"
+            />
+          </Carousel.Item>
+          )
+        })}
+      {/* <Carousel.Item>
         <img
           className="d-block w-100"
           src={detail.images[0]}
@@ -48,7 +58,7 @@ export default function CarouselImg () {
           src={detail.images[4]}
           alt="First slide"
         />
-      </Carousel.Item>
+      </Carousel.Item> */}
       
     </Carousel>
        
