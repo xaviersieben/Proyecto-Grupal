@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { putProduct } from '../../redux/actions/productsActions';
 import { getCategories } from '../../redux/actions/productsActions';
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from "sweetalert2"
 
 import styles from './ModifyForm.module.css'
 
@@ -196,9 +197,17 @@ export default function ModifyForm({id, productDetails}) {
     function handleSubmit(e) {
         e.preventDefault();
         if (Object.keys(errors).length > 0) {
-            alert('Please, verify the provided information');
+            Swal.fire({
+                title: 'Please verify the information',
+                icon: 'error',
+                confirmButtonText: 'Continue'
+              })
         } else if (!input.title || !input.description || input.price === '' || input.rating === '' || input.stock === '' || !input.brand || input.categories.length === 0 || !input.thumbnail || !input.images || input.images.length === 0) {
-            alert('Please, complete all fields before submitting');
+            Swal.fire({
+                title: 'Complete all fields',
+                icon: 'error',
+                confirmButtonText: 'Continue'
+              })
         } else {
             // console.log(`Producto a modificar:`);
             // console.dir(input);
@@ -215,7 +224,11 @@ export default function ModifyForm({id, productDetails}) {
                 active: true
             }
             dispatch(putProduct(id, objProducto));
-            alert('Product updated!');
+            Swal.fire({
+                title: 'Product Updated',
+                icon: 'success',
+                confirmButtonText: 'Continue'
+              })
             setInput({
                 title: '',
                 description: '',

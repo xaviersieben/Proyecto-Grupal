@@ -1,20 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useLogin } from "../Login/useLogin";
+
 import s from "./MenuBar.module.css";
 import LoginModal from "../Login/LoginModal";
 
 
 export default function MenuBar({email, handleLogOut}) {
 
-  const [modalOpen, openLogin, closeLogin] = useLogin(false);
-  // console.log(email)
-
-  function handleLogin() {
-    return (
-      <LoginModal />
-    )
-  }
+ 
 
 return (
     <nav className={s.userNav}>
@@ -27,12 +20,7 @@ return (
           <ul className={s.userSubMenu}>
     
           {!email && (
-            <li>    
-              <Link to={"/login"} className={s.userSubMenuLiA} href="#">
-              {" "} LogIn
-              {/* <a className={s.userSubMenuLiA} onClick={()=>handleLogin()} href="">{" "} LogIn</a> */}
-              </Link>
-            </li>
+            <LoginModal/>
           )}
           {!email && (
             <li>    

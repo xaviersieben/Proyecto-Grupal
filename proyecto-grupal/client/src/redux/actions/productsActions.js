@@ -409,7 +409,11 @@ export function loginUser(payload) {
         payload: response.data,
       });
     } catch (error) {
-      alert(error.response.data.msg);
+        Swal.fire({
+        title: `${error.response.data.msg}`,
+        icon: 'error',
+        confirmButtonText: 'Continue'
+      })
     }
   };
 }
@@ -539,17 +543,27 @@ export function resetConfirm(payload) {
 // WISHLIST-START
 
 export function getUserWishList() {
-  const user_id = sessionStorage.getItem("userId");
-  return (dispatch) => {
-    fetch("/wishlist?user_id=" + user_id)
-      .then((res) => res.json())
-      .then((json) => {
-        dispatch({
-          type: "GET_USER_WISH_LIST",
-          payload: json.wishListItems,
-        });
-      });
-  };
+
+  return async (dispatch) => {
+    try {
+      const user_id = sessionStorage.getItem("userId");
+      if (user_id) {
+            return (dispatch) => {
+          fetch("http://localhost:3001/wishlist?user_id=" + user_id)
+            .then((res) => res.json())
+            .then((json) => {
+              dispatch({
+                type: "GET_USER_WISH_LIST",
+                payload: json.wishListItems,
+              });
+            });
+        };
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 }
 
 export function saveUserWishList(payload) {
