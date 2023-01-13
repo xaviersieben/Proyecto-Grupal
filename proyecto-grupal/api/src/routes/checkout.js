@@ -60,8 +60,8 @@ router.post("/", (req, res) => {
                 installments: 12
                 },
             back_urls:{
-                success: "https://proyecto-grupal3-n2dzkkwc2-rinaldic.vercel.app/checkout/success/",
-                failure: "https://proyecto-grupal3-n2dzkkwc2-rinaldic.vercel.app/checkout/success/",
+                success: "https://proyecto-grupal3.vercel.app/checkout/success/",
+                failure: "https://proyecto-grupal3.vercel.app/checkout/success/",
             },
             auto_return: "approved",
             //binary_mode: true,

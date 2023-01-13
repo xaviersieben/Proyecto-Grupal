@@ -18,10 +18,10 @@ console.log(
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientID = process.env.REACT_APP_AUTH0_CLIENT_ID;
 const postLoginLocal = 'http://localhost:3000/postlogin';
-const postLoginDeploy = 'https://pf-let.vercel.app/postLogin';
+const postLoginDeploy = 'https://proyecto-grupal3.vercel.app/postLogin';
 
 //axios.defaults.baseURL = 'http://localhost:3001'
-axios.defaults.baseURL = 'proyecto-grupal-back-production.up.railway.app/'
+//axios.defaults.baseURL = 'proyecto-grupal-back-production.up.railway.app/'
 // con react-dom v18 y superior
 //const root = ReactDOM.createRoot(document.getElementById('root')); 
 //root.render(
