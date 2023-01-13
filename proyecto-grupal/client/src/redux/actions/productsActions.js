@@ -409,7 +409,11 @@ export function loginUser(payload) {
         payload: response.data,
       });
     } catch (error) {
-      alert(error.response.data.msg);
+        Swal.fire({
+        title: `${error.response.data.msg}`,
+        icon: 'error',
+        confirmButtonText: 'Continue'
+      })
     }
   };
 }
