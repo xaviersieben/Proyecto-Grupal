@@ -142,13 +142,12 @@ export default function ProductCard({
     // });
     //dispatch(getCart());
     // console.log(cartItemFound);
-    return cartItemFound? true: false;
   }
   // function removeCart() {
   //   console.log('id removeCart: ', id);
   //   dispatch(removeCart(id));
   // }
-  
+
   return (
     <>
       <div>

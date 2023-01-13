@@ -1,6 +1,6 @@
 .general {
-        height: 100vh;
-        width: 100%;
+        height: 100%;
+        /*width: 100%;*/
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -14,15 +14,12 @@
 }
 
 .boxStyle {
-        height: 200px;
-        width: 400px;
-        border-radius: 10px;
-        border: 2px solid rgb(0, 0, 0);
-        margin-top: 100px;
+        height: 100vh;
+        width: 100vh;
+        border: none;
         padding: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        box-shadow: 2px 1px 1px 0px #bcafdc;
       }
