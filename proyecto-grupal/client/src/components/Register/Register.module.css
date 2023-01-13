@@ -100,7 +100,7 @@ p.danger {
   margin: 0;
 }
 
-@media screen and (max-width:730px) {
+@media screen and (max-width:768px) {
   .container {
     display: flex;
     flex-direction: column;
@@ -147,3 +147,42 @@ p.danger {
     font-size: medium;
   }
 }
+
+@media screen and (max-width:425px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  
+    border: solid;
+  }
+  .section1 {
+    width: 100vw;
+    height: 20vh;
+  }
+  .section1_h2{
+    width: 80vw;
+  }
+ 
+  .logo {
+    display: flex;
+    justify-content: center;
+    
+    font-size: medium;
+  }
+  
+  .logo, img {
+    height: 3rem ;
+    width: 3rem;
+   
+  }
+  
+
+  
+
+  .section1, h4 {
+    font-size: medium;
+  }
+ 
+  .section2, h1 {
+    font-size: medium;
+  }}

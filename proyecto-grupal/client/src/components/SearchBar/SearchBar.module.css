@@ -110,3 +110,13 @@
     margin-left: 4%;
 }
 }
+
+@media screen and (max-width:425px) {
+  .formSearch {
+    width: 100%;
+  }
+  .container {
+    justify-content: flex-start;
+    margin-left: 4%;
+}
+}

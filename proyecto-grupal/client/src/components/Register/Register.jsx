@@ -57,8 +57,8 @@ export default function Register() {
           <img src={logo} alt="LOGO" className={s.logo}/>
           <h3>CloudyBuy</h3>
         </div>
-        <div>
-          <h2>Welcome to the Store!</h2>
+        <div className={s.section1_h2}>
+          <h2 >Welcome to the Store!</h2>
         </div>
         <div>
           <h2>Fulfill your dreams buying the products you want</h2>
