@@ -31,6 +31,7 @@ export default function ReviewForm({ productId, orderId, userId }) {
   const [comment, setComment] = useState("");
   const [image, setImage] = useState(null);
   const [formVisible, setFormVisible] = useState(true);
+  const [isSubmitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     productId: productId,
     orderId: orderId,
@@ -74,12 +75,11 @@ export default function ReviewForm({ productId, orderId, userId }) {
         productId: productId,
         orderId: orderId,
       });
-      console.log('data submited', formData);
-      dispatch(
-        actions.postReview(formData)
-      );
+      console.log("data submited", formData);
+      dispatch(actions.postReview(formData));
 
       setFormVisible(false);
+      setSubmitting(true);
 
       Swal.fire({
         title: "Review created!",
@@ -157,15 +157,15 @@ export default function ReviewForm({ productId, orderId, userId }) {
             <Typography color="error">{errors.rating}</Typography>
           )}
         </Grid>
-        <Grid item xs={12}>
-          <Typography variant="body">
-            If you want, you can upload an image:
-          </Typography>
+        {/*<Grid item xs={12}>
+          <Typography variant="body">Upload:</Typography>
           <Stack direction="row" alignItems="center" spacing={2}>
             <IconButton
               color="primary"
               aria-label="upload picture"
               component="label"
+              display="flex"
+              alignSelf="center"
             >
               <input
                 hidden
@@ -175,11 +175,17 @@ export default function ReviewForm({ productId, orderId, userId }) {
               />
               <PhotoCamera />
             </IconButton>
-          </Stack>
-        </Grid>
+          </Stack>          
+        </Grid>*/}
       </Grid>
-      <Button variant="contained" endIcon={<SendIcon />} type="submit">
-        Send your review
+      <hr />
+      <Button
+        variant="contained"
+        endIcon={<SendIcon />}
+        type="submit"
+        disable={isSubmitting}
+      >
+        {isSubmitting ? "Submitting..." : "Make a review"}
       </Button>
     </form>
   );

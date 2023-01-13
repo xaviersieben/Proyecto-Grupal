@@ -437,3 +437,7 @@
   justify-content: space-between; /*Con esto le indicamos que margine todos los items que se encuentra adentro hacia la derecha e izquierda*/
   align-items: center; /*con esto alineamos de manera vertical*/
 }
+
+.textRev {
+    font-size: 20px;
+}

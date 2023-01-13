@@ -137,18 +137,14 @@ export default function ProductCard({
     return cartItemFound ? true : false;
     // console.log(id);
     // console.log(cart);
-    const cartItemFound = cart.find(cartItem => {
-      return cartItem.productId === id;
-    });
     //dispatch(getCart());
     // console.log(cartItemFound);
-    return cartItemFound? true: false;
   }
   // function removeCart() {
   //   console.log('id removeCart: ', id);
   //   dispatch(removeCart(id));
   // }
-  
+
   return (
     <>
       <div>

@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
   typo: {
     fontfamily: "Poppins",
-    fontSize: 30,
+    fontSize: 40,
     display: "flex",
     justifyContent: "center",
   },
@@ -125,11 +125,11 @@ export default function OrderList({ onOrderSelect }) {
             bgcolor="background.paper"
             className={s.boxStyle}
           >
-            <Typography variant="h5" color="initial">
+            <Typography variant="h4" color="initial">
               You have no orders created yet.
             </Typography>
             <br />
-            <Typography variant="h6" color="initial">
+            <Typography variant="h5" color="initial">
               Go to the store and buy!
             </Typography>
             <br />

@@ -149,11 +149,14 @@ export const postReview = (reviewData) => async (dispatch) => {
 export function getReviews(id) {
   return async function (dispatch) {
     try {
-      const res = await axios.get(`localhost:3001/product/reviews/${id}`);
-      return dispatch({
+      const res = await axios.get(
+        `http://localhost:3001/product/${id}/reviews`
+      );
+      dispatch({
         type: "GET_REVIEWS",
         payload: res.data,
       });
+      return res.data;
     } catch (error) {
       console.log(error);
     }
@@ -163,7 +166,7 @@ export function getReviews(id) {
 export function deleteReview(id) {
   return async function (dispatch) {
     try {
-      await axios.delete(`localhost:3001/product/reviews/${id}`);
+      await axios.delete(`http://localhost:3001/product/reviews/${id}`);
       return dispatch({
         type: "DELETE_REVIEW",
         payload: id,
@@ -409,11 +412,11 @@ export function loginUser(payload) {
         payload: response.data,
       });
     } catch (error) {
-        Swal.fire({
+      Swal.fire({
         title: `${error.response.data.msg}`,
-        icon: 'error',
-        confirmButtonText: 'Continue'
-      })
+        icon: "error",
+        confirmButtonText: "Continue",
+      });
     }
   };
 }
@@ -508,20 +511,20 @@ export function resetPassword(payload) {
         payload
       );
       Swal.fire({
-        title: 'Email sent!',
-        icon: 'success',
-        confirmButtonText: 'Continue'
-      })
+        title: "Email sent!",
+        icon: "success",
+        confirmButtonText: "Continue",
+      });
       localStorage.setItem("token2", response.data.token);
       localStorage.setItem("email", response.data.mail);
-      console.log(response.data.mail)
-      console.log(response.data.token)
-    }catch(error){
+      console.log(response.data.mail);
+      console.log(response.data.token);
+    } catch (error) {
       Swal.fire({
-        title: 'Invalid Email',
-        icon: 'error',
-        confirmButtonText: 'Continue'
-      })
+        title: "Invalid Email",
+        icon: "error",
+        confirmButtonText: "Continue",
+      });
     }
   };
 }
@@ -547,7 +550,7 @@ export function getUserWishList() {
     try {
       const user_id = sessionStorage.getItem("userId");
       if (user_id) {
-            return (dispatch) => {
+        return (dispatch) => {
           fetch("http://localhost:3001/wishlist?user_id=" + user_id)
             .then((res) => res.json())
             .then((json) => {
@@ -561,7 +564,7 @@ export function getUserWishList() {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 }
 
 export function saveUserWishList(payload) {
