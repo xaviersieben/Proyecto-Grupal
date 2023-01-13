@@ -60,8 +60,8 @@ router.post("/", (req, res) => {
                 installments: 12
                 },
             back_urls:{
-                success: "http://localhost:3000/checkout/success/",
-                failure: "http://localhost:3000/checkout/success/",
+                success: "https://proyecto-grupal-back-production.up.railway.app/checkout/success/",
+                failure: "https://proyecto-grupal-back-production.up.railway.app/checkout/success/",
             },
             auto_return: "approved",
             //binary_mode: true,
