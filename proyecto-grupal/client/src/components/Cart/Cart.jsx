@@ -172,7 +172,7 @@ const Cart = () => {
   return (
     <div className={styles.container}>
       <Login modalOpen={modalOpen} closeLogin={closeLogin} />
-      <Grid container spacing={2} className={classes.header}>
+      <Grid container spacing={2} className={classes.header && styles.header}>
         <Grid item xs={4} className={classes.trade}>
           <Typography>
           <img src={logo} alt={"logo"} className={classes.image}/>
@@ -195,7 +195,7 @@ const Cart = () => {
         ) : 
         (
           <div className={styles.fullDiv}>
-              <TableContainer>
+              <TableContainer className={styles.table_container}>
                 <Table
                   sx={{ minWidth: "60rem" }}
                   size="medium"

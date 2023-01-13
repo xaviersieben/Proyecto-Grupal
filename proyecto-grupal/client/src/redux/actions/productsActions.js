@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 
 export function getProducts() {
   return (dispatch) => {
-    fetch("http://localhost:3001/product")
+    fetch("https://proyecto-grupal-back-production.up.railway.app/product")
       .then((res) => res.json())
       .then((json) => {
         dispatch({
@@ -17,7 +17,7 @@ export function getProducts() {
 export function getProductsDetails(id) {
   return async function (dispatch) {
     try {
-      var json = await axios.get(`http://localhost:3001/product/${id}`);
+      var json = await axios.get(`https://proyecto-grupal-back-production.up.railway.app/product/${id}`);
       return dispatch({
         type: "GET_PRODUCT_DETAILS",
         payload: json.data,
@@ -30,7 +30,7 @@ export function getProductsDetails(id) {
 
 export function getCategories() {
   return (dispatch) => {
-    fetch("http://localhost:3001/category")
+    fetch("https://proyecto-grupal-back-production.up.railway.app/category")
       .then((res) => res.json())
       .then((json) => {
         dispatch({
@@ -44,7 +44,7 @@ export function getCategories() {
 export function postCategory(payload) {
   return async (dispatch) => {
     const response = await axios.post(
-      `http://localhost:3001/category`,
+      `https://proyecto-grupal-back-production.up.railway.app/category`,
       payload
     );
     return response;
@@ -55,7 +55,7 @@ export function postProduct(payload) {
   console.log(`Payload de action postProduct: `);
   console.dir(payload);
   return async (dispatch) => {
-    const response = await axios.post(`http://localhost:3001/product`, payload);
+    const response = await axios.post(`https://proyecto-grupal-back-production.up.railway.app/product`, payload);
     return response;
   };
 }
@@ -63,7 +63,7 @@ export function postProduct(payload) {
 export function getProductsByName(name) {
   return async function (dispatch) {
     try {
-      var json = await axios(`http://localhost:3001/product?name=${name}`);
+      var json = await axios(`https://proyecto-grupal-back-production.up.railway.app/product?name=${name}`);
       return dispatch({
         type: "GET_PRODUCTS_BY_NAME",
         payload: json.data,
@@ -77,7 +77,7 @@ export function getProductsByName(name) {
 export function putProduct(id, body) {
   return async function (dispatch) {
     try {
-      let res = await axios.put(`http://localhost:3001/product/${id}`, body);
+      let res = await axios.put(`https://proyecto-grupal-back-production.up.railway.app/product/${id}`, body);
       return dispatch({
         type: "PUT_PRODUCT",
         payload: res.data,
@@ -91,7 +91,7 @@ export function putProduct(id, body) {
 export function deleteProduct(id) {
   return async function (dispatch) {
     try {
-      let res = await axios.delete(`http://localhost:3001/product/${id}`);
+      let res = await axios.delete(`https://proyecto-grupal-back-production.up.railway.app/product/${id}`);
       return dispatch({
         type: "DELETE_PRODUCT",
         payload: res.data,
@@ -105,7 +105,7 @@ export function deleteProduct(id) {
 export function putCategory(id, body) {
   return async function (dispatch) {
     try {
-      let res = await axios.put(`http://localhost:3001/category/${id}`, body);
+      let res = await axios.put(`https://proyecto-grupal-back-production.up.railway.app/category/${id}`, body);
       return dispatch({
         type: "PUT_CATEGORY",
         payload: res.data,
@@ -119,7 +119,7 @@ export function putCategory(id, body) {
 export function deleteCategory(id) {
   return async function (dispatch) {
     try {
-      await axios.delete(`http://localhost:3001/category/${id}`);
+      await axios.delete(`https://proyecto-grupal-back-production.up.railway.app/category/${id}`);
       return dispatch({
         type: "DELETE_CATEGORY",
         payload: id,
@@ -133,7 +133,7 @@ export function deleteCategory(id) {
 export const postReview = (reviewData) => async (dispatch) => {
   try {
     const response = await axios.post(
-      `http://localhost:3001/product/${reviewData.productId}/reviews`,
+      `https://proyecto-grupal-back-production.up.railway.app/product/${reviewData.productId}/reviews`,
       reviewData
     );
     console.log(response.data);
@@ -149,10 +149,8 @@ export const postReview = (reviewData) => async (dispatch) => {
 export function getReviews(id) {
   return async function (dispatch) {
     try {
-      const res = await axios.get(
-        `http://localhost:3001/product/${id}/reviews`
-      );
-      dispatch({
+      const res = await axios.get(`https://proyecto-grupal-back-production.up.railway.app/product/reviews/${id}`);
+      return dispatch({
         type: "GET_REVIEWS",
         payload: res.data,
       });
@@ -166,7 +164,7 @@ export function getReviews(id) {
 export function deleteReview(id) {
   return async function (dispatch) {
     try {
-      await axios.delete(`http://localhost:3001/product/reviews/${id}`);
+      await axios.delete(`https://proyecto-grupal-back-production.up.railway.app/product/reviews/${id}`);
       return dispatch({
         type: "DELETE_REVIEW",
         payload: id,
@@ -217,7 +215,7 @@ export function searchProduct(payload) {
 //ORDERS & CART
 export function postOrder(payload) {
   return async (dispatch) => {
-    const response = await axios.post("http://localhost:3001/orders", payload);
+    const response = await axios.post("https://proyecto-grupal-back-production.up.railway.app/orders", payload);
     //console.log(response)
     return dispatch({
       type: "CREATE_ORDER",
@@ -231,7 +229,7 @@ export function postOrder(payload) {
 export function getOrders() {
   return async function (dispatch) {
     try {
-      let json = await axios.get("http://localhost:3001/orders");
+      let json = await axios.get("https://proyecto-grupal-back-production.up.railway.app/orders");
       return dispatch({
         type: "GET_ORDERS",
         payload: json.data,
@@ -244,7 +242,7 @@ export function getOrders() {
 
 export function getOrderDetail(id) {
   return async function (dispatch) {
-    const detail = await axios.get(`http://localhost:3001/orders/${id}`);
+    const detail = await axios.get(`https://proyecto-grupal-back-production.up.railway.app/orders/${id}`);
     return dispatch({
       type: "GET_ORDER_DETAIL",
       payload: detail?.data,
@@ -256,7 +254,7 @@ export function putOrder(id, body) {
   return async function (dispatch) {
     try {
       let res = await axios.put(
-        `http://localhost:3001/orders/status/${id}`,
+        `https://proyecto-grupal-back-production.up.railway.app/orders/status/${id}`,
         body
       );
       return dispatch({
@@ -273,7 +271,7 @@ export function putOrder(id, body) {
   return async function (dispatch) {
     try {
       const res = await axios.get(
-        `http://localhost:3001/orders/user/${userId}`
+        `/orders/user/${userId}`
       );
       dispatch({
         type: "GET_ORDERS_BY_USER",
@@ -331,7 +329,7 @@ export function removeItem(productId) {
 export function signNewUser(payload) {
   return async function (dispatch) {
     try {
-      await axios.post(`http://localhost:3001/user`, payload);
+      await axios.post(`https://proyecto-grupal-back-production.up.railway.app/user`, payload);
       return dispatch({
         type: "SIGN_USER",
         payload,
@@ -350,7 +348,7 @@ export const TURN_INTO_ADMIN_OR_USER = "TURN_INTO_ADMIN_OR_USER";
 
 export function getUsers() {
   return (dispatch) => {
-    fetch("http://localhost:3001/user")
+    fetch("https://proyecto-grupal-back-production.up.railway.app/user")
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -364,7 +362,7 @@ export function getUsers() {
 export function setActiveInactive(objEmail) {
   return async function (dispatch) {
     try {
-      let res = await axios.put(`http://localhost:3001/user`, objEmail);
+      let res = await axios.put(`https://proyecto-grupal-back-production.up.railway.app/user`, objEmail);
       return dispatch({
         type: SET_ACTIVE_INACTIVE,
         payload: res.data,
@@ -378,7 +376,7 @@ export function setActiveInactive(objEmail) {
 export function turnIntoAdminOrUser(id) {
   return async function (dispatch) {
     try {
-      let res = await axios.put(`http://localhost:3001/user/${id}`);
+      let res = await axios.put(`https://proyecto-grupal-back-production.up.railway.app/user/${id}`);
       return dispatch({
         type: TURN_INTO_ADMIN_OR_USER,
         payload: res.data,
@@ -393,7 +391,7 @@ export function loginUser(payload) {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        `http://localhost:3001/user/login`,
+        `https://proyecto-grupal-back-production.up.railway.app/user/login`,
         payload
       );
       //set JWT token to local
@@ -426,7 +424,7 @@ export function testIsUser(payload) {
     try {
       console.log("action data", payload);
       const response = await axios.post(
-        `http://localhost:3001/user/isuser/${payload.email}`,
+        `https://proyecto-grupal-back-production.up.railway.app/user/isuser/${payload.email}`,
         payload
       );
       return dispatch({
@@ -443,7 +441,7 @@ export function isSocialUser(payload) {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/user/socialuser/${payload.sub}`
+        `https://proyecto-grupal-back-production.up.railway.app/user/socialuser/${payload.sub}`
       );
       return dispatch({
         type: "IS_SOCIAL_USER",
@@ -459,7 +457,7 @@ export function getUserProfile(payload) {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:3001/user/profile/${payload.id}`
+        `https://proyecto-grupal-back-production.up.railway.app/user/profile/${payload.id}`
       );
       return dispatch({
         type: "GET_USER_PROFILE",
@@ -475,7 +473,7 @@ export function updateUserProfile(payload) {
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `http://localhost:3001/user/profile/${payload.id}`,
+        `https://proyecto-grupal-back-production.up.railway.app/user/profile/${payload.id}`,
         payload
       );
       return dispatch({
@@ -507,7 +505,7 @@ export function resetPassword(payload) {
   return async function () {
     try {
       let response = await axios.post(
-        `http://localhost:3001/user/reset`,
+        `https://proyecto-grupal-back-production.up.railway.app/user/reset`,
         payload
       );
       Swal.fire({
@@ -532,7 +530,7 @@ export function resetConfirm(payload) {
   return async function () {
     try {
       let response = await axios.put(
-        `http://localhost:3001/user/reset/${payload.email}/${payload.token}`,
+        `https://proyecto-grupal-back-production.up.railway.app/user/reset/${payload.email}/${payload.token}`,
         payload
       );
       localStorage.removeItem("token");
@@ -546,12 +544,13 @@ export function resetConfirm(payload) {
 // WISHLIST-START
 
 export function getUserWishList() {
+
   return async (dispatch) => {
     try {
       const user_id = sessionStorage.getItem("userId");
       if (user_id) {
-        return (dispatch) => {
-          fetch("http://localhost:3001/wishlist?user_id=" + user_id)
+            return (dispatch) => {
+          fetch("https://proyecto-grupal-back-production.up.railway.app/wishlist?user_id=" + user_id)
             .then((res) => res.json())
             .then((json) => {
               dispatch({
@@ -564,7 +563,6 @@ export function getUserWishList() {
     } catch (error) {
       console.log(error);
     }
-  };
 }
 
 export function saveUserWishList(payload) {
@@ -572,7 +570,7 @@ export function saveUserWishList(payload) {
   console.dir(payload);
   return async (dispatch) => {
     const response = await axios.post(
-      `http://localhost:3001/wishlist`,
+      `https://proyecto-grupal-back-production.up.railway.app/wishlist`,
       payload
     );
     return response;
@@ -611,7 +609,7 @@ export function filterByStatus(type) {
 export function cancellOrder(id) {
   return async function (dispatch) {
     try {
-      await axios.delete(`http://localhost:3001/orders/${id}`);
+      await axios.delete(`https://proyecto-grupal-back-production.up.railway.app/orders/${id}`);
       return dispatch({
         type: "CANCELL_ORDER",
         payload: "",
@@ -624,7 +622,7 @@ export function cancellOrder(id) {
 export function confirmOrder(id) {
   return async function (dispatch) {
     try {
-      await axios.post(`http://localhost:3001/orders/${id}`);
+      await axios.post(`https://proyecto-grupal-back-production.up.railway.app/orders/${id}`);
       return dispatch({
         type: "CONFIRM_ORDER",
         payload: "",
@@ -638,7 +636,7 @@ export function confirmOrder(id) {
 export function shippingOrder(id) {
   return async function (dispatch) {
     try {
-      await axios.put(`http://localhost:3001/orders/shipping/${id}`);
+      await axios.put(`https://proyecto-grupal-back-production.up.railway.app/orders/shipping/${id}`);
       return dispatch({
         type: "SHIPPING_ORDER",
         payload: "",
@@ -653,7 +651,7 @@ export function notOrder(payload) {
   return async function () {
     try {
       let response = await axios.post(
-        `http://localhost:3001/checkout/success`,
+        `https://proyecto-grupal-back-production.up.railway.app/checkout/success`,
         payload
       );
 
@@ -669,7 +667,7 @@ export function notShippOrder(payload) {
   return async function () {
     try {
       let response = await axios.post(
-        `http://localhost:3001/checkout/success/shipping/`,
+        `https://proyecto-grupal-back-production.up.railway.app/checkout/success/shipping/`,
         payload
       );
 
@@ -684,7 +682,7 @@ export function notShippOrder(payload) {
 export function getOrdById(id) {
   return async function (dispatch) {
     try {
-      let json = await axios.get(`http://localhost:3001/orders/admind/${id}`);
+      let json = await axios.get(`https://proyecto-grupal-back-production.up.railway.app/orders/admind/${id}`);
       return dispatch({
         type: "GET_ORDERSBYID",
         payload: json.data,
